@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Santa’s Wonderland</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap">
+<title>Mr. &amp; Mrs. Claus</title>
 <style>
   :root {
     --bg: #141218;
@@ -24,14 +22,14 @@
     --teal: #3FBFB2;
     --green: #4ADE80;
     --orange: #FF8A2A;       /* the bottom-bar icon buttons and their pop-ups */
-    --mono: "Jraot Hollow", "IBM Plex Mono", ui-monospace, Consolas, monospace;
-    --disp: "Jraot Hollow", "Archivo Black", "Archivo", sans-serif;
+    --mono: "Fredoka", "Helvetica Neue", Arial, sans-serif;
+    --disp: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
     /* Timegoing carries the money and the multipliers (balance, bet, the values on the
        board) and every line of body copy in the rules and menus; BROMO is capitals only -
        no digits, no punctuation - so it takes the BALANCE label and the currency code, and
        anything else in that run falls through to the next face glyph by glyph. */
-    --num: "Timegoing", "Jraot Hollow", "IBM Plex Mono", monospace;
-    --label: "BROMO", "Jraot Hollow", "IBM Plex Mono", monospace;
+    --num: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
+    --label: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
     --wall-scale: contain;   /* background wall size — `cover` fills and crops, `contain` fits it all in */
     /* The scene's lean. The wall art is drawn dead-on (its brick courses are parallel to
        0.2 degrees - no vanishing point to match), so the whole scene is turned a little as
@@ -54,9 +52,9 @@
                                 go: this takes it off the shoes and keeps the heads intact. */
     --bounce: .2;            /* strength of the per-spin bounce/shake; 1 = the original full-force version */
     /* Regulatory text must be readable — the graffiti face is not. */
-    --legible: "Timegoing", "IBM Plex Mono", ui-monospace, Consolas, monospace;
-    --plain: "IBM Plex Mono", ui-monospace, Consolas, monospace;   /* the regulatory disclosure stays in a plain face */
-    --read: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;   /* the info screen's descriptions: plain, readable text */
+    --legible: "Fredoka", "Helvetica Neue", Arial, sans-serif;
+    --plain: "Fredoka", "Helvetica Neue", Arial, sans-serif;   /* the regulatory disclosure stays in a plain face */
+    --read: "Fredoka", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;   /* the info screen's descriptions: plain, readable text */
     --char-fade: 280ms;      /* crossfade between the character's clips (JS reads this) */
     --char-inset: -3vw;      /* how far in from each edge they stand; negative pushes them out */
     /* Board size lives here so the spin overlay's CELL_STEP can be derived from the same
@@ -72,52 +70,11 @@
     src: url("assets/fredoka.ttf") format("truetype");
     font-weight: 300 700; font-display: swap;
   }
+  /* the Christmas lettering (owner, 2026-10-30: the graffiti faces are gone): Luckiest Guy - a chunky, rounded cartoon face -
+     for titles, labels and figures; Fredoka for anything read at length. Luckiest Guy is Apache 2.0 (luckiest_guy_LICENSE.txt). */
   @font-face {
-    font-family: "Jraot Hollow";
-    src: url("assets/jraot-hollow.ttf") format("truetype");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Timegoing";
-    src: url("assets/timegoing.ttf") format("truetype");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "BROMO";
-    src: url("assets/bromo.otf") format("opentype");
-    font-display: swap;
-  }
-  /* the lettered buttons: PLAY in the bonus buy panel, START in the auto play picker */
-  @font-face {
-    font-family: "LLambozy";
-    src: url("assets/llambozy.ttf") format("truetype");
-    font-display: swap;
-  }
-  /* the bonus screen's own three: YOU WON, the trigger line, and FREE SPINS (the fat cut) */
-  @font-face {
-    font-family: "Apocalypse Grunge";
-    src: url("assets/apocalypse_grunge.ttf") format("truetype");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "aaaiight";
-    src: url("assets/aaaiight.ttf") format("truetype");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "aaaiight fat";
-    src: url("assets/aaaiight-fat.ttf") format("truetype");
-    font-display: swap;
-  }
-  /* the trigger line: the fill cut and its outline cut, laid one over the other */
-  @font-face {
-    font-family: "Smashed Graffiti";
-    src: url("assets/smashed_graffiti_fill.otf") format("opentype");   /* the Fill cut: it shares the Outline cut's widths */
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Smashed Graffiti Outline";
-    src: url("assets/smashed_graffiti_outline.otf") format("opentype");
+    font-family: "Luckiest Guy";
+    src: url("assets/luckiest_guy.ttf") format("truetype");
     font-display: swap;
   }
   * { box-sizing: border-box; }
@@ -126,7 +83,7 @@
   html, body { height: 100%; overflow: hidden; touch-action: manipulation; }
   body {
     margin: 0; color: var(--ink); background: var(--bg);
-    font-family: "Jraot Hollow", "Archivo", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Fredoka", "Helvetica Neue", Arial, sans-serif;
     position: relative;
   }
   /* The wall: an old charcoal brick wall at night (the same wall the bonus intro stands on;
@@ -155,11 +112,11 @@
     translate: calc(-50% + var(--px, 0px)) calc(-50% + var(--py, 0px)); rotate: var(--pr, 0deg);
     opacity: .72; filter: drop-shadow(0 10px 24px rgba(0,0,0,.6));
   }
-  /* Santa's Wonderland: a red neon bar sign in place of the graffiti tag. The tube is the text
+  /* Mr. & Mrs. Claus: a red neon bar sign in place of the graffiti tag. The tube is the text
      itself (a pale-hot core inside layered red glow); two letters run on their own uneven flicker
      and drop to an unlit tube; .surge flares the whole sign on a big win. */
   #bgwall #tagglow, #bgwall #tagspill, #bgwall #wallpaint, #walllight { display: none !important; }
-  /* Santa's Wonderland: a drawn neon bar sign (owner, 2026-10-30) - its red tubes in a riveted metal frame, hanging on
+  /* Mr. & Mrs. Claus: a drawn neon bar sign (owner, 2026-10-30) - its red tubes in a riveted metal frame, hanging on
      two chains. It sways a touch on them (about its top), shakes when a spin starts (.nsw.shake), two of its letters
      (the s of Santa's, the last D) flicker out now and then (the unlit picture shown through just there), and the
      red light it throws washes the wall round it. .surge flares it on a big win. */
@@ -175,8 +132,8 @@
   #walltag.neonsign .nsign { display: block; width: 100%; height: auto;
     filter: drop-shadow(0 0 6px rgba(255, 50, 60, .55)) drop-shadow(0 6px 8px rgba(0,0,0,.6)); }   /* close to the wall: a short, dark shadow */
   #walltag.neonsign .noff { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; pointer-events: none; }
-  #walltag.neonsign .noff.a { clip-path: inset(20.7% 14.5% 50% 73%); animation: neonOut1 5.3s linear infinite; }
-  #walltag.neonsign .noff.b { clip-path: inset(51.1% 14% 27% 76%); animation: neonOut2 7.7s linear 1.1s infinite; }
+  #walltag.neonsign .noff.a { clip-path: inset(20% 46.5% 60.3% 42.5%); animation: neonOut1 5.3s linear infinite; }
+  #walltag.neonsign .noff.b { clip-path: inset(50% 25.5% 25.8% 66%); animation: neonOut2 7.7s linear 1.1s infinite; }
   @keyframes neonOut1 { 0%, 41%, 43.5%, 46%, 71%, 100% { opacity: 0; } 42%, 44.5%, 45%, 72%, 72.6% { opacity: 1; } }
   @keyframes neonOut2 { 0%, 18%, 19.6%, 22%, 64%, 67.5%, 100% { opacity: 0; } 18.6%, 20.6%, 21.2%, 64.8%, 65.4%, 66%, 66.6% { opacity: 1; } }
   #walltag.neonsign .nwash {
@@ -494,9 +451,9 @@
     font-size: clamp(24px, 4.8vh, 44px); text-transform: uppercase; line-height: 1;
     color: #fff; text-shadow: 0 4px 0 rgba(0,0,0,.8), 0 0 24px rgba(46, 158, 87,.85);
   }
-  .bonusintro .byou { font-family: "Apocalypse Grunge", var(--disp); margin-top: 1.2vh; letter-spacing: .04em; }
+  .bonusintro .byou { font-family: var(--disp); margin-top: 1.2vh; letter-spacing: .04em; }
   .bonusintro .bfs {
-    font-family: "aaaiight fat", "aaaiight", var(--disp); letter-spacing: .04em;
+    font-family: var(--disp); letter-spacing: .04em;
     font-size: clamp(28px, 6.4vh, 60px);   /* a size up from YOU WON: it names what was won (2026-10-27) */
     color: var(--fs-green); text-shadow: 0 4px 0 rgba(0,0,0,.8), 0 0 24px rgba(224, 40, 58,.6);
   }
@@ -508,13 +465,12 @@
   }
   .bonusintro .bnum::before, .bonusintro .bnum::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
   .bonusintro .bnum::before {
-    background: url("assets/total_bg.webp") center / 100% 100% no-repeat;
-    animation: splashBoil .5s steps(1) infinite;
+    background: var(--splat, url("assets/total_bg.webp")) center / 100% 100% no-repeat;
   }
   .bonusintro .bnum::after {
     background: linear-gradient(108deg, transparent 32%, rgba(255,255,255,.62) 46%, rgba(214,160,255,.38) 51%, transparent 60%) 0 0 / 260% 100% no-repeat;
     -webkit-mask: url("assets/total_bg.webp") center / 100% 100% no-repeat; mask: url("assets/total_bg.webp") center / 100% 100% no-repeat;
-    mix-blend-mode: screen; animation: splashSheen 2.6s cubic-bezier(.45,0,.55,1) infinite, splashBoil .5s steps(1) infinite;
+    mix-blend-mode: screen;
   }
   @media (prefers-reduced-motion: reduce) { .bonusintro .bnum::before, .bonusintro .bnum::after { animation: none !important; } }
   .bonusintro .bnum img { height: clamp(64px, 15.5vh, 156px); width: auto; display: block; }   /* the hero of the screen */
@@ -536,7 +492,7 @@
   .bonusintro .bcont {
     position: relative; margin-top: 2.2vh; text-align: center; z-index: 2;
     font-family: var(--disp); font-size: clamp(14px, 2.3vh, 22px); letter-spacing: .12em; text-transform: uppercase;
-    color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,.85), 0 0 14px rgba(108,252,84,.5);
+    color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,.85), 0 0 14px rgba(255,255,255,.5);
     opacity: 0; transition: opacity .4s ease .9s; animation: bcont 1.5s ease-in-out infinite; pointer-events: none;
   }
   .bonusintro.up .bcont { opacity: 1; }
@@ -553,15 +509,19 @@
      won over a slowly turning burst of rays in the bonus's paint - lime, or violet for the
      Extreme Bonus (.x) - and land with a pop, FREE SPINS flickers on under them and the
      how-it-works box rises in last. Scale and opacity only: the pieces' wander keeps its translate. */
-  .bonusintro { --bglow: 108, 252, 84; }
-  .bonusintro.x { --bglow: 46, 158, 87; }
+  .bonusintro { --bglow: 255, 255, 255; }   /* white light, not green (owner, 2026-10-30) */
+  .bonusintro.x { --bglow: 225, 245, 255; }
   .bonusintro .bstack { position: relative; }
-  .bonusintro.up .blogo { animation: bslam .72s cubic-bezier(.2, 1.2, .3, 1) .3s both, bneon 1.1s steps(1) .3s both; }
+  .bonusintro.up .blogo { animation: bslam .72s cubic-bezier(.2, 1.2, .3, 1) .3s both, bfade .25s ease-out .3s both; }   /* no neon flicker any more (owner, 2026-10-30) */
+  @keyframes bfade { from { opacity: 0; } to { opacity: 1; } }
   .bonusintro.up .byou { animation: bpop .5s cubic-bezier(.2, 1.35, .3, 1) .75s both; }
   .bonusintro.up .bnum { animation: bpop .5s cubic-bezier(.2, 1.35, .3, 1) .88s both; }
   .bonusintro .bnum.landed .bfig { animation: bland .55s cubic-bezier(.2, 1.4, .3, 1); }
-  .bonusintro.up .bfs { animation: bneon 1s steps(1) 1.9s both; }
+  .bonusintro.up .bfs { animation: bpop .5s cubic-bezier(.2, 1.35, .3, 1) 1.9s both; }
   .bonusintro.up .bhow { animation: brise .6s cubic-bezier(.2, 1, .3, 1) 1.35s both; }
+  /* nothing shows before its entrance (owner, 2026-10-30): the pieces used to sit there while the screen faded to
+     black, vanish when their entrance began, then come back - a flash in and out */
+  .bonusintro:not(.up) :is(.blogo, .byou, .bnum, .bfs, .bhow, .bcont) { opacity: 0; }
   @keyframes bslam { 0% { scale: 2.5; } 42% { scale: .9; } 66% { scale: 1.05; } 100% { scale: 1; } }
   @keyframes bneon { 0% { opacity: 0; } 12% { opacity: 1; } 18% { opacity: .2; } 25% { opacity: 1; } 32% { opacity: .45; } 40%, 100% { opacity: 1; } }
   @keyframes bpop { 0% { scale: .3; opacity: 0; } 65% { scale: 1.12; opacity: 1; } 100% { scale: 1; opacity: 1; } }
@@ -626,7 +586,6 @@
     content: ""; position: absolute; inset: 0; z-index: -1;
     background: url("assets/tier_bg.webp") center / 100% 100% no-repeat;
     translate: var(--px, 0) var(--py, 0); rotate: var(--pr, 0deg); scale: var(--ps, 1);
-    animation: splashBoil .5s steps(1) infinite;   /* a snowy scene: it shakes, no colour shimmer */
   }
   /* The splashes are alive: the paint boils (its edge redrawn a few times a second, the way a
      cartoon's line does), its colours shimmer, and a sheen of light sweeps across it, clipped to
@@ -638,12 +597,14 @@
     mask: url("assets/tier_bg.webp") center / 100% 100% no-repeat;
     mix-blend-mode: screen;
     translate: var(--px, 0) var(--py, 0); rotate: var(--pr, 0deg); scale: var(--ps, 1);
-    animation: splashSheen 2.6s cubic-bezier(.45,0,.55,1) infinite, splashBoil .5s steps(1) infinite;
   }
   .totalwin .twamount::after {
     -webkit-mask-image: url("assets/total_bg.webp"); mask-image: url("assets/total_bg.webp");
     animation-delay: -1.1s, 0s;
   }
+  /* steady (owner, 2026-10-30: the total win screen was flickering): the splashes no longer boil (a 2 fps jitter) and
+     the endless screen-blended light sweep over them is gone - only the one sweep as the headline lands remains */
+  .totalwin .twhead.tier::after, .totalwin .twamount::after, .bonusintro .bnum::after { display: none; }
   @keyframes splashSheen { 0% { background-position: 130% 0; } 70%, 100% { background-position: -40% 0; } }
   @keyframes splashBoil {   /* four drawings of the same splash, a hair apart, flicked through */
     0%   { transform: none; }
@@ -756,9 +717,8 @@
   }
   .totalwin .twamount::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
-    background: url("assets/total_bg.webp") center / 100% 100% no-repeat;
+    background: var(--splat, url("assets/total_bg.webp")) center / 100% 100% no-repeat;
     translate: var(--px, 0) var(--py, 0); rotate: var(--pr, 0deg); scale: var(--ps, 1);
-    animation: splashBoil .5s steps(1) -.25s infinite;   /* splatted snow: it shakes, no colour shimmer */
   }
   .totalwin .twfig {
     display: flex; align-items: flex-end; justify-content: center; gap: .4vw;
@@ -1408,8 +1368,8 @@
   .infoclose {
     font-family: var(--disp); font-size: 16px; letter-spacing: .08em; text-transform: uppercase;
     min-width: 150px; padding: 13px 30px 12px; border: 0;
-    background: url("assets/bonus_play.webp") center / 100% 100% no-repeat;
-    color: #171203; text-shadow: 0 2px 0 rgba(255, 255, 255, .22);
+    background: url("assets/xmas/ui/btn_red.webp") center / 100% 100% no-repeat;   /* a snow-capped candy-red button (owner, 2026-10-30) */
+    color: #fff; -webkit-text-stroke: 3px #3b0a0f; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0, 0, 0, .35);
     transition: transform .14s cubic-bezier(.3,.8,.4,1), filter .14s linear;
   }
   .infoclose:hover:not(:disabled) { transform: scale(1.04); filter: brightness(1.07); }
@@ -1417,8 +1377,8 @@
   /* Close is a dismissal, not a go: the lime box, its corners kept by slicing */
   #infoClose {
     background: none; border: 16px solid transparent;
-    border-image: url("assets/skip_btn.webp") 22% fill / 16px stretch;
-    padding: 2px 16px; color: #152300; text-shadow: 0 2px 0 rgba(255, 255, 255, .25);
+    border-image: none; background: url("assets/xmas/ui/btn_red.webp") center / 100% 100% no-repeat;
+    padding: 2px 16px; color: #fff; -webkit-text-stroke: 3px #3b0a0f; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0, 0, 0, .35);
   }
   .infoclose.ghost { background: transparent; color: var(--ink-soft); border-color: var(--line); margin-left: 10px; }
   .infopanel .cost { font-family: var(--mono); font-size: 22px; font-weight: 700; letter-spacing: .12em; color: var(--gold); margin: 0 0 16px; }
@@ -1713,7 +1673,7 @@
   .cell.booster .multface {
     position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center;
     font-family: var(--num); font-size: 30px; line-height: 1;
-    font-family: "Mountains of Christmas", var(--num); font-weight: 700; font-size: 34px;
+    font-family: "Luckiest Guy", var(--num); font-weight: 400; font-size: 32px;   /* bundled: no outside font host (Stake) */
     color: var(--heat, #2e9e57); -webkit-text-stroke: 5px #170a14; paint-order: stroke fill;
     text-shadow: 0 3px 0 rgba(0,0,0,.55);   /* Christmas lettering in its heat colour: green -> purple (owner, 2026-10-29) */
   }
@@ -1818,7 +1778,7 @@
     background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.95) 49%, transparent 58%) no-repeat; background-size: 300% 100%; background-position: 100% 0;
     -webkit-mask: url("assets/flat/L7.webp") center / contain no-repeat; mask: url("assets/flat/L7.webp") center / contain no-repeat; }
   .wfxp .wsay { left: 50%; top: -16%; margin-left: -2.6em; width: 5.2em; text-align: center; padding: .08em 0; border-radius: 1em; z-index: 4;
-    font: 700 17px "Mountains of Christmas", "Fredoka", cursive; color: #7a3d12; background: #fffaf0; border: 2px solid #1d1416; box-shadow: 0 2px 0 rgba(0,0,0,.4); }
+    font: 400 16px "Luckiest Guy", "Fredoka", cursive; color: #7a3d12; background: #fffaf0; border: 2px solid #1d1416; box-shadow: 0 2px 0 rgba(0,0,0,.4); }
   /* the snowman's snow, over the whole board; and the bar's tree lights, flashing behind Mrs. Claus for the tree */
   .board > .boardsnow { position: absolute; inset: 3%; overflow: hidden; pointer-events: none; z-index: 2; border-radius: 10px; }
   .boardsnow > i { position: absolute; top: -4%; width: var(--sz, 6px); height: var(--sz, 6px); border-radius: 50%; background: #fff;
@@ -1841,7 +1801,11 @@
   @keyframes wTreeA { 0% { opacity: 1; } 50% { opacity: .1; } }
   @keyframes wTreeB { 0% { opacity: .1; } 50% { opacity: 1; } }
   .barfx .treestar { background: url("assets/xmas/wfx/tree_star.webp") center / contain no-repeat; mix-blend-mode: screen;
-    animation: starFlicker 2.3s linear infinite; }
+    animation: starShine 7s ease-in-out infinite; }
+  /* (owner, 2026-10-30) the star glows steadily and breathes slowly, with now and then one soft sparkle - no flicker */
+  @keyframes starShine { 0%, 100% { opacity: .82; transform: scale(1) rotate(0deg); } 38% { opacity: .95; transform: scale(1.04) rotate(2deg); }
+    46% { opacity: 1; transform: scale(1.13) rotate(5deg); filter: brightness(1.35); } 54% { opacity: .95; transform: scale(1.04) rotate(2deg); filter: none; }
+    80% { opacity: .88; transform: scale(1.01) rotate(0deg); } }
   @keyframes starFlicker {   /* a candle's unsteady flame: uneven dips and flares, never quite repeating within the beat */
     0% { opacity: .85; transform: scale(1); } 7% { opacity: 1; transform: scale(1.08); } 11% { opacity: .55; transform: scale(.93); }
     15% { opacity: .95; transform: scale(1.04); } 29% { opacity: .78; transform: scale(.98); } 33% { opacity: 1; transform: scale(1.1); }
@@ -1849,8 +1813,16 @@
     61% { opacity: 1; transform: scale(1.09); } 76% { opacity: .8; transform: scale(1); } 81% { opacity: .98; transform: scale(1.06); }
     88% { opacity: .6; transform: scale(.94); } 100% { opacity: .85; transform: scale(1); } }
   /* a row of metal beer kegs standing against the wall under the sign, in the room's dim light with the sign's red on their tops */
+  .barfx .elfbar { background: url("assets/xmas/wfx/elf_bartender.webp") center bottom / contain no-repeat; transform-origin: 50% 100%;
+    filter: brightness(.8) saturate(.9); animation: elfIdle 7s ease-in-out infinite; }
+  @keyframes elfIdle { 0%, 100% { transform: rotate(-1.2deg) translateY(0); } 25% { transform: rotate(0deg) translateY(-.8%); }
+    50% { transform: rotate(1.3deg) translateX(1.5%) translateY(0); } 75% { transform: rotate(.2deg) translateX(.8%) translateY(-.6%); } }
+  @media (prefers-reduced-motion: reduce) { .barfx .elfbar { animation: none; } }
+  .barfx .milk { background: url("assets/xmas/wfx/milk.webp") center bottom / contain no-repeat; filter: brightness(.8) drop-shadow(0 4px 4px rgba(0,0,0,.5)); }
   .barfx .kegs { background: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat;
     filter: brightness(.6) saturate(.85) sepia(.1) drop-shadow(0 8px 10px rgba(0,0,0,.6)); }
+  .barfx .kegs::before { content: ""; position: absolute; left: 4%; right: 4%; bottom: -4%; height: 14%; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,.55), rgba(0,0,0,0) 70%); }   /* their shadow on the floor */
   .barfx .kegs::after { content: ""; position: absolute; inset: 0; mix-blend-mode: screen;
     background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 40, 45, .32), rgba(255, 40, 45, 0) 75%);
     -webkit-mask: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat; mask: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat; }
@@ -1871,6 +1843,11 @@
     width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
     background: radial-gradient(circle, rgba(255,255,255,0) 42%, rgba(255,236,170,.95) 52%, rgba(214,31,42,.7) 60%, rgba(31,158,70,.45) 66%, rgba(255,255,255,0) 72%);
   }
+  /* the present fills its square (owner, 2026-10-30), and comes apart into box, front and lid when it bursts */
+  .cell.booster .ico > img { width: 114%; height: 114%; max-width: none; flex: none; }
+  .cell.booster .mparts { position: absolute; inset: 0; transform-origin: 50% 95%; pointer-events: none; }
+  .cell.booster .mparts img { position: absolute; left: -7%; top: -7%; width: 114%; height: 114%; object-fit: contain; }
+  .spraylayer .mlid { object-fit: contain; z-index: 3; filter: drop-shadow(0 5px 6px rgba(0,0,0,.45)); }
   .spraylayer .confetto { width: 7px; height: 11px; margin: -5.5px 0 0 -3.5px; border-radius: 1.5px; box-shadow: 0 0 3px rgba(0,0,0,.25); }
   .spraylayer .popcane { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: url("assets/flat/L2.webp") center / contain no-repeat; filter: drop-shadow(0 1px 2px rgba(0,0,0,.4)); }
   .spraylayer .popstar { width: 22px; height: 22px; margin: -11px 0 0 -11px; background: url("assets/flat/L7.webp") center / contain no-repeat; filter: drop-shadow(0 0 4px rgba(255, 214, 90, .9)); }
@@ -1988,6 +1965,17 @@
   .lineLayer.wreath i.bell { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background-image: url("assets/xmas/line/line_bell.webp"); z-index: 1; }
   .lineLayer.wreath .mist i { background: radial-gradient(circle, rgba(255, 214, 120, .38), rgba(255, 214, 120, 0) 68%); width: 20px; height: 20px; margin: -10px 0 0 -10px; filter: none; }
   .lineLayer.wreath b { display: none; }
+  /* the Christmas lights wound round the garland (owner, 2026-10-30): little glass bulbs either side in turn, glowing and twinkling */
+  .lineLayer.wreath i.bulb { width: 5px; height: 7px; margin: -3.5px 0 0 -2.5px; z-index: 2; background: var(--bc); border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    box-shadow: 0 0 4px 1px var(--bc), 0 0 9px 2px var(--bg2); border-top: 1.5px solid #1d3b22;
+    animation: dotIn calc(.3s * var(--tempo, 1)) ease-out both, bulbTw 1.4s ease-in-out var(--tw, 0s) infinite;
+    animation-delay: calc(var(--d, 0ms) * var(--tempo, 1)), calc(var(--d, 0ms) * var(--tempo, 1) + var(--tw, 0s)); }
+  .lineLayer.wreath i.bulb.c0 { --bc: #ff4b4b; --bg2: rgba(255, 75, 75, .55); }
+  .lineLayer.wreath i.bulb.c1 { --bc: #ffd23c; --bg2: rgba(255, 210, 60, .55); }
+  .lineLayer.wreath i.bulb.c2 { --bc: #4bd36b; --bg2: rgba(75, 211, 107, .55); }
+  .lineLayer.wreath i.bulb.c3 { --bc: #4fa8ff; --bg2: rgba(79, 168, 255, .55); }
+  .lineLayer.wreath i.bulb.c4 { --bc: #ff7ad9; --bg2: rgba(255, 122, 217, .55); }
+  @keyframes bulbTw { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.7); } }
   .multlayer .gmult[hidden] { display: none; }
   /* No z-index on .reel: the icons already paint above the numbers because #multLayer
      (z-index 0) comes before the reels in the DOM. Giving each reel its own stacking context
@@ -2242,10 +2230,10 @@
      kept to the art's own proportions, a touch see-through so the reels show beneath */
   .banner::before {
     content: ""; position: absolute; left: 50%; top: 50%; z-index: -1;
-    width: min(94%, 680px); aspect-ratio: 960 / 388;
+    width: min(94%, 680px); aspect-ratio: 1100 / 463;
     transform: translate(-50%, -50%);
-    background: url("assets/banner_box.webp") center / 100% 100% no-repeat;
-    opacity: .9;
+    background: url("assets/xmas/ui/plaque.webp") center / 100% 100% no-repeat;   /* a snowy wooden sign (owner, 2026-10-30) */
+    opacity: 1;
     filter: drop-shadow(0 8px 18px rgba(0,0,0,.6));
   }
   /* bonus payout tally — rolls 0 to the total over the board before the closing banner */
@@ -2812,7 +2800,7 @@
   .bonusgo:focus-visible, #autoPop #autoYes:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
   #autoPop #autoYes { width: 100%; --go-h: 54px; --go-r: 16px; --go-ink: 5.5px; }
   /* PLAY and START are set in type now, in LLambozy (the "Not enough balance" state keeps its own face) */
-  .bonusgo:not(:disabled), #autoPop #autoYes { font-family: "LLambozy", var(--label); font-size: 46px; letter-spacing: .06em; line-height: 1; padding: 0; justify-content: center; }
+  .bonusgo:not(:disabled), #autoPop #autoYes { font-family: var(--disp); font-size: 46px; letter-spacing: .06em; line-height: 1; padding: 0; justify-content: center; }
   #autoPop #autoYes { font-size: 34px; }
   /* the Christmas lettering (assets/xmas/txt_play, txt_start): the word is a picture, held inside the button's
      border with room to spare; the button keeps the word as text (font-size 0) for screen readers */
@@ -3092,7 +3080,7 @@
     transition: scale .18s cubic-bezier(.3,.9,.4,1.3), filter .2s ease;
   }
   .spinbtn.armed::after {
-    filter: drop-shadow(0 0 8px rgba(108,252,84,.85)) drop-shadow(0 3px 5px rgba(0,0,0,.45));
+    filter: drop-shadow(0 0 8px rgba(255, 40, 52, .95)) drop-shadow(0 0 3px rgba(255, 120, 120, .9)) drop-shadow(0 3px 5px rgba(0,0,0,.45));   /* red, not green (owner, 2026-10-30) */
   }
   .spinbtn.spun::after { animation: spin360 .8s cubic-bezier(.55,.05,.15,1); }
   /* the two volume bars sit side by side over the speaker, each with its name under it */
@@ -3123,10 +3111,429 @@
     .main { justify-content: flex-end; }
     .bottom { padding-bottom: calc(12vh / max(var(--fit, 1), .2)); }   /* bounded: a tiny scale must never blow it up */
   }
+  /* ---- the feature buys as wrapped presents (owner, 2026-10-30): Bonus in red paper, Christmas Morning in green,
+     Extreme in ice; the chosen one stands up and glows gold. No neon, no grey plates. ---- */
+  .bonuspanel { width: min(780px, 94vw); }
+  .bonusgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .bonuscard {
+    background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0;
+    isolation: isolate; aspect-ratio: 520 / 790; justify-content: flex-start;
+    padding: 36% 9% 9%; gap: 3px; filter: drop-shadow(0 6px 8px rgba(0,0,0,.5));
+    transition: filter .25s ease, scale .25s cubic-bezier(.3,1.4,.4,1);
+  }
+  .bonuscard::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 12px; background: var(--card) center / 100% 100% no-repeat, var(--fill, #7a0d14); }
+  /* each card wears a candy cane round its edge (owner, 2026-10-30) */
+  html body .bonuscard { border: 9px solid transparent !important; border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,.2)) border-box,
+      repeating-linear-gradient(45deg, #d61f2a 0 9px, #fdfbf7 9px 18px) border-box !important;
+    box-shadow: 0 0 0 2px #2a0d07, inset 0 0 0 2px #2a0d07 !important; }
+  .bonuscard.gold { --fill: #b3111d; } .bonuscard.morning { --fill: #1c6b33; } .bonuscard.purple { --fill: #bfe6f7; }
+  .bonuscard::after { border-radius: 18px; }
+  .bonuscard.gold { --card: url("assets/xmas/ui/card_red.webp"); }
+  .bonuscard.morning { --card: url("assets/xmas/ui/card_green.webp"); --acc: #fff3b0; }
+  .bonuscard.purple { --card: url("assets/xmas/ui/card_ice.webp"); --acc: #e9f7ff; }
+  .bonuscard .nhalo, .bonuscard .ntube { display: none; }
+  .bonuscard:not(.on):not(:hover):not(:focus-visible) :is(.ttl, .spins, .cardart) { filter: brightness(.88) saturate(.85); opacity: 1; }
+  .bonuscard.on { scale: 1.05; filter: drop-shadow(0 0 10px rgba(255, 214, 90, .95)) drop-shadow(0 0 22px rgba(255, 214, 90, .6)) drop-shadow(0 6px 8px rgba(0,0,0,.5)); }
+  .bonuscard .ttl {
+    background: none; border: 0; box-shadow: none; padding: 0; white-space: normal; text-align: center; line-height: 1.05;
+    font-family: var(--disp); font-weight: 400; font-size: min(17px, 11cqw); letter-spacing: .04em;
+    color: #fff; -webkit-text-stroke: 4px #2a0d07; paint-order: stroke fill; text-shadow: 0 3px 0 rgba(0,0,0,.4);
+  }
+  .bonuscard .cardart { height: clamp(46px, 9vh, 88px); }
+  .bonuscard .spins { font-family: var(--disp); font-weight: 400; color: var(--acc, #ffd23c); -webkit-text-stroke: 3px #2a0d07; }
+  .bonuscard .spins b { font-family: var(--disp); font-weight: 400; -webkit-text-stroke: 4px #2a0d07; }
+  .bonuscard .mult {
+    margin-top: auto; background: #fff7e6; border: 3px solid #2a0d07; border-radius: 12px; box-shadow: 0 3px 0 rgba(0,0,0,.35);
+    padding: 4px 4px 5px;
+  }
+  .bonuscard .mult b { font-family: var(--disp); font-weight: 400; color: #2a0d07; -webkit-text-stroke: 0; font-size: 24px; }
+  .bonuscard .mult span { font-family: var(--disp); font-weight: 400; color: #c2121f; -webkit-text-stroke: 0; font-size: 15px; }
+  @media (max-width: 560px) and (orientation: portrait) {
+    .bonusgrid { gap: 8px; }
+    .bonuscard .ttl { font-size: 11px; -webkit-text-stroke-width: 3px; }
+    .bonuscard .mult b { font-size: 17px; } .bonuscard .mult span { font-size: 11px; }
+  }
+  /* PLAY and START on the snow-capped candy-red button art instead of a CSS gradient */
+  .bonusgo:not(:disabled), #autoPop #autoYes:not(:disabled) {
+    background: url("assets/xmas/ui/btn_red.webp") center / 100% 100% no-repeat !important;
+    border: 0 !important; box-shadow: none !important; overflow: visible;
+    filter: drop-shadow(0 5px 6px rgba(0,0,0,.45));
+  }
+  .bonusgo:hover:not(:disabled), #autoPop #autoYes:hover:not(:disabled) { box-shadow: none !important; filter: drop-shadow(0 5px 6px rgba(0,0,0,.45)) drop-shadow(0 0 16px rgba(255, 214, 90, .8)) brightness(1.06); }
+  .bonusgo:active:not(:disabled), #autoPop #autoYes:active:not(:disabled) { box-shadow: none !important; }
+  .bonusgo:not(:disabled)::before, #autoPop #autoYes:not(:disabled)::before { display: none; }
+  .bonusgo:not(:disabled)::after, #autoPop #autoYes:not(:disabled)::after { inset: 24% 18% 14%; }
+  /* Santa's Helper (ante): a round green gift-paper badge with the elf, beside the Bonus button; lit gold while on */
+  .helperbtn {
+    position: absolute; left: calc(16px + 146px * var(--hs, 1) + 12px); bottom: 14px;
+    width: calc(70px * var(--hs, 1)); height: calc(70px * var(--hs, 1)); padding: 0; cursor: pointer;
+    border-radius: 50%; border: calc(4px * var(--hs, 1)) solid #fdfbf7;
+    background: #1f7a3a url("assets/xmas/ui/card_green.webp") center 70% / 260% auto no-repeat;
+    box-shadow: 0 0 0 2px #2a0d07, 0 5px 8px rgba(0,0,0,.5);
+    transition: transform .14s cubic-bezier(.3,.8,.4,1), filter .2s ease;
+  }
+  .helperbtn img { position: absolute; left: 8%; top: 2%; width: 84%; height: 84%; object-fit: contain; filter: grayscale(.7) brightness(.75); transition: filter .2s ease; }
+  .helperbtn .hx {
+    position: absolute; right: -14%; top: -14%; padding: 2px 6px 1px; border-radius: 999px; background: #c2121f; border: 2px solid #fdfbf7;
+    font: 400 calc(13px * var(--hs, 1)) / 1 var(--disp); color: #fff; letter-spacing: .03em;
+  }
+  .helperbtn .hl {
+    position: absolute; left: 50%; bottom: -10%; translate: -50% 0; white-space: nowrap; padding: 2px 7px 1px; border-radius: 999px;
+    background: #fff7e6; border: 2px solid #2a0d07; font: 400 calc(11px * var(--hs, 1)) / 1 var(--disp); color: #2a0d07; letter-spacing: .04em;
+  }
+  .helperbtn:hover:not(:disabled) { transform: scale(1.07); }
+  .helperbtn:active:not(:disabled) { transform: scale(.94); }
+  .helperbtn:disabled { cursor: default; }
+  .helperbtn.on { border-color: #ffd23c; box-shadow: 0 0 0 2px #2a0d07, 0 0 18px 4px rgba(255, 214, 90, .85), 0 5px 8px rgba(0,0,0,.5); animation: helperGlow 1.8s ease-in-out infinite; }
+  .helperbtn.on img { filter: none; }
+  .helperbtn.on .hl { background: #ffd23c; }
+  .helperbtn.pop { animation: helperPop .5s cubic-bezier(.2,1.6,.4,1), helperGlow 1.8s ease-in-out .5s infinite; }
+  @keyframes helperGlow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.15); } }
+  @keyframes helperPop { 0% { transform: scale(.8); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+  /* a feature's name over the board (featureTitle): the drawn lettering pops in, an optional figure under it */
+  .feattitle { position: absolute; left: 50%; top: 42%; z-index: 9; translate: -50% -50%; width: 74%; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; opacity: 0; scale: .5; filter: drop-shadow(0 8px 14px rgba(0,0,0,.6)); }
+  .feattitle > img { width: 100%; height: auto; display: block; }
+  .feattitle .ftfig { display: flex; align-items: flex-end; gap: .3vw; margin-top: -2%; }
+  .feattitle .ftfig img { height: clamp(56px, 15vh, 140px); width: auto; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,.5)); }
+  .feattitle.plus .ftfig::before { content: "+"; align-self: center; font: 400 clamp(56px, 14vh, 130px) / 1 var(--disp); color: #fff; -webkit-text-stroke: 6px #2a0d07; paint-order: stroke fill; }
+  .feattitle.in { animation: ftIn .55s cubic-bezier(.2, 1.5, .35, 1) forwards; }
+  .feattitle.out { animation: ftOut .4s ease-in forwards; }
+  @keyframes ftIn { 0% { opacity: 0; scale: .4; rotate: -6deg; } 100% { opacity: 1; scale: 1; rotate: 0deg; } }
+  @keyframes ftOut { 0% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.15; } }
+  /* Santa's thrown presents fly over everything, in page space */
+  .bscene .snowpile { position: absolute; right: 2%; bottom: 15%; width: 11vw; max-width: 200px; filter: drop-shadow(0 6px 8px rgba(0,0,0,.4)); }
+  .bscene.xmas .bzchar.right { right: 11%; }
+  #board.cleared .cell .ico { opacity: 0; transition: opacity .2s ease; }
+  .snowsplat { position: fixed; z-index: 58; height: auto; pointer-events: none; translate: -50% -50%; animation: splatIn .9s ease-out forwards; }
+  @keyframes splatIn { 0% { scale: .2; opacity: 1; } 25% { scale: 1.05; opacity: 1; } 100% { scale: 1.1; opacity: 0; } }
+  .pmeter { position: absolute; left: 50%; top: 100%; translate: -50% 6px; display: flex; align-items: center; gap: 6px; padding: 3px 10px 3px 4px;
+    border-radius: 999px; background: #fff7e6; border: 2px solid #2a0d07; box-shadow: 0 3px 0 rgba(0,0,0,.35); white-space: nowrap; }
+  .pmeter img { width: 26px; height: 26px; object-fit: contain; }
+  .pmeter .pmbar { width: 110px; height: 10px; border-radius: 6px; background: #d9eef8; border: 2px solid #2a0d07; overflow: hidden; }
+  .pmeter .pmbar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(45deg, #4fa8ff 0 6px, #e8f6ff 6px 12px); transition: width .5s ease; }
+  .pmeter b { font: 400 15px/1 var(--disp); color: #2a0d07; }
+  .pmeter.pop { animation: helperPop .5s cubic-bezier(.2,1.6,.4,1); }
+  .pmeter img.gulp { animation: helperPop .35s cubic-bezier(.2,1.6,.4,1); }
+  .pilegift { position: fixed; z-index: 59; width: 140px; height: auto; pointer-events: none; filter: drop-shadow(0 0 18px rgba(255, 214, 90, .9)); }
+  .cell.frozen .ico { animation: frozenFlash .9s ease-out; }
+  @keyframes frozenFlash { 0% { filter: brightness(2) saturate(.3) drop-shadow(0 0 12px #bfe9ff); } 100% { filter: none; } }
+  .santagift { position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none; filter: drop-shadow(0 6px 6px rgba(0,0,0,.45)); will-change: transform; }
+  .cell.sacked .ico { visibility: hidden; }   /* gone into Santa's Sack - the tumble refills the square */
+  .cell.sackopen { z-index: 5; filter: drop-shadow(0 0 14px #ffd75a) drop-shadow(0 0 4px #fff3b0); }
+  /* gold light pouring up out of the open sack: soft rays turning slowly behind a warm glow */
+  .cell > .sackbeam { position: absolute; left: 50%; top: 24%; width: 230%; aspect-ratio: 1; translate: -50% -50%; pointer-events: none; z-index: -1;
+    background: radial-gradient(circle, rgba(255,240,170,.95) 0 12%, rgba(255,210,90,.55) 26%, rgba(255,200,80,0) 60%),
+      repeating-conic-gradient(from 0deg, rgba(255,226,120,.55) 0 9deg, rgba(255,226,120,0) 9deg 24deg);
+    -webkit-mask: radial-gradient(circle, #000 30%, transparent 68%); mask: radial-gradient(circle, #000 30%, transparent 68%);
+    border-radius: 50%; mix-blend-mode: screen; animation: sackRays 2.4s linear infinite, sackIn .35s ease-out both; }
+  .cell > .sackbeam.burst { animation: sackRays 2.4s linear infinite, sackBurst .5s ease-out both; }
+  @keyframes sackRays { to { rotate: 360deg; } }
+  @keyframes sackIn { from { opacity: 0; scale: .3; } to { opacity: 1; scale: 1; } }
+  @keyframes sackBurst { 0% { opacity: 1; scale: 1; filter: brightness(1); } 40% { scale: 1.5; filter: brightness(1.8); } 100% { opacity: 0; scale: 1.8; } }
+  @media (prefers-reduced-motion: reduce) { .cell > .sackbeam { animation: none; } }
+  .cell.santahide .ico { visibility: hidden; }
+  .bonusintro .blogo.morning, .bonusintro .blogo.blizzard { width: min(70vw, 58vh, 560px); height: auto; }
+  .bonusgo.green { --glow: 46, 158, 87; }
+  /* ---- the bonuses' own worlds (startBonusFx) ---- */
+  /* the Extreme Bonus outside in the blizzard (blizzardScene) */
+  .bscene { position: fixed; inset: -4%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1.2s ease; overflow: hidden; }
+  .bscene.on { opacity: 1; }
+  .bscene .bzpic { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .bscene .bzsnow { position: absolute; inset: 0; }
+  .bscene .bzsnow > .twsnow { position: absolute; inset: 0; }
+  .bscene .bzsnow > .twsnow > i { position: absolute; top: -4%; width: var(--sz); height: var(--sz); border-radius: 50%; opacity: var(--o);
+    background: radial-gradient(circle at 40% 35%, #fff, #eef6ff 60%, rgba(220,235,255,.6)); filter: blur(var(--b)); animation: blizzard var(--dur) linear var(--dl) infinite; }
+  .bscene .bzchar { position: absolute; bottom: 7%; height: 50vh; transform-origin: 50% 100%; animation: shiverBurst 4.2s linear infinite; }
+  .bscene .bzchar img { height: 100%; width: auto; display: block; filter: drop-shadow(0 10px 12px rgba(0,0,0,.45)); }
+  .bscene .bzchar.left { left: 8%; animation-duration: 5.1s; animation-delay: -1.7s; }
+  .bscene .bzchar.right { right: 7%; }
+  @keyframes shiver { 0% { transform: translateX(-2px) rotate(-.8deg); } 100% { transform: translateX(2px) rotate(.8deg); } }
+  /* a shiver now and then (owner, 2026-10-30: less often): a short burst of shakes, then still */
+  @keyframes shiverBurst { 0%, 100% { transform: none; } 2%, 6%, 10%, 14% { transform: translateX(-2px) rotate(-.8deg); } 4%, 8%, 12%, 16% { transform: translateX(2px) rotate(.8deg); } 18% { transform: none; } }
+  /* their breath, a white puff now and then from the mouth */
+  .bscene .breath { position: absolute; top: 19%; left: 50%; width: 34px; height: 24px; border-radius: 50%; opacity: 0;
+    background: radial-gradient(ellipse, rgba(255,255,255,.9), rgba(255,255,255,0) 70%); animation: breath 2.6s ease-out infinite; }
+  .bscene .bzchar.left .breath { top: 23%; animation-delay: 1.3s; }
+  /* Christmas morning: no shivering - they sway happily, the fire flickers, sun beams in, the cocoa steams */
+  .bscene.xmas .bzchar { animation: cozySway 3.2s ease-in-out infinite alternate; }
+  .bscene.xmas .bzchar.left { animation-duration: 2.7s; animation-delay: -.8s; }
+  .bscene.xmas .breath { display: none; }
+  @keyframes cozySway { 0% { transform: rotate(-1.6deg) translateY(0); } 100% { transform: rotate(1.6deg) translateY(-6px); } }
+  .bscene .fireglow { position: absolute; left: 61%; top: 55%; width: 26%; height: 34%; border-radius: 50%; mix-blend-mode: screen;
+    background: radial-gradient(ellipse, rgba(255, 170, 60, .55), rgba(255, 120, 30, 0) 70%); animation: fireFlicker 1.3s steps(6) infinite; }
+  @keyframes fireFlicker { 0% { opacity: .7; scale: 1; } 30% { opacity: 1; scale: 1.05; } 55% { opacity: .75; } 80% { opacity: .95; scale: .97; } 100% { opacity: .8; } }
+  .bscene .sunbeam { position: absolute; left: 14%; top: 0; width: 38%; height: 100%; mix-blend-mode: screen; opacity: .45;
+    background: linear-gradient(170deg, rgba(255, 236, 180, .7), rgba(255, 236, 180, 0) 70%); clip-path: polygon(20% 0, 70% 0, 100% 100%, 30% 100%);
+    animation: sunBreathe 6s ease-in-out infinite; }
+  .bscene .steam { position: absolute; top: 34%; left: 20%; width: 16px; height: 34px; border-radius: 50%; opacity: 0;
+    background: radial-gradient(ellipse, rgba(255,255,255,.8), rgba(255,255,255,0) 70%); animation: steam 2.4s ease-out infinite; }
+  .bscene .steam.s2 { left: 24%; animation-delay: .8s; } .bscene .steam.s3 { left: 17%; animation-delay: 1.6s; }
+  @keyframes steam { 0% { opacity: 0; transform: translateY(0) scale(.6); } 25% { opacity: .85; } 100% { opacity: 0; transform: translate(8px, -60px) scale(1.6); } }
+  @keyframes breath { 0%, 55% { opacity: 0; transform: translate(0, 0) scale(.4); } 62% { opacity: .9; } 100% { opacity: 0; transform: translate(26px, -30px) scale(1.8); } }
+  body.away #camnear { opacity: 0; transition: opacity .8s ease; }
+  #camnear { transition: opacity .8s ease; }
+  @media (prefers-reduced-motion: reduce) { .bscene .bzchar, .bscene .breath { animation: none; } }
+  .bonusfx { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; transition: opacity .9s ease; }
+  .bonusfx.gone { opacity: 0; }
+  .bonusfx > .twsnow { position: absolute; inset: 0; overflow: hidden; }
+  .bonusfx > .twsnow > i { position: absolute; top: -4%; width: var(--sz); height: var(--sz); border-radius: 50%; opacity: calc(var(--o) * .8);
+    background: radial-gradient(circle at 40% 35%, #fff, #eef6ff 60%, rgba(220,235,255,.6)); filter: blur(var(--b));
+    animation: twSnow var(--dur) linear var(--dl) infinite; }
+  .bonusfx.std > .twsnow > i:nth-child(3n), .bonusfx.std > .twsnow > i:nth-child(3n+1) { display: none; }   /* the sleigh ride's snow is soft */
+  .sleighfly { position: fixed; left: 0; top: 0; z-index: 8; pointer-events: none; filter: drop-shadow(0 8px 10px rgba(0,0,0,.4)); will-change: transform; }
+  .sleighspark { position: fixed; z-index: 7; width: 8px; height: 8px; margin: -4px 0 0 -4px; pointer-events: none; border-radius: 50%;
+    background: radial-gradient(circle, #fff, #ffe79a 45%, rgba(255, 210, 90, 0) 70%); animation: spark .9s ease-out forwards; }
+  @keyframes spark { 0% { transform: scale(1.4); opacity: 1; } 100% { transform: translate(-30px, 26px) scale(.2); opacity: 0; } }
+  /* Christmas Morning: the sun comes up through the window - a warm wash and slowly turning gold rays behind the board */
+  .bonusfx.xmas .sunrise { position: absolute; inset: 0; mix-blend-mode: screen;
+    background: radial-gradient(ellipse 70% 55% at 82% 8%, rgba(255, 214, 140, .55), rgba(255, 170, 90, .18) 45%, rgba(255, 170, 90, 0) 75%);
+    animation: sunBreathe 6s ease-in-out infinite; }
+  .bonusfx.xmas .rays { position: absolute; left: 50%; top: 42%; width: 150vmax; height: 150vmax; translate: -50% -50%; mix-blend-mode: screen; opacity: .1;
+    background: repeating-conic-gradient(from 0deg, rgba(255, 226, 150, .9) 0deg 6deg, rgba(255, 226, 150, 0) 6deg 18deg);
+    -webkit-mask: radial-gradient(circle, #000 0, rgba(0,0,0,.6) 25%, transparent 55%); mask: radial-gradient(circle, #000 0, rgba(0,0,0,.6) 25%, transparent 55%);
+    animation: raysTurn 40s linear infinite; z-index: -1; }
+  @keyframes sunBreathe { 0%, 100% { opacity: .85; } 50% { opacity: 1; } }
+  @keyframes raysTurn { to { rotate: 360deg; } }
+  .bonusfx .giftconfetti > i { position: absolute; top: -3%; width: 8px; height: 12px; border-radius: 2px; opacity: .85; box-shadow: 0 0 2px rgba(0,0,0,.3);
+    animation: giftFall var(--d) linear var(--dl) infinite; }
+  @keyframes giftFall { 0% { transform: translate(0, 0) rotate(0) rotateX(0); } 50% { transform: translate(var(--sw), 54vh) rotate(180deg) rotateX(var(--rx)); }
+    100% { transform: translate(0, 108vh) rotate(360deg) rotateX(calc(var(--rx) * 2)); } }
+  /* The Extreme Bonus, the top one: a blizzard. The screen frosts over from its edges, an aurora ripples across the top,
+     the snow blows sideways in two layers with streaks of wind, and each spin starts with a white frost flash */
+  .bscene .frostedge { position: absolute; inset: -8%; background: url("assets/xmas/ui/frost.webp") center / 100% 100% no-repeat; opacity: .7;
+    -webkit-mask: linear-gradient(to top, transparent 0 16%, #000 30%); mask: linear-gradient(to top, transparent 0 16%, #000 30%);   /* the bar stays clear */
+    animation: frostIn 2.4s cubic-bezier(.2, .8, .3, 1) both; }
+  @keyframes frostIn { 0% { scale: 1.5; opacity: 0; } 100% { scale: 1.3; opacity: .7; } }
+  /* The northern lights hold still and steady for the whole bonus (owner, 2026-10-30: they were flickering in and out).
+     No live blur, no blend mode and no animation - those made the browser redraw the big soft layer every frame, and it
+     popped. The softness is in the gradients and a mask instead, so the layer is painted once. */
+  .bscene .aurora { position: absolute; left: -10%; right: -10%; top: -4%; height: 36%; opacity: .5; pointer-events: none;
+    background: linear-gradient(100deg, rgba(60, 255, 170, 0) 5%, rgba(60, 255, 170, .75) 25%, rgba(120, 200, 255, .55) 45%, rgba(190, 110, 255, .65) 65%, rgba(190, 110, 255, 0) 90%);
+    -webkit-mask: radial-gradient(ellipse 60% 70% at 50% 20%, #000 35%, transparent 100%); mask: radial-gradient(ellipse 60% 70% at 50% 20%, #000 35%, transparent 100%);
+    transform: skewX(-6deg); }
+  .bscene .aurora.a2 { top: 4%; height: 24%; opacity: .32; transform: skewX(8deg) translateX(4%);
+    -webkit-mask: radial-gradient(ellipse 55% 60% at 50% 30%, #000 30%, transparent 100%); mask: radial-gradient(ellipse 55% 60% at 50% 30%, #000 30%, transparent 100%); }
+  @keyframes auroraDrift { 0% { transform: translateX(-6%) skewX(-8deg) scaleY(.9); } 100% { transform: translateX(6%) skewX(8deg) scaleY(1.15); } }
+  .bonusfx.ext > .twsnow > i { animation-name: blizzard; }
+  @keyframes blizzard { 0% { transform: translate(0, 0); } 100% { transform: translate(-38vw, 108vh); } }
+  .bonusfx .wind > i { position: absolute; right: -10%; width: var(--l); height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(235,248,255,.7), rgba(255,255,255,0));
+    animation: windStreak var(--d) linear var(--dl) infinite; }
+  @keyframes windStreak { 0% { transform: translateX(0) rotate(-14deg); opacity: 0; } 15% { opacity: .9; } 100% { transform: translateX(-130vw) rotate(-14deg); opacity: 0; } }
+  .bonusfx.ext .flash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at center, rgba(255,255,255,0) 35%, rgba(220, 240, 255, .85) 100%);
+    -webkit-mask: linear-gradient(to bottom, transparent 0 34%, #000 52%); mask: linear-gradient(to bottom, transparent 0 34%, #000 52%); }   /* the sky and its northern lights stay untouched */
+  .bonusfx.ext .flash.on { animation: frostFlash .7s ease-out; }
+  @keyframes frostFlash { 0% { opacity: 1; } 100% { opacity: 0; } }
+  /* the bonus's own colour on the free-spin plate's lights and the board frame */
+  body.bfx-ext #board { filter: saturate(.9) brightness(1.03) drop-shadow(0 0 16px rgba(170, 220, 255, .55)); }
+  body.bfx-xmas #board { filter: drop-shadow(0 0 16px rgba(255, 210, 120, .5)); }
+  html.lowfx .bonusfx .wind { display: none; }
+  @media (prefers-reduced-motion: reduce) { .bonusfx *, .sleighfly { animation: none !important; } }
+  /* five plates on the opening screen now (Santa's Wake-Up and Santa's Helper joined the three) */
+  .fboxes { gap: 1.4vw; flex-wrap: nowrap; }
+  .fbox { width: clamp(120px, 17.4vw, 260px); }
+  @media (max-width: 760px) and (orientation: portrait) { .fboxes { flex-wrap: wrap; } .fbox { width: clamp(120px, 42vw, 220px); } }
+  /* ---- the Christmas polish pass (owner, 2026-10-30: "make it Christmas themed") ---- */
+  /* the info page's section tabs are a red satin ribbon with gold trim and folded ends, not a gradient pill */
+  html .infopanel section > h4 {
+    top: -18px; left: 8px; padding: 7px 34px 9px; border: 0; border-radius: 0; box-shadow: none;
+    background: url("assets/xmas/ui/ribbon.webp") center / 100% 100% no-repeat;
+    font-family: var(--disp); font-weight: 400; font-size: 17px; letter-spacing: .05em;
+    color: #fff; -webkit-text-stroke: 4px #4a0a10; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0,0,0,.4);
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,.45));
+  }
+  html .infopanel section { padding-top: 34px; }
+  /* Auto Play's round counts are little red presents; the chosen one stands up and glows gold */
+  .autoopts button {
+    border: 0; border-radius: 10px; box-shadow: 0 0 0 2px #2a0d07, 0 4px 0 rgba(0,0,0,.45);
+    background: #c2121f url("assets/xmas/ui/card_red.webp") center 70% / 260% auto no-repeat;
+  }
+  .autoopts button::before, .autoopts button::after { display: none; }
+  .autoopts button b { font-family: var(--disp); font-weight: 400; -webkit-text-stroke: 4.5px #4a0a10; }
+  .autoopts button small { font-family: var(--disp); font-weight: 400; color: #ffd23c; -webkit-text-stroke: 2.5px #4a0a10; }
+  .autoopts button:not(.on) :is(b, small) { opacity: .8; }
+  .autoopts button.on { box-shadow: 0 0 0 2px #2a0d07, 0 0 0 4px #ffd23c, 0 0 16px 3px rgba(255, 214, 90, .8), 0 4px 0 rgba(0,0,0,.45); }
+  #autoPop .poptitle { font-family: var(--disp) !important; font-weight: 400; background: url("assets/xmas/ui/ribbon.webp") center / 100% 100% no-repeat;
+    border: 0; box-shadow: none; padding: 6px 30px 8px; -webkit-text-stroke-color: #4a0a10; }
+  /* the volume bars fill with candy-cane stripes */
+  .vfill { background: repeating-linear-gradient(45deg, #d61f2a 0 9px, #fdfbf7 9px 18px) !important; }
+  /* the loading screen's notice reads easily under the logo */
+  .intromsg { font-family: "Fredoka", var(--read) !important; font-size: clamp(10px, 1.55vh, 13px) !important; line-height: 1.5; color: #f3ead8 !important; opacity: .92; max-width: min(640px, 88vw); }
+  /* a phone (or a slow machine, html.lowfx): the lights hold steady instead of every bulb twinkling on its own clock */
+  @media (max-width: 760px), (pointer: coarse) {
+    .xlights > .glow { animation: none !important; opacity: .55; }
+    .lineLayer.wreath i.bulb { animation: dotIn calc(.3s * var(--tempo, 1)) ease-out both !important; }
+  }
+  html.lowfx .xlights > .glow { animation: none !important; opacity: .55; }
+  html.lowfx .boardsnow > i:nth-child(2n), html.lowfx .twsnow > i:nth-child(2n), html.lowfx .winfx > i:nth-child(2n) { display: none; }
+  /* six plates (owner, 2026-10-30: Santa's Sack added): on a landscape screen all six share one row */
+  @media (min-aspect-ratio: 1/1) { .features .fboxes { flex-wrap: nowrap; gap: 1.6vw; } .features .fbox { width: min(clamp(120px, 26vw, 340px), calc((100vw - 9 * 1.6vw) / 6)); } }
+  /* the round INFO button, bottom right (owner, 2026-10-30): a red present with a big white i */
+  .infobtn {
+    position: absolute; right: 18px; bottom: 18px; width: calc(66px * var(--hs, 1)); height: calc(66px * var(--hs, 1)); padding: 0; cursor: pointer;
+    border-radius: 50%; border: calc(4px * var(--hs, 1)) solid #fdfbf7;
+    background: #c2121f url("assets/xmas/ui/card_red.webp") center 70% / 260% auto no-repeat;
+    box-shadow: 0 0 0 2px #2a0d07, 0 5px 8px rgba(0,0,0,.5);
+    transition: transform .14s cubic-bezier(.3,.8,.4,1);
+  }
+  .infobtn span { display: block; font: 400 calc(40px * var(--hs, 1)) / 1 var(--disp); color: #fff; -webkit-text-stroke: 5px #2a0d07; paint-order: stroke fill; margin-top: 8%; }
+  .infobtn b { position: absolute; left: 50%; bottom: -12%; translate: -50% 0; padding: 2px 7px 1px; border-radius: 999px; background: #fff7e6; border: 2px solid #2a0d07;
+    font: 400 calc(11px * var(--hs, 1)) / 1 var(--disp); color: #2a0d07; letter-spacing: .05em; }
+  .infobtn:hover { transform: scale(1.08) rotate(-4deg); }
+  .infobtn:active { transform: scale(.94); }
+  body.replay .infobtn { display: none; }
+  /* the "how you win" picture in the rules */
+  .infopanel .windemo { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; width: min(300px, 80%); margin: 4px auto 12px;
+    padding: 6px; border-radius: 14px; background: rgba(0,0,0,.35); }
+  .infopanel .windemo img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 9px; padding: 3px; opacity: .55; }
+  .infopanel .windemo img.hit { opacity: 1; background: rgba(255, 214, 90, .3); box-shadow: inset 0 0 0 3px #ffd23c; animation: demoHit 1.6s ease-in-out infinite; }
+  @keyframes demoHit { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .infopanel table.guide td:first-child { width: 58px; }
+  .infopanel table.guide .ptile { width: 46px; height: 46px; object-fit: contain; }
+  /* ---- The Blizzard's bar (owner, 2026-10-30): a candy-cane rail along the top of the board, 20 snowball slots that
+     fill with presents, a +5 on the slots that add spins, the symbol it takes out at its end and the count left ---- */
+  .snowbar { position: absolute; left: 3%; right: 3%; top: 0; translate: 0 -62%; z-index: 9; display: flex; align-items: center; gap: .6%;
+    pointer-events: none; height: clamp(28px, 6.6%, 48px); }
+  .snowbar .sbrail { flex: 1; position: relative; display: flex; align-items: center; gap: .5%; height: 100%; padding: 0 1.2% 0 1.6%;
+    border-radius: 999px; border: 3px solid #2a0d07;
+    background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 45%, rgba(0,0,0,.18)), repeating-linear-gradient(-45deg, #d61f2a 0 10px, #fdfbf7 10px 20px);
+    box-shadow: 0 4px 8px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.35); }
+  .snowbar .sbslot { position: relative; flex: 1; aspect-ratio: 1; max-height: 86%; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, #dbeefa 55%, #a9cde6); box-shadow: inset 0 -2px 3px rgba(60,100,150,.45), 0 0 0 2px #2a0d07; }
+  .snowbar .sbslot .sbgift { position: absolute; inset: -18%; width: 136%; height: 136%; object-fit: contain; opacity: 0; scale: .3; transition: opacity .2s, scale .3s cubic-bezier(.2,1.5,.4,1); }
+  .snowbar .sbslot.on .sbgift { opacity: 1; scale: 1; }
+  .snowbar .sbslot.gulp { animation: helperPop .35s cubic-bezier(.2,1.6,.4,1); }
+  .snowbar .sbslot .sbplus { position: absolute; left: 50%; top: 100%; translate: -50% 2px; font: 400 clamp(10px, 1.6vh, 15px)/1 var(--disp); color: #ffd23c;
+    -webkit-text-stroke: 3px #2a0d07; paint-order: stroke fill; display: none; white-space: nowrap; }
+  .snowbar .sbslot.cp { box-shadow: inset 0 -2px 3px rgba(60,100,150,.45), 0 0 0 2px #2a0d07, 0 0 0 4px #ffd23c; }
+  .snowbar .sbslot.cp .sbplus { display: block; }
+  .snowbar .sbnext { position: relative; flex: none; height: 150%; aspect-ratio: 1; margin-left: .8%; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle, #eaf6ff, #9fd0f0); border: 3px solid #2a0d07; box-shadow: 0 0 12px rgba(160,220,255,.9); }
+  .snowbar .sbnext img { width: 82%; height: 82%; object-fit: contain; filter: saturate(.6) brightness(1.05) drop-shadow(0 0 4px #bfe6ff); }
+  .snowbar .sbnext em { position: absolute; left: 50%; top: 100%; translate: -50% 1px; font: 400 clamp(10px, 1.5vh, 14px)/1 var(--disp); font-style: normal;
+    color: #fff; -webkit-text-stroke: 3px #2a0d07; paint-order: stroke fill; }
+  .snowbar .sbleft { flex: none; min-width: 3.4em; padding: .15em .5em; border-radius: 10px; background: #fff7e6; border: 3px solid #2a0d07; text-align: center; line-height: 1;
+    box-shadow: 0 3px 0 rgba(0,0,0,.35); }
+  .snowbar .sbleft b { display: block; font: 400 clamp(14px, 2.4vh, 24px)/1 var(--disp); color: #c2121f; }
+  .snowbar .sbleft small { display: block; font: 700 clamp(8px, 1.1vh, 11px)/1 "Fredoka", sans-serif; color: #2a0d07; letter-spacing: .08em; }
+  .snowbar .sbgone { flex: none; display: flex; gap: 2px; }
+  .snowbar .sbgone img { width: clamp(18px, 3vh, 30px); height: auto; filter: grayscale(1) brightness(.8); opacity: .8;
+    background: linear-gradient(to top right, transparent 46%, #c2121f 46% 54%, transparent 54%); border-radius: 50%; }
+  .snowbar.full .sbrail { animation: sbFull .5s ease-in-out 2; }
+  .snowbar.pop { animation: helperPop .5s cubic-bezier(.2,1.6,.4,1); }
+  @keyframes sbFull { 50% { filter: brightness(1.5) drop-shadow(0 0 14px #bfe6ff); } }
+  /* a removed symbol: it grows over the board, frosts over, shakes and shatters into four */
+  .sbfreeze { position: fixed; z-index: 61; pointer-events: none; }
+  .sbfreeze .q { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 14px rgba(0,0,0,.55)); transition: filter .4s ease; }
+  .sbfreeze .q0 { clip-path: inset(0 50% 50% 0); } .sbfreeze .q1 { clip-path: inset(0 0 50% 50%); }
+  .sbfreeze .q2 { clip-path: inset(50% 50% 0 0); } .sbfreeze .q3 { clip-path: inset(50% 0 0 50%); }
+  .sbfreeze .ice { position: absolute; inset: 4%; border-radius: 18%; opacity: 0; transition: opacity .4s ease;
+    background: linear-gradient(135deg, rgba(220,245,255,.65), rgba(150,210,245,.35) 50%, rgba(255,255,255,.6)); box-shadow: inset 0 0 18px #fff, 0 0 24px rgba(170,225,255,.9); }
+  .sbfreeze.frozen .q { filter: saturate(.35) brightness(1.25) hue-rotate(160deg) drop-shadow(0 0 10px #bfe6ff); }
+  .sbfreeze.frozen .ice { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .snowbar .sbslot.gulp, .snowbar.full .sbrail, .snowbar.pop { animation: none; } }
+  /* a phone held upright (owner, 2026-10-30): the bonus scenes' characters stand small in the open sky above the board
+     instead of towering behind it */
+  @media (orientation: portrait) and (max-width: 760px) {
+    .bscene .bzchar { bottom: auto; top: 13vh; height: 25vh; }
+    .bscene .bzchar.left { left: 3%; } .bscene .bzchar.right { right: 3%; }
+    .snowbar { height: 30px; translate: 0 -70%; left: 1%; right: 1%; }
+    .snowbar .sbslot .sbplus { font-size: 9px; }
+  }
+  /* the bar's slots are presents, not snowballs (owner, 2026-10-30): an empty slot is a pale, frosted present waiting;
+     a filled one is the present in full colour */
+  .snowbar .sbslot { background: none; box-shadow: none; border-radius: 0; }
+  .snowbar .sbslot .sbgift { inset: -12%; width: 124%; height: 124%; opacity: .38; scale: .9; filter: grayscale(1) brightness(1.5) contrast(.8) drop-shadow(0 1px 1px rgba(0,0,0,.35)); transition: opacity .2s, scale .3s cubic-bezier(.2,1.5,.4,1), filter .25s; }
+  .snowbar .sbslot.on .sbgift { opacity: 1; scale: 1.08; filter: drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
+  .snowbar .sbslot.cp { box-shadow: none; }
+  .snowbar .sbslot.cp::before { content: ""; position: absolute; inset: -8%; border-radius: 50%; box-shadow: 0 0 0 3px #ffd23c, 0 0 10px #ffd23c; }
+  /* the BIG / MEGA / XTREME / TOTAL WIN lettering 30% smaller, so it sits inside its snowy background (owner, 2026-10-30) */
+  .totalwin .twhead .twlogo, .totalwin .twsheen { width: calc(var(--lw) * .7) !important; }
+  /* the Helper's confirmation */
+  .helperask { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: rgba(10,6,4,.55); }
+  .helperask .hacard { width: min(380px, 88vw); padding: 18px 20px 16px; text-align: center; border-radius: 22px; color: #fff;
+    border: 9px solid transparent; background: linear-gradient(#5a2e1a, #3a1c10) padding-box, repeating-linear-gradient(45deg, #d61f2a 0 9px, #fdfbf7 9px 18px) border-box;
+    box-shadow: 0 0 0 2px #2a0d07, 0 14px 30px rgba(0,0,0,.6); font-family: "Fredoka", sans-serif; }
+  .helperask img { width: 74px; height: auto; margin-top: -4px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.5)); }
+  .helperask h3 { margin: 4px 0 6px; font: 400 24px/1.1 var(--disp); color: #ffd23c; -webkit-text-stroke: 4px #2a0d07; paint-order: stroke fill; letter-spacing: .03em; }
+  .helperask p { margin: 0 0 14px; font-size: 15px; line-height: 1.45; }
+  .helperask p b { color: #ffd23c; }
+  .helperask .habtns { display: flex; gap: 10px; justify-content: center; }
+  .helperask button { min-width: 112px; padding: 9px 14px; border-radius: 999px; border: 3px solid #2a0d07; font: 400 17px var(--disp); cursor: pointer; letter-spacing: .04em; }
+  .helperask .hano { background: #fff7e6; color: #2a0d07; }
+  .helperask .hayes { background: linear-gradient(180deg, #ff5a63, #c2121f 55%, #7d0a12); color: #fff; -webkit-text-stroke: 3px #2a0d07; paint-order: stroke fill; }
+  /* the cane's lights: a bulb's slight flicker, and the moods (frameMood) */
+  .board > .framelights > .glow.flick { animation: bulbFlick .32s steps(3) 1, bulbGlowBright var(--bd, 5s) ease-in-out infinite var(--bdl, 0s); }
+  @keyframes bulbFlick { 0% { opacity: .25; } 40% { opacity: .9; } 70% { opacity: .45; } 100% { opacity: .8; } }
+  .board > .framelights.mood-antic { animation: moodHue 1.4s linear infinite; }
+  .board > .framelights.mood-fs { animation: moodHue .45s linear infinite, moodBright .3s ease-in-out infinite alternate; }
+  .board > .framelights.mood-multi { animation: moodGold .7s ease-out 2; }
+  .board > .framelights.mood-win { animation: moodWin .6s ease-out 1; }
+  @keyframes moodHue { to { filter: hue-rotate(360deg) saturate(1.4) brightness(1.15); } from { filter: hue-rotate(0deg) saturate(1.4) brightness(1.15); } }
+  @keyframes moodBright { to { opacity: .75; } }
+  @keyframes moodGold { 0% { filter: sepia(1) saturate(3.5) hue-rotate(-12deg) brightness(1.6); } 100% { filter: none; } }
+  @keyframes moodWin { 0% { filter: saturate(.3) brightness(2.1); } 100% { filter: none; } }
+  @media (prefers-reduced-motion: reduce) { .board > .framelights[class*="mood-"], .board > .framelights > .glow.flick { animation: none !important; } }
+  /* ---- symbols with moving parts (symSet) ---- */
+  .cell .ico > .symset { position: absolute; left: 6%; top: 6%; width: 88%; height: 88%; animation-delay: var(--ad, 0s); animation-iteration-count: infinite; }
+  .cell .ico > .symset > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .cell .ico > .symset[data-sym="L4"] { animation-name: xRing; animation-duration: 2.2s; animation-timing-function: ease-in-out; transform-origin: 50% 10%; }
+  .cell .ico > .symset .clap { transform-origin: 35.25% 65.75%; animation: clapSwing .5s ease-in-out infinite alternate; animation-delay: var(--ad, 0s); }
+  @keyframes clapSwing { from { rotate: -11deg; } to { rotate: 11deg; } }
+  .cell .ico > .symset[data-sym="L6"] { animation-name: xBob; animation-duration: 2.8s; animation-timing-function: ease-in-out; }
+  .cell .ico > .symset .stm { position: absolute; top: 1%; width: 9%; height: 22%; opacity: 0; pointer-events: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 60'><path d='M10 58 C2 48 18 40 10 30 C2 20 18 12 10 2' fill='none' stroke='%237a8a96' stroke-width='6' stroke-linecap='round'/><path d='M10 58 C2 48 18 40 10 30 C2 20 18 12 10 2' fill='none' stroke='%23ffffff' stroke-width='3.4' stroke-linecap='round'/></svg>") center / contain no-repeat;
+    animation: steamRise 2.6s ease-out infinite; }
+  .cell .ico > .symset .stm.s0 { left: 36%; animation-delay: 0s; } .cell .ico > .symset .stm.s1 { left: 46%; top: -3%; animation-delay: -.9s; } .cell .ico > .symset .stm.s2 { left: 56%; animation-delay: -1.75s; }
+  @keyframes steamRise { 0% { opacity: 0; transform: translateY(40%) scaleY(.6) skewX(0); } 25% { opacity: .95; } 60% { opacity: .7; transform: translateY(-5%) scaleY(1) skewX(-10deg); } 100% { opacity: 0; transform: translateY(-45%) scaleY(1.15) skewX(12deg); } }
+  .cell .ico > .symset[data-sym="H4"] { animation-name: xNod; animation-duration: 3.2s; animation-timing-function: ease-in-out; transform-origin: 50% 80%; }
+  .cell .ico > .symset .blink { opacity: 0; animation: eyeBlink 4.4s steps(1) infinite; animation-delay: var(--bd, 0s); }
+  @keyframes eyeBlink { 0%, 94% { opacity: 0; } 95%, 99% { opacity: 1; } 100% { opacity: 0; } }
+  .cell .ico > .symset.letters > img.l { animation: letterLand .55s cubic-bezier(.2,1.5,.4,1) both, letterJig 2.8s ease-in-out infinite;
+    animation-delay: calc(.32s + var(--i, 0) * .09s), calc(1.1s + var(--i, 0) * .22s); }
+  @keyframes letterLand { 0% { transform: translateY(-14%) scale(.8) rotate(-10deg); } 45% { transform: translateY(4%) scale(1.12, .9) rotate(8deg); } 70% { transform: scale(.97, 1.04) rotate(-4deg); } 100% { transform: none; } }
+  @keyframes letterJig { 0%, 70%, 100% { transform: none; } 76% { transform: translateY(-6%) rotate(-7deg); } 84% { transform: translateY(1%) rotate(6deg); } 92% { transform: rotate(-3deg); } }
+  .cell.winhit .ico > .symset { animation: xCheer .62s cubic-bezier(.3,.8,.4,1.2) infinite; transform-origin: 50% 90%; }
+  @media (prefers-reduced-motion: reduce) { .cell .ico > .symset, .cell .ico > .symset * { animation: none !important; } .cell .ico > .symset .stm { opacity: .7; } }
+  /* the bonus intro (owner, 2026-10-30): the turning rays stay behind the figure and never cross YOU WON, and a glossy
+     glare sweeps across YOU WON */
+  .bonusintro .byou { position: relative; z-index: 3; }
+  .bonusintro .bnum { z-index: 1; }
+  .bonusintro .brays { width: 140%; -webkit-mask: radial-gradient(closest-side, #000 22%, transparent 62%); mask: radial-gradient(closest-side, #000 22%, transparent 62%); }
+  .bonusintro .byou::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    -webkit-mask: url("assets/xmas/txt_you_won.webp") center / contain no-repeat; mask: url("assets/xmas/txt_you_won.webp") center / contain no-repeat;
+    background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.0) 42%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.95) 50%, rgba(255,255,255,0) 57%) 0 0 / 300% 100% no-repeat;
+    animation: youGloss 2.8s cubic-bezier(.45,0,.3,1) 1.4s infinite; }
+  @keyframes youGloss { 0% { background-position: 120% 0; } 45%, 100% { background-position: -20% 0; } }
+  .bonusintro .byou img { position: relative; }
+  .bonusintro .byou::before { content: ""; position: absolute; inset: 8% 4% 40%; border-radius: 50%; pointer-events: none; z-index: 1; mix-blend-mode: screen;
+    -webkit-mask: url("assets/xmas/txt_you_won.webp") center / contain no-repeat; mask: url("assets/xmas/txt_you_won.webp") center / contain no-repeat;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0)); }
+  @media (prefers-reduced-motion: reduce) { .bonusintro .byou::after { animation: none; opacity: 0; } }
+  /* the pub sign barely moves when a spin starts (owner, 2026-10-30: less obvious) */
+  #walltag.neonsign .nsw.shake { animation: signShakeSoft .6s cubic-bezier(.3,.6,.4,1); }
+  @keyframes signShakeSoft { 0% { transform: none; } 20% { transform: rotate(.25deg); } 45% { transform: rotate(-.18deg); } 70% { transform: rotate(.08deg); } 100% { transform: none; } }
+  /* the HUD reads as one piece (owner, 2026-10-30): every plate meets the next with no gap, and each keeps its candy-cane outline */
+  .hudstack.right { margin-left: calc(-40px * var(--hs, 1)) !important; }
+  .hudstack.left { margin-right: calc(-58px * var(--hs, 1)) !important; }
+  .hudstack.left > *, .hudstack.right > * { margin-block: calc(-2px * var(--hs, 1)); }
+  .betstep { gap: 0 !important; }
+  .betstep button { margin-block: calc(-1.5px * var(--hs, 1)); }
+  .helperbtn[hidden] { display: none !important; }
+  /* the +5 SPINS slot (the 10th of each bar - the 10th and the 30th present of the bonus) stands out so players
+     can see it coming (owner, 2026-10-30): a pulsing gold ring and glow, and the +5 bigger */
+  .snowbar .sbslot.cp::before { inset: -18%; box-shadow: 0 0 0 3px #ffd23c, 0 0 14px 4px rgba(255, 210, 60, .9); animation: cpPulse 1.1s ease-in-out infinite; }
+  .snowbar .sbslot.cp .sbgift { opacity: .75; filter: sepia(1) saturate(3) hue-rotate(-10deg) brightness(1.2) drop-shadow(0 0 4px #ffd23c); }
+  .snowbar .sbslot.cp.on .sbgift { filter: drop-shadow(0 0 6px #ffd23c); }
+  .snowbar .sbslot.cp .sbplus { font-size: clamp(13px, 2.1vh, 19px); translate: -50% 3px; }
+  @keyframes cpPulse { 0%, 100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+  @media (prefers-reduced-motion: reduce) { .snowbar .sbslot.cp::before { animation: none; } }
 </style>
 </head>
 <body>
-<div id="camfar" class="camlayer"><div id="bgwall"><div id="wallpaint" aria-hidden="true"></div><div id="tagspill" class="tagfx" aria-hidden="true"><i></i></div><div id="walltag" class="neonsign" role="img" aria-label="Santa's Wonderland"><i class="nwash" aria-hidden="true"></i><div class="nsw"><img class="nsign" src="assets/xmas/wfx/neon_on.webp" alt="" draggable="false"><img class="noff a" src="assets/xmas/wfx/neon_off.webp" alt="" draggable="false"><img class="noff b" src="assets/xmas/wfx/neon_off.webp" alt="" draggable="false"><div class="nlights xlights" aria-hidden="true"></div></div></div><div id="tagglow" class="tagfx" aria-hidden="true"><i></i><b class="sheen"><b><i></i></b></b></div></div>
+<div id="camfar" class="camlayer"><div id="bgwall"><div id="wallpaint" aria-hidden="true"></div><div id="tagspill" class="tagfx" aria-hidden="true"><i></i></div><div id="walltag" class="neonsign" role="img" aria-label="Mr. &amp; Mrs. Claus"><i class="nwash" aria-hidden="true"></i><div class="nsw"><img class="nsign" src="assets/xmas/wfx/neon_on.webp" alt="" draggable="false"><img class="noff a" src="assets/xmas/wfx/neon_off.webp" alt="" draggable="false"><img class="noff b" src="assets/xmas/wfx/neon_off.webp" alt="" draggable="false"><div class="nlights xlights" aria-hidden="true"></div></div></div><div id="tagglow" class="tagfx" aria-hidden="true"><i></i><b class="sheen"><b><i></i></b></b></div></div>
 </div>
 <div id="camnear" class="camlayer"><div id="charfx" class="charfx" aria-hidden="true"></div>
 <div id="charfx2" class="charfx" aria-hidden="true"></div></div>
@@ -3151,6 +3558,8 @@
        and Rapid and Auto stacked on the far right. Every piece is its own sprayed plate. -->
   <div class="hud">
     <button class="buy bonusbtn" id="bonusBtn"><i class="bglow" aria-hidden="true"></i>Bonus</button>
+    <button type="button" class="infobtn" id="infoBtn" aria-label="Game information: how to win, the paytable and the bonuses"><span>i</span><b>Info</b></button>
+    <button type="button" class="helperbtn" id="helperBtn" aria-pressed="false" title="Santa's Helper: double the bet, and free spins come about three times as often"><img src="assets/xmas/wfx/elf.webp" alt="" draggable="false"><span class="hx">x2</span><span class="hl">Helper</span></button>
     <div class="hudstack left">
       <button class="hudbtn menu" id="menuBtn" aria-label="Game information">Info</button>
       <button class="hudbtn audio" id="audioBtn" aria-label="Sound and music volume" aria-expanded="false">Audio</button>
@@ -3220,9 +3629,17 @@
           <span class="mult" id="bonusStdCost"></span>
           <span class="desc" id="bonusStdDesc">10, 12 or 15 free spins. Multis land often and drop in lines, and every value they leave stays on the board for the whole bonus.</span>
         </button>
+        <button type="button" class="bonuscard morning" id="bonusXmas" data-mode="christmas">
+          <i class="nhalo" aria-hidden="true"></i><i class="ntube" aria-hidden="true"></i>
+          <span class="ttl">Christmas Morning</span>
+          <img class="cardart" src="assets/xmas/ui/morning.webp" alt="" draggable="false">
+          <span class="spins"><b>12</b> free spins</span>
+          <span class="mult" id="bonusXmasCost"></span>
+          <span class="desc" id="bonusXmasDesc">12 free spins that start with 8 to 12 presents already opened on the board, their multipliers waiting under the symbols for the whole bonus.</span>
+        </button>
         <button type="button" class="bonuscard purple" id="bonusExt" data-mode="extremebonus">
           <i class="nhalo" aria-hidden="true"></i><i class="ntube" aria-hidden="true"></i>
-          <span class="ttl">Extreme Bonus</span>
+          <span class="ttl">The Blizzard</span>
           <img class="cardart" src="assets/flat/ES.webp" alt="" draggable="false">
           <span class="spins"><b>10, 12, 15 or 17</b> free spins</span>
           <span class="mult" id="bonusExtCost"></span>
@@ -3244,7 +3661,7 @@
 
 <div class="intro" id="intro">
   <canvas class="introicons" id="introIcons" aria-hidden="true"></canvas>
-  <img class="intrologo" id="introLogo" src="assets/logo_intro.webp" width="1950" height="756" alt="Smukiez">
+  <img class="intrologo" id="introLogo" src="assets/xmas/ui/logo.webp" width="1400" height="612" alt="Mr. &amp; Mrs. Claus">
   <div class="introbar" id="introBar"><i class="introfill" id="introFill"></i></div>
   <p class="intromsg" id="introMsg">Malfunction voids all wins and plays. A consistent internet
   connection is required. In the event of a disconnection, reload the game to finish any
@@ -3331,6 +3748,25 @@ function hangLights(holder, box, wire, spots, u, id, shift, bright = 0) {
   });
   holder.innerHTML = glows + `<svg viewBox="${x0} ${y0} ${x1 - x0} ${y1 - y0}" aria-hidden="true"><defs>${defs}</defs>${wire}<g>${bulbs}</g></svg>`;
 }
+// The cane's lights speak (owner, 2026-10-30): with two Jolly Scatters down and one to come they cycle through the colours;
+// three of them set off a fast rainbow chase; a Multi going off flashes them gold; a line pay sparkles them white.
+// kind: antic | fs | multi | win; ms: how long (0 = until told to stop with -1)
+function frameMood(kind, ms) {
+  const h = document.querySelector("#board > .framelights"); if (!h || REDUCED_MOTION) return;
+  if (ms === -1) { h.classList.remove("mood-" + kind); return; }
+  h.classList.remove("mood-" + kind); restyle(h); h.classList.add("mood-" + kind);
+  clearTimeout(h["_m" + kind]);
+  if (ms > 0) h["_m" + kind] = setTimeout(() => h.classList.remove("mood-" + kind), ms);
+}
+// and the rest of the time, now and then one bulb somewhere on the cane flickers very slightly
+setInterval(() => {
+  if (REDUCED_MOTION || document.hidden) return;
+  const gs = document.querySelectorAll("#board > .framelights > .glow"); if (!gs.length) return;
+  for (let k = 0; k < 2; k++) {
+    const g = gs[Math.floor(Math.random() * gs.length)];
+    g.classList.remove("flick"); void g.offsetWidth; g.classList.add("flick");
+  }
+}, 420);
 // round the neon sign: the wire on its board's edge, swagging a little between the bulbs, the bulbs pointing out
 function stringSignLights() {
   const tag = document.getElementById("walltag"), holder = tag && tag.querySelector(".nlights"), pic = tag && tag.querySelector(".nsign");
@@ -3553,7 +3989,7 @@ window.WallFX = {
   },
 };
 </script>
-<script src="smoke.js"></script>
+
 <script>
 "use strict";
 
@@ -3561,6 +3997,8 @@ window.WallFX = {
 const fmtMult = v => String(+(+v).toFixed(2));
 // The Christmas set (assets/flat, 2026-10-29): flat cartoon pictures, no animated rigs (XMAS_SYMBOLS).
 const XMAS_SYMBOLS = true;
+// a slow machine (few cores or little memory) gets the lighter effects (html.lowfx in the stylesheet)
+try { if ((navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 3) document.documentElement.classList.add("lowfx"); } catch (e) { /* full effects */ }
 const SYM = {
   M:  { label: "MULTI", sub: "",           cls: "booster", img: "assets/flat/M.webp" },   // a wrapped present, its value over it (owner, 2026-10-30: swapped with the ice block)
   BS: { label: "FREE",  sub: "SPINS",      cls: "scat",  img: "assets/flat/BS.webp" },
@@ -3590,7 +4028,7 @@ for (const [k, def] of Object.entries(SYM)) {   // pre-warm icon cache
 const REELS = 7, ROWS = 7;   // the 7x7 cluster board; the events still pad every reel by one row top and bottom
 // Cost multipliers mirror index.json. The RGS applies them server-side (it debits
 // amount x cost); these are only so the buy buttons can show the right price.
-const MODE_COST = { base: 1, bonus: 100, extremebonus: 400 };
+const MODE_COST = { base: 1, ante: 2, bonus: 100, christmas: 250, extremebonus: 400 };   // ante: Santa's Helper; christmas: Christmas Morning (owner, 2026-10-30)
 
 const state = {
   balance: 0,            // integer, 6dp — authoritative value comes from the RGS
@@ -3617,10 +4055,10 @@ const restyle = (...els) => { for (const el of els) if (el) void getComputedStyl
 const fmt = v => RGS.money(v);
 // Social casinos (Stake.us) forbid a list of gambling terms. Every player-facing string
 // goes through T(): a no-op normally, the sweeps vocabulary when the lobby says social=true.
-const SOCIAL = RGS.social;
+// social casino (Stake.us): the URL flag, a social-coin currency in the URL, or (after sign-in) the jurisdiction says so
+let SOCIAL = RGS.social || /^(X?SC|X?GC|XEC)$/.test(String(RGS.urlCurrency || "").toUpperCase());
 const T = s => RULES.T(s, SOCIAL);
 // the symbols' short names reach the board as alt text and the ticker: they follow the rule too
-if (SOCIAL) for (const d of Object.values(SYM)) { d.label = T(d.label); d.sub = T(d.sub); }
 const bet = () => state.bets[state.betIdx] || 0;
 // Event amounts are hundredths of the bet (payoutMultiplier 63340 == 633.40x), and the
 // bet is a 6dp integer, so round back to a whole integer amount.
@@ -3827,6 +4265,9 @@ function cellClass(sym) {
   return "cell " + (SYM[sym.name] || { cls: "low" }).cls + (TIER[sym.name] ? " t" + TIER[sym.name] : "");
 }
 function tierGlow(name) {
+  // the neon outline round the top symbols read as a second, ghost symbol behind the Christmas art
+  // (owner, 2026-10-30: the gingerbread man, the snowman, the stocking): no tier glow in the Christmas set
+  if (XMAS_SYMBOLS) return [];
   return ["halo", "tube"].map(kind => {
     const i = document.createElement("i");
     i.className = "tglow " + kind;
@@ -3870,20 +4311,47 @@ function fillCell(cell, sym) {
     const im = document.createElement("img");
     im.src = def.img; im.alt = def.label; im.draggable = false;
     if (XMAS_SYMBOLS && cell.ico) { im.dataset.sym = sym.name; im.style.setProperty("--ad", (-Math.random() * 4).toFixed(2) + "s"); }
-    el.append(im);
+    const set = XMAS_SYMBOLS && cell.ico ? symSet(sym.name, im) : null;
+    el.append(set || im);
   } else {
     const main = document.createElement("div"); main.textContent = def.label;
     const sub = document.createElement("div"); sub.className = "sub"; sub.textContent = def.sub;
     el.append(main, sub);
   }
 }
+// Symbols with moving parts of their own (owner, 2026-10-30): the bell's clapper swings inside it, the cocoa's steam
+// rises above the mug, the reindeer blinks, and the scatters' letters jingle one by one when they land. The icon goes in
+// a box (.symset) that carries its idle motion; the parts move inside it.
+const SCATTER_LETTERS = { BS: [[0, 49], [47, 100]], ES: [[0, 40.2], [40, 66.4], [65.2, 100]] };   // % of the picture's width
+function symSet(name, im) {
+  const box = document.createElement("div"); box.className = "symset"; box.dataset.sym = name;
+  box.style.setProperty("--ad", im.style.getPropertyValue("--ad"));
+  const add = (src, cls) => { const i = document.createElement("img"); i.src = src; i.alt = ""; i.draggable = false; if (cls) i.className = cls; box.append(i); return i; };
+  if (name === "L4") {
+    im.src = "assets/xmas/wfx/L4_bell.webp"; box.append(im); add("assets/xmas/wfx/L4_clapper.webp", "clap");
+  } else if (name === "L6") {
+    im.src = "assets/xmas/wfx/L6_cup.webp"; box.append(im);
+    for (let k = 0; k < 3; k++) { const s = document.createElement("i"); s.className = "stm s" + k; box.append(s); }
+  } else if (name === "H4") {
+    box.append(im); const b = add("assets/xmas/wfx/H4_blink.webp", "blink"); b.style.setProperty("--bd", (-Math.random() * 5).toFixed(2) + "s");
+  } else if (SCATTER_LETTERS[name]) {
+    box.classList.add("letters");
+    SCATTER_LETTERS[name].forEach(([a, b], i) => {
+      const l = i ? add(im.src, "l") : im; if (!i) { im.classList.add("l"); box.append(im); }
+      l.style.clipPath = `inset(0 ${(100 - b).toFixed(1)}% 0 ${a.toFixed(1)}%)`; l.style.setProperty("--i", i);
+      l.style.transformOrigin = `${((a + b) / 2).toFixed(1)}% 78%`;
+    });
+  } else return null;
+  return box;
+}
 // mirrors what each cell currently displays — the next spin starts on these symbols,
 // so the reel begins moving from the board the player is already looking at
 const shownSym = [];
+const heldCells = new Set();   // squares a thrown or dropped present is sitting on: their own icon stays hidden under it
 function setCell(r, y, sym) {
   const el = cellEls[r][y];
   el._spray = null;   // a new symbol: any spray this cell was waiting for was for the old one
-  el.className = cellClass(sym);
+  el.className = cellClass(sym) + (heldCells.has(el) ? " santahide" : "");
   fillCell(el, sym);
   smearOn(el, sym.name);
   (shownSym[r] || (shownSym[r] = []))[y] = sym;
@@ -4426,6 +4894,31 @@ function xmasPop(cell, k = 1) {
   }
   setTimeout(() => els.forEach(e => e.remove()), 1400 * t + 200);
 }
+// The present bursts open: its lid is knocked off and flies up, tumbling, then falls away and fades; the box under it
+// gives a squash and a bounce. The icon is swapped for its parts (box, front, lid - cut from the same picture, so they
+// line up) for the length of the show and put back after. The lid flies in the board's effect layer, free of the cell.
+function presentLid(cell) {
+  const img = cell && cell.ico && cell.ico.querySelector(":scope > img"), layer = $("sprayLayer");
+  if (!img || !layer || REDUCED_MOTION || document.hidden) return;
+  const t = tempo() / MULTI_RATE;
+  const parts = document.createElement("div"); parts.className = "mparts";
+  parts.innerHTML = `<img src="${WFX}M_box.webp" alt=""><img src="${WFX}M_front.webp" alt="">`;
+  img.after(parts); img.style.visibility = "hidden";
+  const [bx, by] = boardXY(img), w = img.offsetWidth, h = img.offsetHeight;
+  const lid = document.createElement("img"); lid.className = "mlid"; lid.src = WFX + "M_lid.webp"; lid.alt = "";
+  Object.assign(lid.style, { width: w + "px", height: h + "px" });
+  layer.appendChild(lid);
+  const dir = Math.random() < .5 ? -1 : 1, vx = dir * (40 + Math.random() * 50), vy = -(260 + Math.random() * 80), g = 900, spin = dir * (260 + Math.random() * 260);
+  const frames = [];
+  for (let k = 0; k <= 24; k++) {
+    const u = k / 24, s = u * .9, x = bx + vx * s, y = by + vy * s + .5 * g * s * s;
+    frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(spin * u * u + dir * 18 * Math.min(1, u * 6)).toFixed(0)}deg) scale(${(1 + .15 * Math.sin(u * Math.PI)).toFixed(3)})`, opacity: u < .7 ? 1 : 1 - (u - .7) / .3, offset: u });
+  }
+  lid.animate(frames, { duration: 900 * t, easing: "linear", fill: "forwards" });
+  parts.animate([{ transform: "scale(1,1)" }, { transform: "scale(1.12,.86)", offset: .15 }, { transform: "scale(.95,1.08)", offset: .35 }, { transform: "scale(1.02,.98)", offset: .6 }, { transform: "scale(1,1)" }],
+    { duration: 600 * t, easing: "ease-out" });
+  setTimeout(() => { lid.remove(); parts.remove(); img.style.visibility = ""; }, 1300 * t);
+}
 // The Christmas set: a Multi's value is frosted on by a burst of snow instead of sprayed. A soft cloud
 // blooms over the tile and thins out, flakes (the snowflake symbol's art) scatter and drift down out of
 // it, and the value comes up out of the white - blurred and bright, then sharp - as the cloud clears.
@@ -4872,7 +5365,7 @@ function smokePuff() {
   for (let i = 0; i < 6; i++) {
     const a = i / 6 * Math.PI * 2 + Math.random() * .6, d = S * (.08 + Math.random() * .1), r = S * (.2 + Math.random() * .1);
     const x = S / 2 + Math.cos(a) * d, y = S / 2 + Math.sin(a) * d, gr = g.createRadialGradient(x, y, 0, x, y, r);
-    gr.addColorStop(0, "rgba(44, 34, 58, .5)"); gr.addColorStop(1, "rgba(44, 34, 58, 0)");
+    gr.addColorStop(0, "rgba(240, 248, 255, .75)"); gr.addColorStop(.6, "rgba(205, 230, 250, .35)"); gr.addColorStop(1, "rgba(205, 230, 250, 0)");   // a puff of powder snow (owner, 2026-10-30)
     g.fillStyle = gr; g.fillRect(0, 0, S, S);
   }
   return (smokeSprite = c);
@@ -4917,7 +5410,7 @@ function blow(b, variant, f) {
   b.pieces = variant.map(p => {
     const a = Math.atan2(p.oy, p.ox) + (Math.random() - .5) * .8, sp = W * (.07 + Math.random() * .11) / t;
     return { c: p.c, x: b.x + p.ox * f, y: b.y + p.oy * f, w: p.c.width * f, h: p.c.height * f,
-      vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - W * .07 / t, rot: 0, vrot: (Math.random() - .5) * .34 / t,
+      vx: Math.cos(a) * sp * .6, vy: Math.sin(a) * sp * .6 - W * .04 / t, rot: 0, vrot: (Math.random() - .5) * .2 / t,
       flip: Math.random() * 6.3, vflip: (.1 + Math.random() * .2) / t, life: (600 + Math.random() * 250) * t };
   });
   b.sparks = Array.from({ length: mob ? 5 : crowd ? 8 : 14 }, () => {
@@ -4925,10 +5418,10 @@ function blow(b, variant, f) {
     return { x: b.x + Math.cos(a) * W * .12, y: b.y + Math.sin(a) * W * .12, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
       life: (200 + Math.random() * 220) * t };
   });
-  b.flecks = Array.from({ length: mob ? 2 : crowd ? 5 : 10 }, () => {
+  b.flecks = Array.from({ length: mob ? 5 : crowd ? 9 : 16 }, () => {   // chunks of snow
     const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.6, sp = W * (.05 + Math.random() * .1) / t;
     return { x: b.x + (Math.random() - .5) * W * .3, y: b.y + (Math.random() - .5) * W * .3, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
-      s: W * (.022 + Math.random() * .03), white: Math.random() < .55, rot: Math.random() * 6.3, vrot: (Math.random() - .5) * .5 / t,
+      s: W * (.03 + Math.random() * .045), white: Math.random() < .8, rot: Math.random() * 6.3, vrot: (Math.random() - .5) * .5 / t,
       flut: Math.random() * 6.3, life: (500 + Math.random() * 300) * t };
   });
   b.puffs = mob ? [] : [0, 1, 2].map(i => ({ a: i / 3 * Math.PI * 2 + Math.random(), d: W * (.06 + Math.random() * .1) }));
@@ -4967,11 +5460,11 @@ function burstStep() {
       fl.rot += fl.vrot * dt; fl.flut += .3 * dt / b.t;
       const p = age / fl.life;
       ctx.globalAlpha = p < .7 ? 1 : 1 - (p - .7) / .3;
-      ctx.fillStyle = fl.white ? "#f4f1ea" : `rgb(${b.rgb})`;
-      // turned, and fluttering (squashed along its own height): the whole transform set in one go
-      const co = Math.cos(fl.rot) * D, si = Math.sin(fl.rot) * D, fy = Math.cos(fl.flut);
-      ctx.setTransform(co, si, -si * fy, co * fy, fl.x * D, fl.y * D);
-      ctx.fillRect(-fl.s / 2, -fl.s * .35, fl.s, fl.s * .7);
+      // a lump of snow (or a chip of ice): round, white with a blue-grey underside, tumbling
+      const co = Math.cos(fl.rot) * D, si = Math.sin(fl.rot) * D;
+      ctx.setTransform(co, si, -si, co, fl.x * D, fl.y * D);
+      ctx.fillStyle = fl.white ? "#b9d3e8" : "#8fd0f2"; ctx.beginPath(); ctx.arc(0, fl.s * .1, fl.s * .52, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = fl.white ? "#fbfdff" : "#d8f3ff"; ctx.beginPath(); ctx.arc(-fl.s * .05, -fl.s * .04, fl.s * .44, 0, Math.PI * 2); ctx.fill();
     }
     for (const sh of b.pieces) {
       if (age > sh.life) continue;
@@ -4980,8 +5473,8 @@ function burstStep() {
       sh.vx *= drag; sh.vy = sh.vy * drag + b.W * .0045 / b.t * dt;
       sh.rot += sh.vrot * dt; sh.flip += sh.vflip * dt;
       // it tumbles: turning edge-on and back as it flies (never quite to nothing)
-      const p = age / sh.life, sc = 1 - p * .22;
-      ctx.globalAlpha = p < .6 ? 1 : 1 - (p - .6) / .4;
+      const p = age / sh.life, sc = Math.max(0, 1 - p * 1.25);   // crumbling away like packed snow, not flying like glass
+      ctx.globalAlpha = p < .35 ? 1 : Math.max(0, 1 - (p - .35) / .45);
       const sx = sc * (.35 + .65 * Math.abs(Math.cos(sh.flip))), co = Math.cos(sh.rot) * D, si = Math.sin(sh.rot) * D;
       ctx.setTransform(co * sx, si * sx, -si * sc, co * sc, sh.x * D, sh.y * D);
       ctx.drawImage(sh.c, -sh.w / 2, -sh.h / 2, sh.w, sh.h);
@@ -5012,7 +5505,7 @@ function burstStep() {
     }
     if (age > 20 && age < 320) {   // ... and a wider, softer one in the symbol's colour behind it
       const p = (age - 20) / 300;
-      ctx.globalAlpha = .3 * (1 - p) * (1 - p); ctx.strokeStyle = `rgb(${b.rgb})`; ctx.lineWidth = b.W * .11 * (1 - p) + 1;
+      ctx.globalAlpha = .35 * (1 - p) * (1 - p); ctx.strokeStyle = "rgb(150, 215, 255)"; ctx.lineWidth = b.W * .11 * (1 - p) + 1;   // a ring of frost
       ctx.beginPath(); ctx.arc(b.x, b.y, b.W * (.2 + .95 * (1 - Math.pow(1 - p, 2.4))), 0, Math.PI * 2); ctx.stroke();
     }
     // the sparks: streaks drawn out by their speed, the colour round a white core
@@ -5027,7 +5520,7 @@ function burstStep() {
     }
     if (live) {
       const p = Math.min(1, age / 420);
-      ctx.globalAlpha = .85 * (1 - p); ctx.strokeStyle = `rgb(${b.rgb})`; ctx.lineWidth = b.W * .026; ctx.stroke();
+      ctx.globalAlpha = .85 * (1 - p); ctx.strokeStyle = "rgb(140, 210, 255)"; ctx.lineWidth = b.W * .026; ctx.stroke();   // ice glinting
       ctx.globalAlpha = 1 - p; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = b.W * .01; ctx.stroke();
     }
   }
@@ -5163,7 +5656,7 @@ function boardThud(r) {
 // barely moves at all (owner, later the same day): every zoom, pan, lean and rumble is CAM_STRENGTH
 // of the moves it was tuned with - the scene breathes with a win rather than being filmed.
 // Skip: no new moves; Rapid: a little quicker; a phone: smaller; reduced motion: no camera at all.
-const CAM_DEPTH = { far: 0, near: 1.12 };   // far 0: the wall and its neon sign never move with the camera   // the wall and the figures, against the board's 1
+const CAM_DEPTH = { far: 0, near: 0 };   // neither the wall nor the figures move with the camera (owner, 2026-10-30: Mrs Claus was swinging off the screen with the board) - only the board does
 const CAM_PUNCH_MIN = 5;                      // a Multi worth a camera move: 5x and up
 const CAM_STRENGTH = .25;                     // how much it moves at all, of the moves below (1: as tuned)
 const Cam = (() => {
@@ -5421,6 +5914,7 @@ function dropReel(r, ev, wait, inExtra = 0, onCrewLeader = null, slow = 1) {
         sfxGap("scatterLand", 140, 1 + r * .02);
         // a Jolly Scatter (FS) lands with a sleigh-bell shake and a chime, each one this spin a step higher (owner, 2026-10-30)
         if (crew) sfx("fsland", 1 + .09 * (document.querySelectorAll(".cell.scat.scatland").length - 1));
+        else sfx("frostland");   // a Frost Scatter lands with a cold gust and a crystal shimmer
         later(800 * tt, () => c.classList.remove("scatland"));
         // only the Jolly Scatter counts towards the gold. The hold is set by two of those and
         // never by a Frost Scatter, so counting a Frost Scatter would light the frame for a symbol that
@@ -5506,10 +6000,17 @@ async function renderReveal(ev) {
   // after another on its slower clock (dropReel)
   const spanOf = s => ((ROWS - 1) * OUT_GAP + OUT_MS * 1.1) * t
     + (s > 1 ? IN_GAP * t * s * ((ROWS - 1) + .09 * (ROWS - 1) * (ROWS - 2) / 2) + 550 * t * s : 550 * t);
-  let crewDown = 0;
+  let crewDown = 0, heartTimer = null;
   const onCrewLeader = () => {
     if (++crewDown !== 2) return;
     goldReels.forEach(el => el.classList.add("antic"));
+    // the wait has a pulse (owner, 2026-10-30): a heartbeat under it, and Santa stirs at the bar - he half wakes, then sinks back
+    if (!state.skip && !REDUCED_MOTION) {
+      sfx("heartbeat");
+      heartTimer = setInterval(() => sfx("heartbeat", 1.04), 760 * t);
+      frameMood("antic", 0);   // two Jolly Scatters and one more to come: the cane's lights cycle through their colours
+      if (window.__santa && window.__santa.wake) window.__santa.wake(900);
+    }
     // and the board leans in for the wait, reaching full size as the last held icon lands
     boardZoom(true, goldReels, revealMs - (performance.now() - revealStart) - 250 * t);
   };
@@ -5522,6 +6023,8 @@ async function renderReveal(ev) {
   await Promise.all(reelEls.map((_, r) =>
     dropReel(r, ev, r * stagger, (ev.anticipation?.[r] || 0) * anticExtra, onCrewLeader, slowOf(r))));
   hushReels();   // a skipped reveal cuts it short; a full one has already faded out
+  if (heartTimer) clearInterval(heartTimer);
+  frameMood("antic", -1);
   boardZoom(false);   // the lean-in lets go as the board settles, hit or miss
   await spraysDone();   // every Multi's value is on its brick before anything is paid off it
   // near-miss resolution: linger on landed scatters when the reveal carried anticipation
@@ -5829,7 +6332,7 @@ const SFX_VOL = {
 // nothing is fetched for it (no 404s for sounds that do not exist yet).
 const SYM_SFX = {   // each symbol's own win sound, to go with its win performance (symWinFx; owner, 2026-10-30)
   H1: "assets/xmas/sfx_w_coins.wav", H2: "assets/xmas/sfx_w_snowman.wav", H3: "assets/xmas/sfx_w_tree.wav",
-  H4: "assets/xmas/sfx_w_reindeer.wav", H5: "assets/xmas/sfx_w_frost.wav", H6: "assets/xmas/sfx_w_yippee.wav",
+  H4: "assets/xmas/sfx_w_reindeer.wav", H5: "assets/xmas/sfx_w_ice.wav", H6: "assets/xmas/sfx_w_yippee.wav",
   H7: "assets/xmas/sfx_w_thuds.wav", L1: "assets/xmas/sfx_w_snowball.wav", L2: "assets/xmas/sfx_w_snap.wav",
   L3: "assets/xmas/sfx_w_ornament.wav", L4: "assets/xmas/sfx_w_bell.wav", L5: "assets/xmas/sfx_w_holly.wav",
   L6: "assets/xmas/sfx_w_bubbles.wav", L7: "assets/xmas/sfx_w_ding.wav", L8: "assets/xmas/sfx_w_wool.wav",
@@ -5840,8 +6343,17 @@ const SYM_SFX_VOL = { H4: .5, H6: .6, H2: .6, L2: .9, L1: .7, H5: .7 };
 // The owner (2026-10-30): every sound the game had until now is gone except the spin's own (the button's note
 // and the reels' run) - what plays is the spin, each symbol's win sound and the Ice Multi's chilly gust
 for (const k of Object.keys(SFX)) if (!["spin", "reels", "pop", "moneyTick"].includes(k)) delete SFX[k];   // moneyTick: the win counting up (owner, 2026-10-30)   // pop: the snow multiplier coming out (owner, 2026-10-30)
+// Christmas versions of the spin, the landings and the pop (owner, 2026-10-30)
+SFX.spin = "assets/xmas/sfx_c_spin.wav";                       // sleigh bells shaken with a gust of snowy wind
+SFX.pop = "assets/xmas/sfx_c_pop.wav";                         // packed snow bursting, ice crystals tinkling away
+SFX.count = "assets/xmas/sfx_c_count.wav"; SFX_VOL.count = .55; // one bell tick per free spin counted up
+const LAND_SFX = ["a", "b", "c", "d", "e", "f"].map(k => "land_" + k);
+for (const k of LAND_SFX) { SFX[k] = `assets/xmas/sfx_c_${k}.wav`; SFX_VOL[k] = .45; }   // a symbol landing: a snow thump and a bell tick
+let landLast = -1;
 SFX.chill = "assets/xmas/sfx_w_chill.wav"; SFX_VOL.chill = .5;
 SFX.giftpop = "assets/xmas/sfx_w_giftpop.wav"; SFX_VOL.giftpop = .55;       // the present Multi bursting open
+SFX.frostland = "assets/xmas/sfx_w_frostland.wav"; SFX_VOL.frostland = .5;  // a Frost Scatter landing
+SFX.heartbeat = "assets/xmas/sfx_w_heartbeat.wav"; SFX_VOL.heartbeat = .7;  // the near-miss wait
 SFX.jinglepop = "assets/xmas/sfx_w_jinglepop.wav"; SFX_VOL.jinglepop = .5;   // a multiplier's value coming out of its snow
 SFX.hohoho = "assets/xmas/sfx_w_hohoho.wav"; SFX_VOL.hohoho = .8;    // Santa, woken by three Jolly Scatters
 SFX.merry = "assets/xmas/sfx_w_merry.wav"; SFX_VOL.merry = .8;       // ... and at a bonus's total win
@@ -6045,6 +6557,9 @@ function audio() {
 addEventListener("pointerdown", () => { audio(); startMusic(); if (actx) loadTrack("bonus"); }, { once: true });   // the bonus loop is decoded ahead of the first bonus
 
 function sfx(name, rate = 1) {
+  if (name === "dripLand") {   // a landing: one of the six snow thumps, never the same one twice running
+    let i = Math.floor(Math.random() * LAND_SFX.length); if (i === landLast) i = (i + 1) % LAND_SFX.length; landLast = i; name = LAND_SFX[i];
+  }
   if (vol.sfx <= 0) return;   // the bar is at the bottom: don't even open the context
   const ctx = audio();
   if (!ctx) return;
@@ -6148,11 +6663,67 @@ async function tallyUp(amount) {
 
 /* ---------- event sequencing ---------- */
 const handlers = {
+  // Christmas Morning's Present Toss (owner, 2026-10-30): as the free spin starts the board empties, and Santa - in
+  // the living room, by his pile of presents - stoops, picks one up and tosses it, three times; where each lands it
+  // bursts open, and the square it hit and the four around it take its value. Then the symbols come down.
+  // The Blizzard's Present Meter (owner, 2026-10-30): every present that bursts in the bonus fills it; every 10 add 5 spins
+  async presentMeter(ev) {
+    const bar = snowbarEl(), st = bar._s, step = ev.step || SNOWBAR.step, gone = ev.gone || [];
+    // a fill: the bar shows full, then each symbol it takes out goes, and the bar starts over
+    for (const sym of ev.removed || []) {
+      st.fill = step; paintSnowbar(bar);
+      await snowbarRemove(bar, sym);
+      st.done++; st.fill = 0; paintSnowbar(bar);
+    }
+    // the server's count is the truth; the live fills during the spin only led up to it
+    st.done = gone.length; st.spinsAt = ev.target == null ? null : ev.target;
+    st.fill = st.done >= SNOWBAR.order.length ? step : Math.max(0, Math.min(step, ev.count - st.done * step));
+    paintSnowbar(bar);
+    if (ev.added) {
+      bar.classList.remove("pop"); restyle(bar); bar.classList.add("pop");
+      sfx("fsland"); sfx("giftpop", 1.2);
+      state.fsTotal = ev.totalFs || state.fsTotal;
+      paintFsCount(state.fsShown ? state.fsShown.cur : 1, state.fsTotal);   // the counter grows its total: the plate jumps
+      await featureTitle("assets/xmas/ui/title_extra.webp", "+" + ev.added, 1600);
+    }
+  },
+
+  async santaToss(ev) {
+    await snowballThrows(ev);
+  },
+
+  async sackCollect(ev) {
+    await sackCollect(ev);
+  },
+
   async reveal(ev) {
+    // Sleigh Ride (owner, 2026-10-30): the sleigh crosses the empty board and drops its presents BEFORE the symbols
+    // come down - the drop follows the reveal in the book, so it is played here, ahead of it
+    const pk = state.peek;
+    let sleighGifts = null;
+    if (pk && pk.type === "wallDrop" && pk.kind === "sleigh" && (pk.positions || []).length) {
+      pk._shown = true;
+      const cells = pk.positions.map(p => cellEls[p.reel][Math.min(Math.max(p.row - 1, 0), ROWS - 1)]);
+      cells.forEach(c => heldCells.add(c));   // the dropped present is the only present on its square while the symbols fall
+      sleighGifts = await sleighPreDrop(cells);
+    }
+    // Santa's Wake-Up (owner, 2026-10-30): he wakes and throws his presents onto the empty board before the spin, too
+    if (pk && pk.type === "wallDrop" && pk.kind === "santa" && (pk.positions || []).length && !REDUCED_MOTION && !state.skip) {
+      pk._shown = true;
+      $("board").classList.add("cleared");
+      const cells = pk.positions.map(p => cellEls[p.reel][Math.min(Math.max(p.row - 1, 0), ROWS - 1)]);
+      cells.forEach(c => heldCells.add(c));
+      sleighGifts = await santaThrow(cells, { keep: true });
+    }
+    $("board").classList.remove("cleared");   // the snowballs' empty board fills again
+    eachCell(el => el.classList.remove("sacked", "sackopen"));
     Cam.rest(300);   // every spin is filmed from home
     // the base game starts every spin clean; a bonus keeps its multipliers across spins
-    if (ev.gameType === "basegame") { resetGrid(); musicTo("base"); }   // (and the base loop, should a bonus have ended without its screen)
+    if (ev.gameType === "basegame") { resetGrid(); musicTo("base"); stopBonusFx(); }   // (and the base loop, should a bonus have ended without its screen)
     await renderReveal(ev);
+    if (sleighGifts) sleighGifts.forEach(g => g.remove());   // the dropped presents are the Multis now on their squares
+    for (const c of heldCells) c.classList.remove("santahide");
+    heldCells.clear();
     paintGrid();
     await delay(150);
   },
@@ -6160,6 +6731,7 @@ const handlers = {
   async winInfo(ev) {
     if (!ev.wins.length) return;
     charReact("win");   // one reaction for the burst, not one per cluster
+    frameMood("win", 600);   // a line pay: the cane's lights sparkle white
     tagPop();           // and the tag on the wall pops
     $("board").classList.add("spotlight");
     for (const raw of ev.wins) {
@@ -6231,6 +6803,7 @@ const handlers = {
     const geo = order.map(([r, y]) => burstMeasure(r, y, shownSym[r][y]));   // every tile's burst, measured once up front
     order.forEach(([r, y], i) => {
       const go = () => {
+        if (cellEls[r][y].classList.contains("sacked")) { multEls[r][y].classList.add("bare"); return; }   // already in Santa's Sack
         burstIcon(geo[i]);   // the icon strains, then comes apart
         cellEls[r][y].classList.add("explode"); multEls[r][y].classList.add("bare");
         // every pop its own pitch, drifting up through a run - on the blow, not as the strain starts
@@ -6305,7 +6878,7 @@ const handlers = {
     }
     await delay(500 * slowest);   // until the slowest tile has settled
     eachCell((el, r, y) => {
-      el.classList.remove("tdrop", "explode");
+      el.classList.remove("tdrop", "explode", "sacked", "sackopen");
       for (const v of ["--fall", "--droptime", "--blur", "--bnc"]) el.style.removeProperty(v);
       multEls[r][y].classList.remove("bare");
     });
@@ -6329,6 +6902,7 @@ const handlers = {
     // The tumbleBoard that follows clears them (together with the paid cluster symbols) and
     // drops new symbols in on top of the numbers. Skipping shortens this; never hides it.
     clearFxWins();
+    frameMood("multi", 1400);   // a Multi going off: the cane's lights flash gold
     $("board").classList.add("spotlight");
     // Several Multis on one board go off in a quick run rather than one after another: each starts
     // MULTI_STAGGER after the one before, while that one's neighbours are still popping, and the
@@ -6349,6 +6923,7 @@ const handlers = {
       sfx("giftpop", Math.min(1.25, 1 + .03 * (state.multiCount - 1)));   // the present bursts open: lid pop, sleigh bells, a celesta run (owner, 2026-10-30)
       if (state.multiCount >= 3 && state.multiCount % 3 === 0) sfx((state.multiCount / 3) % 2 ? "alertA" : "alertB");
       tick(`<b>MULTI x${fmtMult(b.mult)}</b> hits ${(b.cells || []).length} cells`);
+      meterFly(multi);   // The Blizzard: the burst present flies up into the Present Meter
       const lead = 360 / MULTI_RATE;   // the Multi's pop leads; its neighbours follow
       await hold(lead);
       for (const c of hits) { c.classList.add("hit", "winhit"); rigPlay(c, "win", { speed: MULTI_RATE }); xmasPop(c, .55); }
@@ -6377,6 +6952,10 @@ const handlers = {
   // together, or the whole board covered in walls - named before the walls go off
   async wallDrop(ev) {
     const cells = (ev.positions || []).map(p => cellEls[p.reel][Math.min(Math.max(p.row - 1, 0), ROWS - 1)]);
+    if (ev.kind === "santa") { if (!ev._shown) await santaThrow(cells); return; }   // normally played before the reveal   // Santa's Wake-Up (owner, 2026-10-30)
+    if (ev.kind === "sleigh") { if (!ev._shown) await sleighDrop(cells); return; }   // the Bonus's Sleigh Drop (normally played before the reveal)
+    if (ev.kind === "pile") { await presentPile(cells); return; }    // Christmas Morning's Present Pile
+    if (ev.kind === "blizzard") { await blizzardLine(cells); return; }   // The Blizzard's line of presents
     for (const c of cells) c.classList.add("pulse");
     if (ev.kind === "cover") Cam.quake(1);                 // the whole board: the camera rocks back and shakes
     else Cam.sweep(cells, 420 / MULTI_RATE);               // a line: the camera runs along it
@@ -6384,13 +6963,28 @@ const handlers = {
       // no banner over the board (owner, 2026-10-25): the board turning to walls is the announcement
       charReact("big_win");
       sfx("alertA");
-      tick(`<b>FULL WALL</b> \u2014 every cell is a Multi`);
+      tick(`<b>PRESENT AVALANCHE</b> \u2014 every cell is a present`);
       await hold(700 / MULTI_RATE);
     } else {
       sfx("alertB");
-      tick(`<b>WALL LINE</b> \u2014 ${cells.length} Multis in a row`);
+      tick(`<b>PRESENT LINE</b> \u2014 ${cells.length} presents in a row`);
       await hold(420 / MULTI_RATE);
     }
+    for (const c of cells) c.classList.remove("pulse");
+  },
+
+  // Three or more Jolly Scatters in the bonus: more spins (owner, 2026-10-30). The counter's own retrigger
+  // animation runs on the next updateFreeSpin; here the scatters pulse and EXTRA SPINS! lands over the board.
+  async freeSpinRetrigger(ev) {
+    const cells = (ev.positions || []).map(p => cellEls[p.reel][Math.min(Math.max(p.row - 1, 0), ROWS - 1)]);
+    for (const c of cells) c.classList.add("pulse");
+    Cam.trigger(cells);
+    sfx("fsland"); sfx("giftpop", 1.1);
+    charReact("big_win");
+    const more = Math.max(0, (ev.totalFs || 0) - (state.fsTotal || 0));
+    state.fsTotal = ev.totalFs || state.fsTotal;
+    if (BONUS_FX.kind === "std") sleighFly();   // the sleigh comes round again with the extra spins
+    await featureTitle("assets/xmas/ui/title_extra.webp", more ? "+" + more : "", 1700);
     for (const c of cells) c.classList.remove("pulse");
   },
 
@@ -6415,6 +7009,7 @@ const handlers = {
   },
 
   async freeSpinTrigger(ev) {
+    frameMood("fs", 2600);   // three Jolly Scatters: the cane's lights race through the rainbow
     for (const p of ev.positions || []) cellEls[p.reel][p.row - 1].classList.add("pulse");
     state.bonusHit = true;
     Cam.trigger((ev.positions || []).map(p => cellEls[p.reel][p.row - 1]));   // the camera swoops in on the scatters
@@ -6451,6 +7046,7 @@ const handlers = {
     // nobody presses the button in a bonus, so the spin would otherwise start silently with
     // the arrows still idle: give every free spin the note and the lime a press would give
     sfx("spin"); signShake();
+    bonusSpinFx();
     turnSpinArrows();
     $("spinBtn").classList.add("armed");
     paintFsCount(ev.amount + 1, ev.total);   // ticks over; a grown total is a retrigger
@@ -6474,6 +7070,7 @@ const handlers = {
     // the Total Win popup takes it from here: it counts the payout up over the board, lands
     // on TOTAL WIN, waits to be dismissed and clears the counter itself
     await totalWinScreen(cents(ev.amount), { total: true });
+    stopBonusFx();
     musicTo("base", 2.2);   // the bonus loop carries the total; the base game's comes back after it
   },
 
@@ -6779,6 +7376,448 @@ function boardSnow(ms) {
 }
 // Santa wakes (owner, 2026-10-30): on three Jolly Scatters he lifts his head off the bar with a "Ho ho ho!", and on the
 // bonus's total win with a "Merry Christmas!", then goes back to sleep; the music dips under his voice and comes back
+// ---- each bonus has its own world (owner, 2026-10-30), and the bigger the bonus the more happens ----
+//  std  "Sleigh Ride"        (Bonus): soft snow over the bar, Santa's sleigh flies across at the start and on every
+//                            retrigger, a sleigh-bell shake as each free spin starts.
+//  xmas "Christmas Morning"  (250x): warm sunrise light and slowly turning gold rays behind the board, gift-paper
+//                            confetti drifting down, the tree's lights flashing in colour every spin.
+//  ext  "Frozen Blizzard"    (Extreme, the top one): the screen frosts over from its edges, an aurora ripples across
+//                            the top, a two-layer blizzard with wind streaks blows sideways, and every spin starts
+//                            with a howl of wind, a white frost flash and a shiver of the camera.
+const BONUS_FX = { kind: null, el: null, stops: [] };
+function bonusKindNow(extreme) { return extreme ? "ext" : state.mode === "christmas" ? "xmas" : "std"; }
+function startBonusFx(kind) {
+  if (BONUS_FX.kind === kind) return;
+  stopBonusFx(true);
+  BONUS_FX.kind = kind;
+  document.body.classList.add("bfx-" + kind);
+  const el = BONUS_FX.el = document.createElement("div");
+  el.className = "bonusfx " + kind; el.setAttribute("aria-hidden", "true");
+  if (kind === "xmas") el.innerHTML = `<i class="sunrise"></i>`;
+  if (kind === "ext") el.innerHTML = `<i class="flash"></i>`;   // the frost and the aurora live in the scene, behind the board
+  document.body.appendChild(el);
+  if (kind === "ext") snowbarEl();   // The Blizzard's bar along the top of the board
+  if (REDUCED_MOTION) return;
+  if (kind === "std" || kind === "ext") BONUS_FX.stops.push(startSnowfall(el));
+  if (kind === "ext") { BONUS_FX.stops.push(startSnowfall(el)); const w = document.createElement("div"); w.className = "wind";
+    for (let i = 0; i < 26; i++) { const s = document.createElement("i"); s.style.cssText = `top:${(Math.random() * 100).toFixed(1)}%;--d:${(1.1 + Math.random() * 1.4).toFixed(2)}s;--dl:${(-Math.random() * 3).toFixed(2)}s;--l:${(60 + Math.random() * 140).toFixed(0)}px`; w.appendChild(s); }
+    el.appendChild(w); }
+  if (kind === "xmas") { const c = document.createElement("div"); c.className = "giftconfetti"; const COL = ["#d61f2a", "#1f9e46", "#f2c14e", "#fdfbf7"];
+    for (let i = 0; i < 34; i++) { const s = document.createElement("i"); s.style.cssText = `left:${(Math.random() * 100).toFixed(1)}%;background:${COL[i % 4]};--d:${(7 + Math.random() * 6).toFixed(2)}s;--dl:${(-Math.random() * 12).toFixed(2)}s;--sw:${(20 + Math.random() * 50).toFixed(0)}px;--rx:${(Math.random() * 720).toFixed(0)}deg`; c.appendChild(s); }
+    el.appendChild(c); }
+  if (kind === "std") sleighFly();
+  if (kind === "ext" || kind === "xmas") bonusScene(kind);
+}
+// Two bonuses move the game somewhere else (owner, 2026-10-30), the two in the bar stepping out of sight while they do:
+//  ext  - outside the bar's front in a night-time blizzard: Santa and Mrs. Claus out in the snow, hugging themselves and
+//         shivering, their breath puffing white, snow blowing past;
+//  xmas - a cabin living room on Christmas morning: sun through the frosty window, the fire crackling, Santa in his
+//         pyjamas and robe waving with a steaming mug of cocoa, Mrs. Claus holding up the scarf she has just unwrapped.
+// The scene sits over the bar's picture, under the board.
+const BONUS_SCENES = {
+  ext: { bg: "blizzard_bg", left: "mrs_cold", right: "santa_cold", snow: 2 },
+  xmas: { bg: "morning_bg", left: "mrs_morning", right: "santa_morning", snow: 0 },
+};
+function bonusScene(kind) {
+  const old = $("bonusscene");
+  if (old) { old.classList.remove("on"); document.body.classList.remove("away"); old.id = ""; setTimeout(() => { (old._snow || []).forEach(f => f()); old.remove(); }, 1200); }
+  const cfg = BONUS_SCENES[kind]; if (!cfg) return;
+  const sc = document.createElement("div"); sc.id = "bonusscene"; sc.className = "bscene " + kind; sc.setAttribute("aria-hidden", "true");
+  sc.innerHTML = `<div class="bzpic" style="background-image: linear-gradient(rgba(10,16,34,.08), rgba(10,16,34,.3)), url('assets/xmas/ui/${cfg.bg}.webp')"></div>` +
+    (kind === "xmas" ? `<i class="fireglow"></i><i class="sunbeam"></i>` : "") +
+    (kind === "ext" ? `<i class="aurora a1"></i><i class="aurora a2"></i>` : "") + `<div class="bzsnow"></div>` +
+    `<div class="bzchar left"><img src="assets/xmas/ui/${cfg.left}.webp" alt="" draggable="false"><i class="breath"></i></div>` +
+    `<div class="bzchar right"><img src="assets/xmas/ui/${cfg.right}.webp" alt="" draggable="false"><i class="breath"></i>${kind === "xmas" ? '<i class="steam s1"></i><i class="steam s2"></i><i class="steam s3"></i>' : ""}</div>` +
+    // (owner, 2026-10-30: no pile of presents beside Santa on Christmas morning)
+    (kind === "ext" ? `<i class="frostedge"></i>` : "");
+  $("bgwall").after(sc);
+  if (!REDUCED_MOTION) sc._snow = Array.from({ length: cfg.snow }, () => startSnowfall(sc.querySelector(".bzsnow")));
+  restyle(sc); sc.classList.add("on"); document.body.classList.add("away");
+}
+function stopBonusFx(now) {
+  if ($("presentMeter")) $("presentMeter").remove();
+  if ($("snowbar")) $("snowbar").remove();
+  if (!BONUS_FX.kind) return;
+  bonusScene(null);
+  document.body.classList.remove("bfx-" + BONUS_FX.kind);
+  BONUS_FX.stops.forEach(f => { try { f(); } catch (e) { /* gone */ } }); BONUS_FX.stops = [];
+  const el = BONUS_FX.el; BONUS_FX.el = null; BONUS_FX.kind = null;
+  if (el) { el.classList.add("gone"); setTimeout(() => el.remove(), now ? 0 : 900); }
+}
+// Santa's sleigh and two reindeer sweep across the top of the screen on a long arc, trailing sparkles
+function sleighFly(ms = 3400, atY = null) {
+  const none = { when: () => 0, at: x => [x, atY || innerHeight / 2] };
+  if (REDUCED_MOTION || document.hidden) return none;
+  const g = document.createElement("img"); g.className = "sleighfly"; g.src = "assets/xmas/ui/sleigh.webp"; g.alt = "";
+  document.body.appendChild(g);
+  // through the middle of the screen (owner, 2026-10-30), not along the top
+  const w = Math.min(innerWidth * .34, 460), y0 = (atY != null ? atY : innerHeight * (.42 + Math.random() * .08)) - w * .3, frames = [];
+  for (let k = 0; k <= 30; k++) { const u = k / 30, x = -w + (innerWidth + w * 2) * u, y = y0 - Math.sin(u * Math.PI) * innerHeight * .07;
+    frames.push({ transform: `translate(${x.toFixed(0)}px, ${y.toFixed(0)}px) rotate(${(-6 + 4 * Math.cos(u * Math.PI)).toFixed(1)}deg)`, offset: u }); }
+  g.style.width = w + "px";
+  const a = g.animate(frames, { duration: ms * (ms < 3000 ? tempo() : 1), easing: "linear" });
+  sfx("fsland", .9); if (ms >= 3000) setTimeout(() => sfx("sym_L4", .9), 900);
+  const sp = setInterval(() => {   // the sparkle trail
+    const r = g.getBoundingClientRect(); if (!r.width) return;
+    const s = document.createElement("i"); s.className = "sleighspark";
+    s.style.left = (r.left + r.width * .08) + "px"; s.style.top = (r.top + r.height * .7) + "px";
+    document.body.appendChild(s); setTimeout(() => s.remove(), 900);
+  }, 60);
+  a.finished.finally(() => { clearInterval(sp); g.remove(); });
+  // where the sleigh is: when its middle passes a given x (ms from now), and the point under it then
+  const dur = ms * (ms < 3000 ? tempo() : 1), span = innerWidth + w * 2;
+  const uAt = x => Math.max(0, Math.min(1, (x - w * .5 + w) / span));
+  return { when: x => uAt(x) * dur, at: x => { const u = uAt(x); return [x, y0 - Math.sin(u * Math.PI) * innerHeight * .07 + w * .32]; } };
+}
+// each free spin starts in its bonus's own way
+function bonusSpinFx() {
+  const k = BONUS_FX.kind; if (!k || REDUCED_MOTION) return;
+  if (k === "std") sfx("fsland", .8);
+  if (k === "xmas") { treeFlash(1000); sfx("jinglepop", 1.1); }
+  if (k === "ext") {
+    sfx("chill", .9);
+    const f = BONUS_FX.el && BONUS_FX.el.querySelector(".flash");
+    if (f) { f.classList.remove("on"); restyle(f); f.classList.add("on"); }
+    try { Cam.quake(.35); } catch (e) { /* no camera */ }
+  }
+}
+// Presents flying in to their cells (each lands as the Multi already there, which is hidden until it does).
+// from(i) gives each one's start in page space; the path is an arc peaking `lift` px above the higher end.
+function flyPresents(cells, from, { gap = 140, ms = 620, lift = 160, spin = 1, sound = "giftpop", rate = 1.15, scale0 = .45 } = {}) {
+  for (const c of cells) c.classList.add("santahide");
+  return Promise.all(cells.map((c, i) => new Promise(done => {
+    const cr = c.getBoundingClientRect(), size = Math.max(36, cr.width * .9), ex = cr.left + cr.width / 2, ey = cr.top + cr.height / 2;
+    const land = () => { g.remove(); c.classList.remove("santahide"); c.classList.add("pulse"); sfx("pop", .9 + i * .06); setTimeout(() => c.classList.remove("pulse"), 500); done(); };
+    const g = document.createElement("img"); g.className = "santagift"; g.src = "assets/flat/M.webp"; g.alt = "";
+    Object.assign(g.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px", opacity: 0 });
+    document.body.appendChild(g);
+    if (REDUCED_MOTION) { land(); return; }
+    setTimeout(() => {
+      const [sx, sy] = from(i), peak = Math.min(sy, ey) - lift, turn = (Math.random() < .5 ? -1 : 1) * 360 * Math.max(0, Math.round(spin)), frames = [];   // whole turns: it lands face up
+      for (let k = 0; k <= 20; k++) { const t = k / 20, x = sx + (ex - sx) * t, y = (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * peak + t * t * ey;
+        frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(turn * t).toFixed(0)}deg) scale(${(scale0 + (1 - scale0) * t).toFixed(3)})`, opacity: 1, offset: t }); }
+      if (sound) sfx(sound, rate + i * .04);
+      g.animate(frames, { duration: ms * tempo(), easing: "cubic-bezier(.35,.1,.6,1)", fill: "forwards" }).finished.then(land, land);
+    }, i * gap * tempo());
+  })));
+}
+// The Bonus's Sleigh Drop: the sleigh swoops low over the board and lets its presents fall straight down onto their cells
+async function sleighDrop(cells) {
+  // the sleigh flies right across the middle of the board (owner, 2026-10-30), and each present falls from it the
+  // moment it passes over that present's column
+  const b = $("board").getBoundingClientRect(), midY = b.top + b.height * .5;
+  if (REDUCED_MOTION) { await flyPresents(cells, () => [0, 0]); return; }
+  const path = sleighFly(1900, midY);
+  const drops = cells.map(c => new Promise(done => {
+    const r = c.getBoundingClientRect(), cx = r.left + r.width / 2;
+    setTimeout(() => { const [x, y] = path.at(cx); flyPresents([c], () => [x, y], { gap: 0, ms: 460, lift: 10, spin: .35, sound: "fsland", rate: 1.2 }).then(done); }, path.when(cx));
+  }));
+  for (const c of cells) c.classList.add("santahide");   // hidden until its present lands
+  await Promise.all(drops);
+}
+// The sleigh's run ahead of the symbols: the board empties, the sleigh flies across its middle and each present falls
+// from it onto its square as it passes, and sits there while the new symbols drop in around it. Returns the presents.
+async function sleighPreDrop(cells) {
+  const board = $("board"), b = board.getBoundingClientRect(), midY = b.top + b.height * .5;
+  board.classList.add("cleared");
+  const gifts = [];
+  if (REDUCED_MOTION || state.skip) return gifts;
+  await hold(180);
+  const path = sleighFly(1900, midY);
+  await Promise.all(cells.map((c, i) => new Promise(done => {
+    const r = c.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, size = Math.max(36, r.width * .9);
+    setTimeout(() => {
+      const [sx, sy] = path.at(cx);
+      const g = document.createElement("img"); g.className = "santagift"; g.src = "assets/flat/M.webp"; g.alt = "";
+      Object.assign(g.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
+      document.body.appendChild(g); gifts.push(g);
+      sfx("fsland", 1.15 + i * .05);
+      const turn = (Math.random() < .5 ? -1 : 1) * (120 + Math.random() * 120), frames = [];
+      for (let k = 0; k <= 16; k++) { const t = k / 16, x = sx + (cx - sx) * t, y = sy + (cy - sy) * t * t;
+        frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(turn * (1 - t)).toFixed(0)}deg) scale(${(.5 + .5 * t).toFixed(3)})`, offset: t }); }
+      g.animate(frames, { duration: 480 * tempo(), easing: "linear", fill: "forwards" }).finished.catch(() => {}).then(() => {
+        sfx("pop", .95 + i * .06); xmasPop(c, .6);
+        done();
+      });
+    }, path.when(cx));
+  })));
+  await hold(220);
+  return gifts;
+}
+// Christmas Morning's Present Pile: a burst at the top of the board, and the presents tumble out of it onto their cells
+async function presentPile(cells) {
+  const b = $("board").getBoundingClientRect(), ox = b.left + b.width / 2, oy = b.top + 10;
+  const p = document.createElement("img"); p.className = "pilegift"; p.src = "assets/xmas/ui/morning.webp"; p.alt = "";
+  Object.assign(p.style, { left: ox + "px", top: oy + "px" }); document.body.appendChild(p);
+  if (!REDUCED_MOTION) p.animate([{ transform: "translate(-50%,-50%) scale(.2)", opacity: 0 }, { transform: "translate(-50%,-50%) scale(1.15)", opacity: 1, offset: .35 },
+    { transform: "translate(-50%,-50%) scale(1)", opacity: 1, offset: .7 }, { transform: "translate(-50%,-50%) scale(1.3)", opacity: 0 }], { duration: 1400 * tempo(), fill: "forwards" });
+  setTimeout(() => p.remove(), 1500 * tempo());
+  sfx("jinglepop");
+  await hold(REDUCED_MOTION ? 0 : 280);
+  await flyPresents(cells, () => [ox, oy], { gap: 110, ms: 600, lift: 120, sound: "giftpop", rate: 1.2 });
+}
+// The Blizzard's presents (owner, 2026-10-30): nobody throws them - 5 presents simply appear on random squares after
+// the symbols have landed, one after another, each in a puff of snow with a frosty chime
+async function blizzardLine(cells) {
+  sfx("chill", .85);
+  for (const c of cells) c.classList.add("santahide");
+  await Promise.all(cells.map((c, i) => new Promise(done => {
+    setTimeout(() => {
+      c.classList.remove("santahide");
+      xmasPop(c, .7); sfx("frostland", 1 + i * .06);
+      if (!REDUCED_MOTION) c.animate([{ scale: .2, opacity: 0, filter: "brightness(2.2)" }, { scale: 1.18, opacity: 1, offset: .55, filter: "brightness(1.4)" }, { scale: 1, filter: "none" }],
+        { duration: 420 * tempo(), easing: "cubic-bezier(.2,.9,.3,1.3)" });
+      c.classList.add("frozen"); setTimeout(() => c.classList.remove("frozen"), 700);
+      done();
+    }, (REDUCED_MOTION || state.skip) ? 0 : i * 170 * tempo());
+  })));
+  await hold(360);
+}
+async function snowballThrows(ev) {
+  const board = $("board"), throws = ev.throws || [];
+  board.classList.add("cleared");   // the spin has started: the old symbols are gone, the squares wait
+  const santa = document.querySelector("#bonusscene.xmas .bzchar.right"), simg = santa && santa.querySelector("img");
+  const grid = (state.grid && state.grid.length ? state.grid : Array.from({ length: REELS }, () => Array(ROWS).fill(0))).map(c => c.slice());
+  for (const [i, th] of throws.entries()) {
+    const target = cellEls[th.reel][Math.min(Math.max(th.row - 1, 0), ROWS - 1)];
+    // Santa stoops to the pile, then straightens and throws
+    if (simg && !REDUCED_MOTION) {
+      simg.animate([{ transform: "none" }, { transform: "translate(-8%, 10%) rotate(-14deg)", offset: .35 }, { transform: "translate(-6%, 9%) rotate(-12deg)", offset: .5 },
+        { transform: "translate(4%, -3%) rotate(9deg)", offset: .8 }, { transform: "none" }], { duration: 760 * tempo(), easing: "ease-in-out" });
+      await hold(560);
+    }
+    const sr = simg ? simg.getBoundingClientRect() : { left: innerWidth * .85, top: innerHeight * .5, width: 1, height: 1 };
+    const sx = sr.left + sr.width * .22, sy = sr.top + sr.height * .3;
+    const tr = target.getBoundingClientRect(), ex = tr.left + tr.width / 2, ey = tr.top + tr.height / 2, size = Math.max(28, tr.width * .55);
+    const ball = document.createElement("img"); ball.className = "santagift"; ball.src = "assets/flat/M.webp"; ball.alt = "";   // a present from his pile
+    Object.assign(ball.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
+    document.body.appendChild(ball);
+    sfx("fsland", 1.05 + i * .05);   // a jingle as he tosses it
+    if (!REDUCED_MOTION) {
+      const peak = Math.min(sy, ey) - 140, frames = [];
+      for (let k = 0; k <= 20; k++) { const t = k / 20, x = sx + (ex - sx) * t, y = (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * peak + t * t * ey;
+        frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(-360 * t).toFixed(0)}deg) scale(${(.6 + .5 * t).toFixed(2)})`, offset: t }); }
+      await ball.animate(frames, { duration: 560 * tempo(), easing: "cubic-bezier(.4,.1,.7,1)", fill: "forwards" }).finished.catch(() => {});
+    }
+    ball.remove();
+    // it bursts open on the square it hit - confetti, candy canes, sleigh bells - and its value goes on that square and the four around it
+    sfx("giftpop", 1 + i * .05);
+    xmasPop(target, 1);
+    try { Cam.quake(.2); } catch (e) { /* no camera */ }
+    for (const c of th.cells || []) {
+      const r = c.reel, y = Math.min(Math.max(c.row - 1, 0), ROWS - 1);
+      if (grid[r]) grid[r][y] = Math.round(((grid[r][y] || 0) + (th.mult || 0)) * 100) / 100;
+    }
+    state.grid = grid.map(c => c.slice()); paintGrid();
+    for (const c of th.cells || []) {
+      const g = multEls[c.reel] && multEls[c.reel][Math.min(Math.max(c.row - 1, 0), ROWS - 1)];
+      if (g) { g.classList.remove("drop"); restyle(g); g.classList.add("drop"); }
+    }
+    await hold(260);
+  }
+  if (ev.gridMults) { state.grid = ev.gridMults.map(c => c.slice()); paintGrid(); }   // the server's grid is the truth
+  await hold(200);
+}
+// The Blizzard's bar (owner, 2026-10-30): a candy-cane rail across the top of the board with 20 snowball slots.
+// Every present that bursts flies up and fills the next slot. The 10th present of each bar (the 10th and the 30th of the bonus) adds 5 spins
+// (their slots wear a +5). When the bar fills, the lowest-paying symbol still in play freezes, shatters and leaves
+// the bonus for good, and the bar empties and starts over. The right end counts the presents left to fill it.
+const SNOWBAR = { step: 20, order: ["L10", "L9"], spinsEvery: 10, spinsMax: 2 };   // +5 at the 10th present of each bar (the 10th and the 30th)   // matches the math (blizzard_remove_*)
+function snowbarEl() {
+  let bar = $("snowbar");
+  if (bar) return bar;
+  bar = document.createElement("div"); bar.id = "snowbar"; bar.className = "snowbar"; bar.setAttribute("aria-hidden", "true");
+  let slots = "";
+  for (let k = 1; k <= SNOWBAR.step; k++) slots += `<i class="sbslot${k === SNOWBAR.step ? " end" : ""}" data-k="${k}"><img class="sbgift" src="assets/flat/M.webp" alt="" draggable="false"><b class="sbplus">+5</b></i>`;
+  bar.innerHTML = `<div class="sbgone"></div><div class="sbrail">${slots}<span class="sbnext"><img alt="" draggable="false"><em>FULL</em></span></div><div class="sbleft"><b>20</b><small>LEFT</small></div>`;
+  $("board").appendChild(bar);
+  bar._s = { fill: 0, done: 0, spinsAt: 10 };
+  paintSnowbar(bar);
+  return bar;
+}
+function paintSnowbar(bar) {
+  const st = bar._s, maxed = st.done >= SNOWBAR.order.length;
+  bar.querySelectorAll(".sbslot").forEach(el => {
+    const k = +el.dataset.k, abs = st.done * SNOWBAR.step + k;
+    el.classList.toggle("on", maxed || k <= st.fill);
+    el.classList.toggle("cp", st.spinsAt != null && abs === st.spinsAt);   // the +5 sits on the 10th slot of the bar while it still pays
+  });
+  const nx = bar.querySelector(".sbnext");
+  if (maxed) { nx.hidden = true; } else { nx.hidden = false; nx.querySelector("img").src = SYM[SNOWBAR.order[st.done]].img; }
+  bar.querySelector(".sbleft b").textContent = maxed ? "MAX" : String(Math.max(0, SNOWBAR.step - st.fill));
+  bar.querySelector(".sbleft small").textContent = maxed ? "" : "LEFT";
+}
+// a burst present flies up into the next slot
+function meterFly(cell) {
+  if (BONUS_FX.kind !== "ext" || !cell) return;
+  const bar = snowbarEl(), st = bar._s;
+  if (st.done >= SNOWBAR.order.length || st.fill >= SNOWBAR.step) return;
+  const slot = bar.querySelector(`.sbslot[data-k="${st.fill + 1}"]`);
+  st.fill++;
+  const land = () => { paintSnowbar(bar); slot.classList.remove("gulp"); restyle(slot); slot.classList.add("gulp"); };
+  if (REDUCED_MOTION || state.skip) { land(); return; }
+  const a = cell.getBoundingClientRect(), z = slot.getBoundingClientRect(), size = Math.max(22, a.width * .42);
+  const g = document.createElement("img"); g.className = "santagift"; g.src = "assets/flat/M.webp"; g.alt = "";
+  Object.assign(g.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
+  document.body.appendChild(g);
+  const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, x1 = z.left + z.width / 2, y1 = z.top + z.height / 2;
+  const mx = (x0 + x1) / 2 + (x1 > x0 ? -50 : 50), my = Math.min(y0, y1) - 60, frames = [], end = Math.max(.3, z.width / size);
+  for (let k = 0; k <= 16; k++) { const t = k / 16, u = 1 - t;
+    frames.push({ transform: `translate(${(u * u * x0 + 2 * u * t * mx + t * t * x1).toFixed(1)}px, ${(u * u * y0 + 2 * u * t * my + t * t * y1).toFixed(1)}px) rotate(${(360 * t).toFixed(0)}deg) scale(${(1 + (end - 1) * t).toFixed(2)})`, offset: t }); }
+  g.animate(frames, { duration: 600 * tempo(), easing: "cubic-bezier(.45,0,.6,1)", fill: "forwards" }).finished.catch(() => {})
+    .then(() => { g.remove(); land(); sfx("giftpop", 1.5 + Math.min(st.fill, 20) * .02); });
+}
+// the bar is full: the symbol at its end freezes over the board and shatters - out of the bonus for good
+async function snowbarRemove(bar, sym) {
+  const name = (window.RULES && RULES.NAMES && RULES.NAMES[sym]) || (SYM[sym] || {}).label || sym;
+  bar.classList.add("full"); sfx("fsland", 1);
+  await hold(REDUCED_MOTION ? 100 : 500);
+  const b = $("board").getBoundingClientRect(), src = bar.querySelector(".sbnext img").getBoundingClientRect();
+  const size = Math.min(b.width, b.height) * .42, cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+  const w = document.createElement("div"); w.className = "sbfreeze";
+  Object.assign(w.style, { width: size + "px", height: size + "px", left: cx - size / 2 + "px", top: cy - size / 2 + "px" });
+  w.innerHTML = [0, 1, 2, 3].map(q => `<img class="q q${q}" src="${SYM[sym].img}" alt="" draggable="false">`).join("") + `<i class="ice"></i>`;
+  document.body.appendChild(w);
+  tick(`<b>${name.toUpperCase()}</b> is out of the bonus`);
+  if (!REDUCED_MOTION) {
+    // from the end of the bar to the middle of the board, growing
+    const k0 = src.width / size;
+    await w.animate([{ transform: `translate(${src.left + src.width / 2 - cx}px, ${src.top + src.height / 2 - cy}px) scale(${k0})` }, { transform: "none" }],
+      { duration: 520, easing: "cubic-bezier(.2,.9,.3,1.15)" }).finished.catch(() => {});
+    sfx("frostland", .9); w.classList.add("frozen");          // it frosts over
+    await w.animate([{ rotate: "0deg" }, { rotate: "-3deg" }, { rotate: "3deg" }, { rotate: "-2deg" }, { rotate: "2deg" }, { rotate: "0deg" }], { duration: 560 }).finished.catch(() => {});
+    sfx("pop", .7); sfx("chill", 1.2); xmasPop(cellEls[3][3], 2.2);
+    try { Cam.quake(.4); } catch (e) { /* no camera */ }
+    const dirs = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
+    await Promise.all([...w.querySelectorAll(".q")].map((q, i) => q.animate([{ transform: "none", opacity: 1 },
+      { transform: `translate(${dirs[i][0] * size * .8}px, ${dirs[i][1] * size * .6 + size * .5}px) rotate(${dirs[i][0] * 70}deg) scale(.6)`, opacity: 0 }],
+      { duration: 700, easing: "cubic-bezier(.3,.6,.5,1)", fill: "forwards" }).finished.catch(() => {})));
+    w.querySelector(".ice").remove();
+  }
+  w.remove();
+  const gone = document.createElement("img"); gone.src = SYM[sym].img; gone.alt = name; bar.querySelector(".sbgone").appendChild(gone);
+  // the bar empties, right to left, and starts over
+  bar.classList.remove("full");
+  const on = [...bar.querySelectorAll(".sbslot.on")].reverse();
+  for (const el of on) { el.classList.remove("on"); if (!REDUCED_MOTION) await hold(18); }
+}
+// Santa's Sack (owner, 2026-10-30): very rare. Once the board has paid, the sack opens and sucks in every symbol on the
+// board - nearest first, each one shrinking and spinning into the sack - then +2 lands on every square. The tumble that
+// follows clears the board (only the scatters stay) and drops fresh symbols onto the new multipliers.
+async function sackCollect(ev) {
+  const y0 = Math.min(Math.max((ev.row || 1) - 1, 0), ROWS - 1), sackCell = cellEls[ev.reel] && cellEls[ev.reel][y0];
+  if (!sackCell) { if (ev.gridMults) { state.grid = ev.gridMults.map(c => c.slice()); paintGrid(); } return; }
+  const board = $("board");
+  santaWake("hohoho"); charReact("big_win");
+  sackCell.classList.add("sackopen");
+  sfx("sym_H1");
+  // no lettering: the sack symbol itself swells on its square and bounces before it opens
+  if (!REDUCED_MOTION) await sackCell.animate([{ transform: "scale(1)" }, { transform: "scale(1.35) rotate(-6deg)", offset: .4 },
+    { transform: "scale(1.25) rotate(6deg)", offset: .7 }, { transform: "scale(1.15)" }], { duration: 700 * tempo(), easing: "ease-out" }).finished.catch(() => {});
+  // the rope falls loose and the sack opens: gold light pours up out of it while it collects
+  const sackImg = sackCell.querySelector(".ico img"), closedSrc = sackImg && sackImg.src;
+  if (sackImg) sackImg.src = "assets/xmas/wfx/H1_open.webp";
+  const beam = document.createElement("i"); beam.className = "sackbeam"; beam.setAttribute("aria-hidden", "true"); sackCell.appendChild(beam);
+  sfx("jinglepop");
+  const sr = sackCell.getBoundingClientRect(), sx = sr.left + sr.width / 2, sy = sr.top + sr.height * .3;   // into the open mouth
+  // every symbol but the sack itself and the scatters goes in, the closest first
+  const cells = [];
+  for (let r = 0; r < REELS; r++) for (let y = 0; y < ROWS; y++) {
+    if (r === ev.reel && y === y0) continue;
+    const c = cellEls[r][y], img = c && c.querySelector(".ico img");
+    if (!img || /^(BS|ES)$/.test(img.dataset.sym || "")) continue;
+    cells.push({ c, img, d: Math.hypot(r - ev.reel, y - y0) });
+  }
+  cells.sort((a, b) => a.d - b.d);
+  const flights = cells.map(({ c, img, d }, i) => new Promise(done => {
+    const at = d * 70 * tempo();
+    setTimeout(() => {
+      const cr = img.getBoundingClientRect(), size = cr.width;
+      const ghost = img.cloneNode(); ghost.className = "santagift sackfly"; ghost.removeAttribute("data-sym");
+      Object.assign(ghost.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
+      document.body.appendChild(ghost);
+      c.classList.add("sacked");
+      if (i % 4 === 0) sfx("giftpop", 1.3 + Math.min(i, 30) * .015);
+      const x0 = cr.left + cr.width / 2, y1 = cr.top + cr.height / 2;
+      if (REDUCED_MOTION) { ghost.remove(); done(); return; }
+      ghost.animate([
+        { transform: `translate(${x0}px, ${y1}px) rotate(0deg) scale(1)`, opacity: 1 },
+        { transform: `translate(${x0 + (sx - x0) * .45}px, ${y1 + (sy - y1) * .45 - 30}px) rotate(200deg) scale(.75)`, opacity: 1, offset: .5 },
+        { transform: `translate(${sx}px, ${sy}px) rotate(420deg) scale(.12)`, opacity: .2 },
+      ], { duration: 520 * tempo(), easing: "cubic-bezier(.5,0,.85,.6)", fill: "forwards" }).finished.catch(() => {}).then(() => { ghost.remove(); done(); });
+    }, REDUCED_MOTION ? 0 : at);
+  }));
+  // the sack gulps while they fly in
+  const gulp = REDUCED_MOTION ? null : sackCell.animate([{ transform: "scale(1)" }, { transform: "scale(1.18, .9)" }, { transform: "scale(.94, 1.1)" }, { transform: "scale(1)" }],
+    { duration: 300, iterations: Math.max(2, Math.ceil(cells.length / 8)), easing: "ease-in-out" });
+  await Promise.all(flights);
+  if (gulp) gulp.cancel();
+  sfx("sym_H1", 1.1); xmasPop(sackCell, 2);
+  beam.classList.add("burst");   // the light flares as the last one goes in
+  try { Cam.quake(.35); } catch (e) { /* no camera */ }
+  // +2 rains down on every square, in a sweep out from the sack
+  const grid = ev.gridMults ? ev.gridMults.map(c => c.slice()) : (state.grid || []).map(col => col.map(v => Math.round(((v || 0) + (ev.mult || 2)) * 100) / 100));
+  state.grid = grid; paintGrid();
+  const all = [];
+  for (let r = 0; r < REELS; r++) for (let y = 0; y < ROWS; y++) { const g = multEls[r] && multEls[r][y]; if (g) all.push({ g, d: Math.hypot(r - ev.reel, y - y0) }); }
+  for (const { g, d } of all) {
+    g.classList.remove("drop"); restyle(g);
+    if (REDUCED_MOTION) continue;
+    setTimeout(() => g.classList.add("drop"), d * 45 * tempo());
+  }
+  sfx("giftpop", .9);
+  await hold(REDUCED_MOTION ? 300 : 900);
+  beam.remove(); if (sackImg && closedSrc) sackImg.src = closedSrc;
+  sackCell.classList.remove("sackopen"); sackCell.classList.add("sacked");
+}
+// A feature's name lands over the board in the drawn Christmas lettering, with an optional figure under it
+function featureTitle(src, figure, ms) {
+  return new Promise(done => {
+    const board = $("board"); if (!board) { done(); return; }
+    const w = document.createElement("div"); w.className = "feattitle"; w.setAttribute("aria-hidden", "true");
+    w.innerHTML = `<img src="${src}" alt="" draggable="false">` + (figure ? `<div class="ftfig">${numeralRow(String(figure).replace("+", ""))}</div>` : "");
+    if (figure && String(figure).startsWith("+")) w.classList.add("plus");
+    board.appendChild(w);
+    restyle(w); w.classList.add("in");
+    setTimeout(() => { w.classList.add("out"); setTimeout(() => { w.remove(); done(); }, 420); }, REDUCED_MOTION ? 900 : ms);
+  });
+}
+// Santa's Wake-Up (owner, 2026-10-30): on a random spin Santa lifts his head at the bar, laughs, and lobs presents onto
+// the board - each one flies from him on an arc, spinning, and lands on its cell as the Multi that is already there.
+async function santaThrow(cells, { keep = false } = {}) {   // keep: before the reveal - the presents stay where they land
+  const ghosts = [];
+  if (!keep) for (const c of cells) c.classList.add("santahide");
+  santaWake("hohoho");
+  charReact("big_win");
+  const title = featureTitle("assets/xmas/ui/title_woke.webp", "", 1500);
+  const fx = document.querySelector("#bgwall .barfx");
+  const r = fx ? fx.getBoundingClientRect() : { left: innerWidth * .8, top: innerHeight * .4, width: 1, height: 1 };
+  const sx = fx ? r.left + r.width * 3480 / BAR_PIC[0] : r.left, sy = fx ? r.top + r.height * 1250 / BAR_PIC[1] : r.top;
+  await hold(REDUCED_MOTION ? 0 : 650);
+  const flights = cells.map((c, i) => new Promise(done => {
+    const cr = c.getBoundingClientRect(), size = Math.max(36, cr.width * .82);
+    const ex = cr.left + cr.width / 2, ey = cr.top + cr.height / 2;
+    const g = document.createElement("img"); g.className = "santagift"; g.src = "assets/flat/M.webp"; g.alt = "";
+    Object.assign(g.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
+    document.body.appendChild(g);
+    const land = keep ? () => { ghosts.push(g); sfx("pop", .9 + i * .06); xmasPop(c, .6); done(); }
+      : () => { g.remove(); c.classList.remove("santahide"); c.classList.add("pulse"); sfx("pop", .9 + i * .06); setTimeout(() => c.classList.remove("pulse"), 500); done(); };
+    if (REDUCED_MOTION) { land(); return; }
+    const peak = Math.min(sy, ey) - 160 - Math.random() * 80, spin = (Math.random() < .5 ? -1 : 1) * (Math.random() < .5 ? 360 : 720);   // whole turns: it lands face up
+    const frames = [];
+    for (let k = 0; k <= 20; k++) {
+      const t = k / 20, x = sx + (ex - sx) * t, y = (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * peak + t * t * ey;
+      frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(spin * t).toFixed(0)}deg) scale(${(.45 + .55 * t).toFixed(3)})`, offset: t });
+    }
+    setTimeout(() => {
+      sfx("giftpop", 1.15 + i * .04);
+      g.animate(frames, { duration: 620 * tempo(), easing: "cubic-bezier(.35,.1,.6,1)", fill: "forwards" }).finished.then(land, land);
+    }, i * 140 * tempo());
+  }));
+  await Promise.all(flights);
+  await title;
+  return ghosts;
+}
 function santaWake(line) {
   const ms = line === "merry" ? 3300 : 3200;
   if (window.__santa && window.__santa.wake && !REDUCED_MOTION) window.__santa.wake(ms);
@@ -6818,7 +7857,9 @@ function barScenery() {
       + `<img class="ca" src="${WFX}tree_lights_a.webp" alt=""><img class="cb" src="${WFX}tree_lights_b.webp" alt=""></div>`
       + `<i class="treestar" style="${box(588 - 150, 568 - 150, 588 + 150, 568 + 150)}"></i>`
       + `<div class="winfx" style="${box(3360, 60, 3840, 560)}"><b></b></div>`
-      + `<i class="kegs" style="${box(1920 - 485, 1645 - 330, 1920 + 485, 1645)}"></i>`;   // metal beer kegs standing in a row against the wall under the sign
+      + `<i class="elfbar" style="${box(3140, 870, 3392, 1290)}"></i>`   // an elf tends the bar, behind the counter, polishing a glass (owner, 2026-10-30)
+      + `<i class="milk" style="${box(2868, 1190, 2948, 1308)}"></i>`   // a glass of milk on the counter beside Santa (owner, 2026-10-30)
+      + `<i class="kegs" style="${box(1920 - 500, 1770 - 340, 1920 + 500, 1770)}"></i>`;   // standing on the floorboards in front of the wall (owner, 2026-10-30: they floated at the wall line)   // metal beer kegs standing in a row against the wall under the sign
     wall.insertBefore(fx, $("walltag"));   // over the picture, under the sign (its red light falls on the kegs) and Santa
     const win = fx.querySelector(".winfx");
     for (let i = 0; i < 46; i++) {
@@ -6885,44 +7926,54 @@ function drawWinLine(positions) {
     const c = cellCentre(p.reel, Math.min(Math.max(p.row - 1, 0), ROWS - 1));
     return { x: c.x - BURST_PAD, y: c.y - BURST_PAD, reel: p.reel, row: p.row };
   });
-  const left = pts.sort((a, b) => a.reel - b.reel || a.row - b.row);
-  const path = [left.shift()];
-  while (left.length) {
-    const last = path[path.length - 1];
-    let bi = 0, bd = Infinity;
-    left.forEach((q, i) => { const d = Math.abs(q.x - last.x) + Math.abs(q.y - last.y); if (d < bd) { bd = d; bi = i; } });
-    path.push(left.splice(bi, 1)[0]);
+  // The garland only runs straight down the middle of the squares (owner, 2026-10-30): from each square's centre to
+  // the centre of a touching square - across or up and down, never cutting a corner or jumping a gap. The squares are
+  // joined by a tree grown out from the first one, so every square of the cluster is on it and no stretch is laid twice.
+  const key = q => q.reel + ":" + q.row, at = new Map(pts.map(q => [key(q), q]));
+  const start = pts.slice().sort((a, b) => a.reel - b.reel || a.row - b.row)[0];
+  const seen = new Set([key(start)]), queue = [start], edges = [];
+  while (queue.length) {
+    const q = queue.shift();
+    for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nb = at.get((q.reel + dr) + ":" + (q.row + dc));
+      if (nb && !seen.has(key(nb))) { seen.add(key(nb)); edges.push([q, nb]); queue.push(nb); }
+    }
   }
+  if (!edges.length) return 0;
   let total = 0;
-  for (let i = 1; i < path.length; i++) total += Math.max(1, Math.round(Math.hypot(path[i].x - path[i - 1].x, path[i].y - path[i - 1].y) / LINE_DOT_STEP));
+  for (const [a, b] of edges) total += Math.max(1, Math.round(Math.hypot(b.x - a.x, b.y - a.y) / LINE_DOT_STEP));
   const gap = Math.min(LINE_DOT_GAP, LINE_DRAW_MAX / Math.max(1, total));
   const frag = document.createDocumentFragment(), mist = document.createDocumentFragment();
   let n = 0;
-  for (let i = 1; i < path.length; i++) {
-    const a = path[i - 1], b = path[i];
+  const drawn = new Set();
+  for (const [a, b] of edges) {
     const k = Math.max(1, Math.round(Math.hypot(b.x - a.x, b.y - a.y) / LINE_DOT_STEP));
-    for (let j = (i === 1 ? 0 : 1); j <= k; j++) {
-      const u = j / k, d = document.createElement("i");
-      d.style.left = (a.x + (b.x - a.x) * u + (Math.random() - .5) * 3).toFixed(1) + "px";
-      d.style.top = (a.y + (b.y - a.y) * u + (Math.random() - .5) * 3).toFixed(1) + "px";
+    for (let j = 0; j <= k; j++) {
+      const u = j / k, x = a.x + (b.x - a.x) * u, y = a.y + (b.y - a.y) * u, id = x.toFixed(0) + "," + y.toFixed(0);
+      if (drawn.has(id)) continue;   // a square's centre is shared by its stretches: one sprig there, not two
+      drawn.add(id);
+      const d = document.createElement("i");
+      d.style.left = x.toFixed(1) + "px"; d.style.top = y.toFixed(1) + "px";
       d.style.setProperty("--d", (n * gap).toFixed(1) + "ms");
-      d.style.setProperty("--s", (.85 + Math.random() * .4).toFixed(2));
+      d.style.setProperty("--s", (.9 + Math.random() * .25).toFixed(2));
       d.style.setProperty("--r", Math.round(Math.random() * 360) + "deg");
       const v = Math.floor(Math.random() * 4); if (v) d.className = "v" + v;
-      if (Math.random() < .12) {   // a run of paint, drawn down once the puff above it is on; under the stroke
-        const r = document.createElement("b");
-        r.style.left = d.style.left; r.style.top = d.style.top;
-        r.style.setProperty("--d", (n * gap + 120).toFixed(1) + "ms");
-        r.style.setProperty("--len", (18 + Math.random() * 24).toFixed(0) + "px");
-        mist.appendChild(r);
-      }
-      mist.appendChild(d.cloneNode());   // its overspray, the same puff in the layer under the cores
+      mist.appendChild(d.cloneNode());
       frag.appendChild(d);
-      if (XMAS_SYMBOLS && Math.random() < .32) {   // the wreath's trimmings: berries, now and then a bell
+      if (XMAS_SYMBOLS && n % 2 === 0) {   // the string of Christmas lights wound round the garland: a bulb either side in turn
+        const L = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / L, ny = (b.x - a.x) / L, side = (n / 2) % 2 ? 1 : -1;
+        const blb = document.createElement("i");
+        blb.className = "bulb c" + ((n / 2) % 5);
+        blb.style.left = (x + nx * side * 4.5).toFixed(1) + "px"; blb.style.top = (y + ny * side * 4.5).toFixed(1) + "px";
+        blb.style.setProperty("--d", (n * gap + 40).toFixed(1) + "ms");
+        blb.style.setProperty("--s", "1"); blb.style.setProperty("--r", (Math.atan2(ny * side, nx * side) * 180 / Math.PI + 90).toFixed(0) + "deg");
+        blb.style.setProperty("--tw", (Math.random() * 1.6).toFixed(2) + "s");
+        frag.appendChild(blb);
+      }
+      if (XMAS_SYMBOLS && Math.random() < .3) {   // the wreath's trimmings, right on the line: berries, now and then a bell
         const t = document.createElement("i");
         t.className = Math.random() < .2 ? "bell" : "berry";
-        t.style.left = (parseFloat(d.style.left) + (Math.random() - .5) * 4).toFixed(1) + "px";
-        t.style.top = (parseFloat(d.style.top) + (Math.random() - .5) * 4).toFixed(1) + "px";
+        t.style.left = d.style.left; t.style.top = d.style.top;
         t.style.setProperty("--d", (n * gap + 60).toFixed(1) + "ms");
         t.style.setProperty("--s", "1"); t.style.setProperty("--r", Math.round((Math.random() - .5) * 40) + "deg");
         frag.appendChild(t);
@@ -7088,7 +8139,7 @@ async function presentRound(round, { settle = true } = {}) {
       await RGS.endRound();
       setBalance(RGS.state.balance, win > 0 ? "up" : null);
     } catch (err) {
-      notice(`<b>${RGS_MESSAGE[err.code] || err.message}</b>`, true, 6000);
+      notice(`<b>${RGS_MESSAGE[err.code] || T(String(err.message || ""))}</b>`, true, 6000);
       return;
     }
   }
@@ -7136,6 +8187,10 @@ function paintBonus() {
   };
   cost("bonusStdCost", "bonus");
   cost("bonusExtCost", "extremebonus");
+  cost("bonusXmasCost", "christmas");
+  $("bonusXmas").classList.toggle("on", bonusMode === "christmas");
+  $("bonusXmas").disabled = over("christmas");
+  $("bonusGo").classList.toggle("green", bonusMode === "christmas");
   $("bonusBetVal").textContent = fmt(bet());
   $("bonusTotal").textContent = fmt(price);
   $("bonusStd").classList.toggle("on", bonusMode === "bonus");
@@ -7197,6 +8252,37 @@ $("bonusBtn").addEventListener("click", () => openBonus());
 }
 $("bonusStd").addEventListener("click", () => { bonusMode = "bonus"; sfx("bet", 1.1); paintBonus(); });
 $("bonusExt").addEventListener("click", () => { bonusMode = "extremebonus"; sfx("bet", .9); paintBonus(); });
+$("bonusXmas").addEventListener("click", () => { bonusMode = "christmas"; sfx("bet", .95); paintBonus(); });
+// Turning the Helper on doubles every spin's price, so it asks first (Stake: a higher-cost mode needs a confirmation)
+function confirmHelper() {
+  return new Promise(resolve => {
+    const w = document.createElement("div"); w.className = "helperask"; w.setAttribute("role", "dialog"); w.setAttribute("aria-label", T("Santa's Helper"));
+    w.innerHTML = `<div class="hacard"><img src="assets/xmas/wfx/elf.webp" alt="" draggable="false"><h3>${T("Santa's Helper")}</h3>` +
+      `<p>${T(`Every spin costs <b>x2</b> your bet: <b>${fmt(bet() * MODE_COST.ante)}</b> a spin instead of <b>${fmt(bet())}</b>. The free spins bonus comes about <b>3x</b> as often. It stays on until you turn it off.`)}</p>` +
+      `<div class="habtns"><button type="button" class="hano">${T("Cancel")}</button><button type="button" class="hayes">${T("Turn on")}</button></div></div>`;
+    document.body.appendChild(w); sfx("menuOpen");
+    const done = v => { document.removeEventListener("keydown", key, true); w.remove(); resolve(v); };
+    const key = e => { if (e.key === "Escape") { e.preventDefault(); done(false); } else if (e.code === "Space" || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); done(true); } };
+    document.addEventListener("keydown", key, true);
+    w.querySelector(".hayes").addEventListener("click", () => done(true));
+    w.querySelector(".hano").addEventListener("click", () => done(false));
+    w.addEventListener("click", e => { if (e.target === w) done(false); });
+    w.querySelector(".hayes").focus();
+  });
+}
+$("helperBtn").addEventListener("click", async () => {
+  if (state.playing || REPLAY || !HELPER_ON) return;
+  if (!state.ante && !(await confirmHelper())) return;
+  state.ante = !state.ante;
+  try { sessionStorage.setItem("sw_helper", state.ante ? "1" : "0"); } catch (e) { /* not kept */ }
+  sfx(state.ante ? "fsland" : "pop", state.ante ? 1 : .8);
+  if (state.ante) { const b = $("helperBtn"); b.classList.remove("pop"); restyle(b); b.classList.add("pop"); }
+  refreshBet();
+});
+state.ante = false;   // every session starts with the Helper off: turning it on always asks first
+// Santa's Helper is switched off for this release (owner, 2026-10-30): its button is hidden and the 2x mode is not played
+const HELPER_ON = false;
+if (!HELPER_ON && $("helperBtn")) $("helperBtn").hidden = true;
 $("bonusBetUp").addEventListener("click", () => { state.betIdx = Math.min(state.betIdx + 1, state.bets.length - 1); sfx("bet", 1.22); refreshBet(); });
 $("bonusBetDown").addEventListener("click", () => { state.betIdx = Math.max(state.betIdx - 1, 0); sfx("bet", 0.8); refreshBet(); });
 $("bonusGo").addEventListener("click", () => {
@@ -7223,7 +8309,7 @@ async function playRound(mode) {
   setButtons(false);
   bounceFx();
   if (window.SprayFX) SprayFX.stoke($("board"));   // the spin blows on the frame's fire: its flames whoosh up and settle
-  tick(T(mode === "base" ? "Spinning..." : "Buying bonus..."));
+  tick(T(mode === "base" || mode === "ante" ? "Spinning..." : "Buying bonus..."));
   const t0 = performance.now();
   let ok = true;
 
@@ -7235,7 +8321,7 @@ async function playRound(mode) {
     await presentRound(d.round);
   } catch (err) {
     ok = false;
-    notice(`<b>${RGS_MESSAGE[err.code] || err.message || T("Round failed")}</b>`, true, 5000);
+    notice(`<b>${RGS_MESSAGE[err.code] || (err.message ? T(String(err.message)) : T("Round failed"))}</b>`, true, 5000);
     try { await RGS.balance(); setBalance(RGS.state.balance); } catch (e) { /* offline */ }
   }
 
@@ -7257,7 +8343,7 @@ function confirmAuto() {
   return new Promise(resolve => {
     const pop = $("autoPop"), opts = $("autoOpts");
     let n = Number(opts.querySelector(".on").dataset.n);
-    $("autoBet").textContent = fmt(bet());
+    $("autoBet").textContent = fmt(bet() * (MODE_COST[baseMode()] || 1));   // the real price of a round (x2 with the Helper on)
     $("autoText").firstChild.textContent = T("Rounds at ");
     closeBars();   // the picker opens over the bar: the volume bars go with it
     openPop("autoPop");
@@ -7345,10 +8431,10 @@ async function runAuto(n) {
     if (state.playing) { await hold(120); continue; }    // let a running round finish first (hold, not
                                                           // delay: delay collapses to nothing on a skipped
                                                           // round and this would spin the page frozen)
-    if (bet() > state.balance) { notice(T("<b>Auto play stopped</b> — not enough balance for the next round."), true); break; }
+    if (bet() * (MODE_COST[baseMode()] || 1) > state.balance) { notice(T("<b>Auto play stopped</b> — not enough balance for the next round."), true); break; }
     state.auto--; setAutoBtn();
     turnSpinArrows();   // the round is starting; nobody pressed the button for it
-    if (!(await playRound("base"))) break;
+    if (!(await playRound(baseMode()))) break;
     if (state.auto > 0) await delay(450);   // a breath between rounds, so each result can be read
   }
   state.auto = 0; setAutoBtn();
@@ -7368,6 +8454,7 @@ function setButtons(on) {
   $("spinBtn").textContent = (on || !state.playing) ? T("Spin") : (state.noSkip ? T("Spinning\u2026") : T("Skip >>"));
   $("autoBtn").disabled = !(on || state.auto > 0);
   $("bonusBtn").disabled = !on;   // the panel itself gates what is affordable
+  if ($("helperBtn")) $("helperBtn").disabled = !on;
   $("betUp").disabled = !on || state.betIdx >= state.bets.length - 1;
   $("betDown").disabled = !on || state.betIdx <= 0;
   // Rapid, the three-line menu and the volume bars stay usable for the whole of a round and
@@ -7400,7 +8487,7 @@ function historyHtml() {
   let h = [];
   try { h = JSON.parse(localStorage.getItem(histKey()) || "[]"); } catch (e) { /* ignore */ }
   if (!h.length) return "";
-  const name = { base: T("Spin"), bonus: T("Buy Bonus"), extremebonus: T("Buy Extreme") };
+  const name = { base: T("Spin"), ante: T("Spin + Helper"), bonus: T("Buy Bonus"), christmas: T("Christmas Morning"), extremebonus: T("The Blizzard") };
   const rows = h.slice(0, 20).map(x => {
     const d = new Date(x.t);
     const when = d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
@@ -7410,9 +8497,20 @@ function historyHtml() {
   return `<section><h4>${T("Recent rounds")}</h4><p class="fine">${T("Your last rounds on this device, in the token you are playing with. The balance shown in the game is always the amount the server reports.")}</p>
     <div class="tbl"><table class="hist"><tr><th>${T("When")}</th><th>${T("Mode")}</th><th>${T("Bet")}</th><th>${T("Win")}</th><th>x</th></tr>${rows}</table></div></section>`;
 }
+// Santa's Helper (owner, 2026-10-30): the "ante" mode - twice the bet, the free spins about three times as often.
+// It changes what an ordinary spin costs, so the bar shows the spin's real price while it is on.
+function baseMode() { return state.ante ? "ante" : "base"; }
+function paintHelper() {
+  const b = $("helperBtn"); if (!b) return;
+  b.classList.toggle("on", !!state.ante); b.setAttribute("aria-pressed", state.ante ? "true" : "false");
+  const lbl = document.querySelector(".hudstat.bet .lbl");
+  if (lbl) lbl.textContent = state.ante ? T("Bet + Helper") : T("Bet");
+}
 function refreshBet() {
-  $("betVal").textContent = fmt(bet());
-  fitFigure($("betVal"), fmt(bet()));
+  const shown = fmt(bet() * (state.ante ? MODE_COST.ante : 1));
+  $("betVal").textContent = shown;
+  fitFigure($("betVal"), shown);
+  paintHelper();
   if (!REPLAY) rememberBet();
   paintBonus();   // the chooser shows prices at the live bet, so it follows the stepper
   setButtons(!state.playing);
@@ -7442,10 +8540,11 @@ const CHARACTERS = [
   // inBar: the picture's pixel where his `contact` pixel goes (the corner of the counter's top), and his size in it.
   { el: "charfx", sleeper: { img: "assets/xmas/santa_bar.webp", wake: "assets/xmas/santa_bar_wake.webp", torso: [238, 400], head: [620, 300], z: [600, 170], stillX: 470,
     inBar: { pic: [3840, 2160], at: [3458, 1402], contact: [562, 445], scale: .736 } } },
-  // Mrs. Claus sits on her stool beside her side table (cookie jar, rolling tray, bong): she just sits, breathes, sways
-  // a little and blinks her slow, heavy blink (owner, 2026-10-29)
-  { el: "charfx2", sleeper: { img: "assets/xmas/mrs_sit.webp", blink: "assets/xmas/mrs_sit_blink.webp",
-    torso: [593, 727], head: [633, 300], neck: [627, 531], calmX: 410, size: .72, align: "right" } },
+  // Mrs. Claus (owner, 2026-10-30): in her rocking chair, knitting a patchwork quilt, rocking gently back and forth;
+  // beside her a side table with a jar of gingerbread cookies and a glass of milk (the table holds still, in front)
+  { el: "charfx2", sleeper: { img: "assets/xmas/mrs_rock.webp", blink: "assets/xmas/mrs_rock_blink.webp", table: "assets/xmas/mrs_table.webp",
+    rock: { pivot: [600, 1110], deg: 2.6, period: 3.6 },
+    torso: [610, 640], head: [640, 330], neck: [630, 500], calmX: 300, size: .72, align: "right" } },
 ];
 const CHAR_RATE = .8;                     // both rigs play at 80% speed, as the clips did
 // The pair redraw at most about 60 times a second: on the owner's 165 Hz screen each figure - its
@@ -8097,6 +9196,7 @@ async function makeSleeper({ el, sleeper: S }) {
     tex = await PIXI.Assets.load(S.img);
     if (S.blink) texB = await PIXI.Assets.load(S.blink);
     if (S.wake) S._texW = await PIXI.Assets.load(S.wake);
+    if (S.table) S._texT = await PIXI.Assets.load(S.table);
   } catch (e) { console.warn("seated character:", e.message); return null; }
   root.classList.add("sleeper");
   // its box is now pinned by its board-side edge: measure it off the board again
@@ -8115,12 +9215,16 @@ async function makeSleeper({ el, sleeper: S }) {
   host.appendChild(app.canvas);
   const W = tex.width, H = tex.height;
   const frame = new PIXI.Container(); app.stage.addChild(frame);
+  // a rocking chair: the figure and her chair turn together about the rockers' contact with the floor
+  const rocker = new PIXI.Container(); frame.addChild(rocker);
+  if (S.rock) { rocker.pivot.set(S.rock.pivot[0], S.rock.pivot[1]); rocker.position.set(S.rock.pivot[0], S.rock.pivot[1]); }
   const mesh = new PIXI.MeshPlane({ texture: tex, verticesX: 16, verticesY: 18 });
-  frame.addChild(mesh);
+  rocker.addChild(mesh);
   const buf = mesh.geometry.getBuffer("aPosition"), base = Float32Array.from(buf.data);
   // the blink is a second picture of the same pose, bent the same way, shown for a moment now and then
   const meshB = texB ? new PIXI.MeshPlane({ texture: texB, verticesX: 16, verticesY: 18 }) : null;
-  if (meshB) { meshB.visible = false; frame.addChild(meshB); }
+  if (meshB) { meshB.visible = false; rocker.addChild(meshB); }
+  if (S._texT) frame.addChild(new PIXI.Sprite(S._texT));   // the side table, still, in front of the chair
   const bufB = meshB ? meshB.geometry.getBuffer("aPosition") : null;
   let blinkUntil = 0, nextBlink = performance.now() + 3000;
   // woken (santaWake): the picture of him with his head up and laughing, bent the same way, lifting off the bar
@@ -8155,6 +9259,7 @@ async function makeSleeper({ el, sleeper: S }) {
   const sT = W * .2, sH = W * .14, A = H * .009;
   app.ticker.add(() => {
     const t = performance.now() / 1000;
+    if (S.rock && !REDUCED_MOTION) rocker.rotation = S.rock.deg * Math.PI / 180 * Math.sin(TAU * t / S.rock.period);   // back and forth
     if (!REDUCED_MOTION) {
       const br = Math.sin(TAU * t / 4.6);                                   // a slow breath
       const sway = S.neck ? (1.3 * Math.sin(TAU * t / 6.1) + .5 * Math.sin(TAU * t / 2.9 + 1)) * Math.PI / 180 : 0;
@@ -8393,7 +9498,7 @@ $("spinBtn").addEventListener("click", e => {
   if (state.playing && state.noSkip) return;   // jurisdiction forbids slam-stopping a round
   sfx(state.playing ? "skip" : "spin");
   if (!state.playing) signShake();   // the sign on the wall shakes as the reels start
-  playRound("base");
+  playRound(baseMode());
 });
 // clicking the board fast-forwards too — same cancel note, but only if a round is running
 $("board").addEventListener("click", () => { if (state.playing && !state.skip && !state.noSkip) { sfx("skip"); state.skip = true; } });
@@ -8479,9 +9584,9 @@ function assetUrls() {
   // further down the file than this screen runs
   for (const n of ["total_win", "big_win", "mega_win", "xtreme_win"]) urls.add("assets/" + n + ".webp");
   urls.add("assets/xmas/bar.webp");   // the tag on the wall is an <img>, so no rule names it
-  urls.add("assets/xbonus_text.webp");   // the Extreme Bonus intro's XTREME BONUS, an <img> too
+  urls.add("assets/xmas/ui/title_blizzard.webp");   // the Extreme Bonus intro's XTREME BONUS, an <img> too
   for (const t of ["you_won", "free_spins", "continue"]) urls.add(`assets/xmas/txt_${t}.webp`);   // the bonus intro's Christmas lettering
-  for (const id of Object.keys(TIER)) for (const k of ["halo", "tube"]) urls.add(`assets/glow/${id}_${k}.webp`);   // set by tierGlow()
+  if (!XMAS_SYMBOLS) for (const id of Object.keys(TIER)) for (const k of ["halo", "tube"]) urls.add(`assets/glow/${id}_${k}.webp`);   // set by tierGlow()
   return [...urls];
 }
 // Every preloaded picture is held on to, not dropped: while one is held, a new <img> of it is
@@ -8509,7 +9614,7 @@ function preloadAll(onProgress) {
   waits.push(one(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()));
   // the bonus screen's faces are not on the page yet, so fonts.ready would not wait for them
   if (document.fonts && document.fonts.load) {
-    for (const f of ['1em "Apocalypse Grunge"', '1em "aaaiight"', '1em "aaaiight fat"', '1em "Smashed Graffiti"', '1em "Smashed Graffiti Outline"']) waits.push(one(document.fonts.load(f)));
+    for (const f of ['1em "Luckiest Guy"', '1em "Fredoka"']) waits.push(one(document.fonts.load(f)));
   }
   tick();
   return Promise.all(waits);
@@ -8759,6 +9864,46 @@ function tvGlitch(el, { strength = 1, every = [1300, 3600] } = {}) {   // now a 
   timer = setTimeout(jingle, rnd(500, 1500));
 }
 
+// A splat of snow under a figure (owner, 2026-10-30): drawn fresh every time, as if a snowball had just been thrown
+// down - a lumpy, bumpy edge of packed snow with clumps round it and a few flecks flung out, white in the middle and
+// blue-grey where it is thin, with a dark outline. Returns a CSS url() of an SVG the size of the old picture (1800x560).
+function snowSplat() {
+  const W = 1800, H = 560, cx = W / 2, cy = H / 2 + 6, R = Math.random, N = 46, pts = [];
+  const w1 = R() * 6.3, w2 = R() * 6.3;
+  for (let i = 0; i < N; i++) {
+    const a = i / N * Math.PI * 2;
+    // the rim: an ellipse, pushed in and out by two slow waves and a random lump at every point
+    const k = 1 + .07 * Math.sin(a * 3 + w1) + .05 * Math.sin(a * 5 + w2) + (R() - .5) * .1;
+    pts.push([cx + Math.cos(a) * 820 * k, cy + Math.sin(a) * 218 * k]);
+  }
+  // a smooth closed curve through the points (Catmull-Rom as cubic Béziers)
+  let d = `M${pts[0][0].toFixed(0)} ${pts[0][1].toFixed(0)}`;
+  for (let i = 0; i < N; i++) {
+    const p0 = pts[(i - 1 + N) % N], p1 = pts[i], p2 = pts[(i + 1) % N], p3 = pts[(i + 2) % N];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += `C${c1[0].toFixed(0)} ${c1[1].toFixed(0)} ${c2[0].toFixed(0)} ${c2[1].toFixed(0)} ${p2[0].toFixed(0)} ${p2[1].toFixed(0)}`;
+  }
+  // clumps of snow on the rim, and flecks thrown off it
+  let lumps = "", flecks = "", shade = "";
+  for (let i = 0; i < 26; i++) {
+    const p = pts[Math.floor(R() * N)], r = 26 + R() * 46, ox = (p[0] - cx) * .02, oy = (p[1] - cy) * .06;
+    lumps += `<circle cx="${(p[0] + ox).toFixed(0)}" cy="${(p[1] + oy).toFixed(0)}" r="${r.toFixed(0)}"/>`;
+  }
+  for (let i = 0; i < 16; i++) {
+    const a = R() * Math.PI * 2, f = 1.08 + R() * .16, r = 7 + R() * 16;
+    flecks += `<circle cx="${(cx + Math.cos(a) * 820 * f).toFixed(0)}" cy="${(cy + Math.sin(a) * 218 * f).toFixed(0)}" r="${r.toFixed(0)}"/>`;
+  }
+  for (let i = 0; i < 7; i++) {   // soft blue hollows in the packed snow
+    shade += `<ellipse cx="${(cx + (R() - .5) * 1300).toFixed(0)}" cy="${(cy + (R() - .5) * 260).toFixed(0)}" rx="${(60 + R() * 140).toFixed(0)}" ry="${(18 + R() * 40).toFixed(0)}" fill="#cfe3f3" opacity=".55"/>`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">` +
+    `<defs><radialGradient id="g" cx=".5" cy=".42" r=".62"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#eef6fc"/><stop offset="1" stop-color="#bcd5ea"/></radialGradient></defs>` +
+    `<g fill="#21364d" transform="translate(0 10)"><path d="${d}"/>${lumps}</g>` +                       // its shadow
+    `<g fill="#21364d" stroke="#21364d" stroke-width="22" stroke-linejoin="round"><path d="${d}"/>${lumps}${flecks}</g>` +   // the outline
+    `<g fill="url(#g)"><path d="${d}"/>${lumps}${flecks}</g>${shade}` +
+    `<path d="${d}" fill="none" stroke="#ffffff" stroke-width="6" opacity=".7" transform="translate(-6 -8) scale(1.004)"/></svg>`;
+  return `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+}
 function numeralRow(text) {
   let html = "", sym = "";
   const flush = () => { if (sym) { html += `<span class="sym">${sym.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))}</span>`; sym = ""; } };
@@ -9033,7 +10178,7 @@ function totalWinScreen(amount, { total = true } = {}) {
             `<img class="twlogo" data-art="${art}" src="assets/${art}" alt="" draggable="false">`).join("") +
           `<i class="twsheen" aria-hidden="true"></i>` +   // the band of light across the lettering
         `</div>` +
-        `<div class="twamount"><div class="twfig">${numeralRow(fmt(0))}</div></div>` +
+        `<div class="twamount" style='--splat: ${snowSplat()}'><div class="twfig">${numeralRow(fmt(0))}</div></div>` +
       `</div>` +
       `<div class="twcont"><img src="assets/xmas/txt_continue.webp" alt="${T("Click or press Space to continue")}" draggable="false"></div>`;
     // the figure sits dead centre on the board, and stays there if the window changes under it
@@ -9274,13 +10419,19 @@ function runFeatures() {
     `<div class="fboxes">` +
       box(`<img src="${SYM.M.img}" alt="${T("Multi")}" draggable="false"><div class="fmult" id="featMult">x${fmtMult(FEATURE_VALUES[0])}</div>`,
         T("Multi"),
-        T(`Lands with a value from <b>x1.25</b> to <b>x1000</b> - sometimes in a line of 3 or 4, and once in a long while over the whole board. Every winning cluster is paid first; then it blows out and leaves its value on five cells, and a cluster on those cells is multiplied by the <b>sum</b> it covers. Winning clusters drop small multipliers under themselves too.`)) +
+        T(`Lands worth <b>x1.25</b> to <b>x1000</b>. After the wins are paid it bursts and leaves its value on its square and the 4 around it - any win on those squares is multiplied by their <b>sum</b>.`)) +
       box(`<img src="${SYM.BS.img}" alt="${T("Jolly Scatter")}" draggable="false">`,
         T("Jolly Scatter \u00b7 Bonus"),
-        T(`<b>3</b>, <b>4</b> or <b>5</b> anywhere award <b>10</b>, <b>12</b> or <b>15</b> free spins. Multis land more often and drop in lines, and every value - a Multi's or a cluster's drop - stays on the board for the whole bonus.`)) +
+        T(`<b>3</b>, <b>4</b> or <b>5</b> anywhere award <b>10</b>, <b>12</b> or <b>15</b> free spins. Every multiplier stays on the board for the whole bonus, and 3 more Jolly Scatters add <b>+5</b> spins or more.`)) +
       box(`<img src="${SYM.ES.img}" alt="${T("The Frost Scatter")}" draggable="false">`,
-        T("Frost Scatter \u00b7 Extreme"),
-        T(`<b>2</b> anywhere award <b>17</b> free spins under Extreme rules: Multis land more often still, drop in lines, and every value is <b>x2</b> or more. A Jolly Scatter trigger with a Frost Scatter on the same spin is upgraded to Extreme.`)) +
+        T("Frost Scatter \u00b7 The Blizzard"),
+        T(`<b>2</b> anywhere award <b>17</b> free spins in The Blizzard: every Multi is <b>x2</b> or more, and a bar of presents adds spins and takes the lowest symbols out.`)) +
+      box(`<img src="assets/xmas/ui/santaplate.webp" alt="${T("Santa")}" draggable="false">`,
+        T("Santa's Wake-Up"),
+        T(`At random Santa wakes up at the bar and throws <b>3</b> to <b>6</b> presents onto the board - in the base game, and more often in free spins.`)) +
+      box(`<img src="${SYM.H1.img}" alt="${T("Santa's Sack")}" draggable="false">`,
+        T("Santa's Sack"),
+        T(`Very rare. When it lands it collects <b>every</b> symbol on the board and puts <b>+2</b> on every square. Fresh symbols drop onto the new multipliers.`)) +
     `</div>` +
     `<div class="fcont"><span class="fhit"><span class="ftxt">${T("Click to play")}</span></span></div>`;
   document.body.appendChild(wrap);
@@ -9346,25 +10497,31 @@ function bonusIntroHow(extreme) {
   return `<p><strong>${T("How the Multi works in here")}</strong></p>` +
     `<p>${T(`A Multi lands with a value from <b>${MULTI_RANGE[0]}</b> to <b>${MULTI_RANGE[1]}</b>. Every winning cluster is paid first; then it blows out, clearing itself and the four symbols beside it, and each of those five cells keeps its value. A cluster that lands on those cells is multiplied by the <strong>sum</strong> of the values it covers, and values that meet add together.`)}</p>` +
     `<p>${T(extreme
-      ? `In the Extreme Bonus every value stays on the board for the whole feature, Multis land more often, and every value is <b>x2</b> or more.`
-      : `In the bonus every value stays on the board for the whole feature: nothing is wiped between spins, so the board only gets richer.`)}</p>` +
-    `<p>${T(`Walls drop in lines of <b>3</b> or <b>4</b> far more often in here, and every winning cluster drops a small multiplier under itself - all of it stays for the rest of the bonus.`)}</p>`;
+      ? `The Blizzard: every Multi is worth <b>x2</b> or more, a random number of extra presents appear every spin, and every present that bursts fills a slot on the bar across the top. The <b>10th</b> present of each bar (gold) adds <b>5</b> spins, and every full bar (<b>20</b> presents) takes the lowest symbol out of the bonus.`
+      : state.mode === "christmas"
+      ? `Christmas Morning: the presents are already open - their multipliers sit on the board from the first spin - and at the start of every free spin Santa tosses <b>3</b> presents onto the board - each one multiplies its square and the 4 around it.`
+      : `Sleigh Drop: every free spin Santa's sleigh swoops over and drops <b>1</b> or <b>2</b> presents onto the board, and every value stays for the whole bonus.`)}</p>` +
+    `<p>${T(`Land <b>3</b>, <b>4</b> or <b>5</b> Jolly Scatters in the bonus for <b>+5</b>, <b>+7</b> or <b>+10</b> more spins.`)}</p>` +
+    `<p>${T(`Presents drop in lines of <b>3</b> or <b>4</b> far more often in here, and every winning cluster drops a small multiplier under itself - all of it stays for the rest of the bonus.`)}</p>`;
 }
 function bonusIntro(spins, extreme) {
   musicTo("bonus", 1.4);   // the base loop fades out with the game as the bonus's comes up
+  startBonusFx(bonusKindNow(extreme));   // the bonus's own world comes in behind its intro
   return new Promise(resolve => {
     const wrap = document.createElement("div");
     wrap.className = "bonusintro" + (extreme ? " x" : "");   // .x: the Extreme Bonus's violet
     wrap.setAttribute("role", "dialog");
-    wrap.setAttribute("aria-label", T(extreme ? "Extreme Bonus" : "Bonus"));
+    wrap.setAttribute("aria-label", T(extreme ? "The Blizzard" : "Bonus"));
     wrap.innerHTML =
       `<div class="wall"></div>` +
       `<div class="inner"><div class="bstack">` +
-        (extreme
-          ? `<img class="blogo" src="assets/xbonus_text.webp" alt="${T("Xtreme Bonus")}" draggable="false">`
+        (state.mode === "christmas" && !extreme
+          ? `<img class="blogo morning" src="assets/xmas/ui/title_morning.webp" alt="${T("Christmas Morning")}" draggable="false">`
+          : extreme
+          ? `<img class="blogo blizzard" src="assets/xmas/ui/title_blizzard.webp" alt="${T("The Blizzard")}" draggable="false">`
           : `<img class="blogo" src="assets/bonus_btn_text.webp" alt="${T("Bonus")}" draggable="false">`) +
         `<div class="byou"><img src="assets/xmas/txt_you_won.webp" alt="${T("You won")}" draggable="false"></div>` +
-        `<div class="bnum" aria-label="${spins}"><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
+        `<div class="bnum" aria-label="${spins}" style='--splat: ${snowSplat()}'><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
         `<div class="bfs"><img src="assets/xmas/txt_free_spins.webp" alt="${T("Free spins")}" draggable="false"></div>` +
         `<div class="bhow">${bonusIntroHow(extreme)}</div>` +
         `<div class="bcont"><img src="assets/xmas/txt_continue.webp" alt="${T("Click or press Space to continue")}" draggable="false"></div>` +
@@ -9435,7 +10592,7 @@ function bonusIntro(spins, extreme) {
         const count = () => {
           if (!wrap.isConnected) return;
           const p = Math.min(1, (performance.now() - t0) / dur), v = Math.max(1, Math.round(spins * (1 - (1 - p) * (1 - p))));
-          if (v !== shown) { shown = v; fig.innerHTML = numeralRow(String(v)); sfx("bet", .85 + .6 * v / spins); }
+          if (v !== shown) { shown = v; fig.innerHTML = numeralRow(String(v)); sfx("count", .9 + .5 * v / spins); }
           if (p < 1) { requestAnimationFrame(count); return; }
           num.classList.add("landed");
           sparkBurst(num, { n: 30, reach: 1.15, colors: sparkPaint });
@@ -9707,9 +10864,11 @@ $("rapidBtn").addEventListener("click", () => { setRapid(!$("turbo").checked); s
 let rapidWas = false;
 try { rapidWas = localStorage.getItem("smukiez.rapid") === "1"; } catch (e) { /* storage blocked */ }
 setRapid(rapidWas);
-if (SOCIAL) {   // restricted vocabulary: every static word on the page goes through T() too -
+function socialSweep() {   // restricted vocabulary: every static word on the page goes through T() too -
                 // labels, buttons, the chooser, the loading screen - and so do the names
                 // screen readers and tooltips use
+  if (!SOCIAL) return;
+  for (const d of Object.values(SYM)) { d.label = T(d.label); d.sub = T(d.sub); }
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   for (let n = walker.nextNode(); n; n = walker.nextNode()) {
     if (n.parentElement && /^(SCRIPT|STYLE)$/.test(n.parentElement.tagName)) continue;
@@ -9723,6 +10882,7 @@ if (SOCIAL) {   // restricted vocabulary: every static word on the page goes thr
     }
   }
 }
+socialSweep();
 setAutoBtn();
 
 // Phones suspend the audio context and may drop the session's balance display while the
@@ -9745,7 +10905,8 @@ document.addEventListener("visibilitychange", async () => {
     if (wrap.hidden === !on) return;
     if (on) {
       closeBars();   // the panel covers the bar: the volume bars go with it
-      $("rulesBody").innerHTML = historyHtml() + RULES.render({ bet: bet(), fmt, social: SOCIAL, modeCost: MODE_COST });
+      $("rulesBody").innerHTML = RULES.render({ bet: bet(), fmt, social: SOCIAL, modeCost: MODE_COST }) + historyHtml();   // the game first, your rounds last
+      const pnl = wrap.querySelector(".infopanel"); if (pnl) pnl.scrollTop = 0;
     }
     showMenu(wrap, on);
     sfx(on ? "menuOpen" : "menuClose");
@@ -9755,6 +10916,7 @@ document.addEventListener("visibilitychange", async () => {
     else if (!open.disabled) open.focus({ preventScroll: true });
   };
   open.addEventListener("click", () => show(true));
+  const ib = $("infoBtn"); if (ib) ib.addEventListener("click", () => show(true));   // the round "i" in the corner opens the same page
   close.addEventListener("click", () => show(false));
   wrap.addEventListener("click", e => { if (e.target === wrap) show(false); });   // click-away
   document.addEventListener("keydown", e => { if (e.key === "Escape") show(false); });
@@ -9773,7 +10935,7 @@ async function bootReplay(p) {
   if (p.currency) RGS.state.currency = p.currency;
   state.bets = [p.amount || RGS.UNIT]; state.betIdx = 0;
   state.mode = p.mode || "base";
-  const modeName = T({ base: "Base game", bonus: "Buy Bonus", extremebonus: "Buy Extreme" }[state.mode] || state.mode);
+  const modeName = T({ base: "Base game", ante: "Santa's Helper", bonus: "Buy Bonus", christmas: "Christmas Morning", extremebonus: "The Blizzard" }[state.mode] || state.mode);
   $("balanceLbl").innerHTML = (SOCIAL ? "Replay" : "Replay bet") + `<span class="cur">${RGS.currencyName()}</span>`;
   $("balance").textContent = fmt(bet());
   refreshBet(); setButtons(false);
@@ -9855,6 +11017,8 @@ async function boot() {
     return;
   }
 
+  // the jurisdiction (or a social-coin wallet) can turn social mode on after sign-in: sweep the page again
+  if (!SOCIAL && ((RGS.jurisdiction && RGS.jurisdiction().socialCasino) || /^(X?SC|X?GC|XEC)$/.test(String(RGS.currencyName() || "")))) { SOCIAL = true; socialSweep(); }
   const lbl = $("balanceLbl");
   if (lbl) lbl.innerHTML = T("Balance") + `<span class="cur">${RGS.currencyName()}</span>`;
 
@@ -9896,7 +11060,7 @@ async function boot() {
   // authenticate() returns the active or last-completed round; an active one means the
   // player dropped mid-round and it still has to be finished and settled.
   const open = RGS.state.round;
-  if (open && open.events && open.events.length) {
+  if (open && open.active !== false && open.events && open.events.length) {   // a finished round is not replayed
     // the round was staked at its own amount and mode: payouts scale off bet() and the
     // strips follow state.mode, so both must be the round's, not whatever is selected now
     // A round staked at an amount that is no longer one of the levels still resumes - and

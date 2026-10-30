@@ -1,4 +1,4 @@
-# Santa's Wonderland
+# Mr. & Mrs. Claus
 
 A 7x7 cluster-pays Christmas slot for Stake Engine (engine.io, team `smukiez`, game `santas-wonderland`).
 

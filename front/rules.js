@@ -38,7 +38,7 @@ const RULES = (() => {
     L1: "Snowball", L2: "Candy Cane", L3: "Ornament", L4: "Jingle Bell", L5: "Holly",
     L6: "Hot Cocoa", L7: "Gold Star", L8: "Mitten", L9: "Snowflake", L10: "Wreath",
   };
-  const ORDER = ["H1", "H2", "H3", "H4", "H5", "H6", "H7",
+  const ORDER = ["H2", "H3", "H4", "H5", "H6", "H7",
                  "L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10"];
   const RTP = "96.70%", MAX_WIN = 10000;
   const MULTI_MIN = 1.25, MULTI_MAX = 1000;
@@ -46,6 +46,8 @@ const RULES = (() => {
   // Restricted phrase -> replacement, from Stake's jurisdiction-requirements table. Longer
   // phrases first so "buy bonus" is swapped before "buy" gets a chance at it.
   const SWEEPS = [
+    ["bonus buys", "bonuses"], ["paylines", "win lines"], ["paying", "winning"], ["buys", "gets"],
+    ["costs", "is played for"], ["charges", "uses"], ["charge", "amount"], ["price", "amount"],
     ["pay table", "win table"], ["paytable", "win table"], ["payouts", "wins"], ["payout", "win"],
     ["buying", "getting"], ["gambling", "play"],
     ["buy bonus", "get bonus"], ["bonus buy", "bonus"], ["total bet", "total play"],
@@ -90,7 +92,7 @@ const RULES = (() => {
    */
   function render(opts) {
     const { bet, fmt, social } = opts;
-    const cost = opts.modeCost || { bonus: 100, extremebonus: 400 };
+    const cost = Object.assign({ ante: 2, bonus: 100, christmas: 250, extremebonus: 400 }, opts.modeCost || {});
     const t = s => T(s, social);
     const money = mult => fmt(Math.round(mult * bet));
 
@@ -105,10 +107,42 @@ const RULES = (() => {
       </div>`;
     }).join("");
 
+    // the "how you win" picture: a little board with one cluster of six Candy Canes lit up (5 or more touching wins)
+    const G = [["L1","L2","L2","L5","L9"],["L4","L2","L7","L5","L3"],["L2","L2","L6","L1","L5"],["L8","L2","L3","L10","L4"]];
+    const demo = `<div class="windemo">${G.map((row, r) => row.map((sym, c) => `<img src="assets/flat/${sym}.webp" alt="" draggable="false" class="${sym === "L2" ? "hit" : ""}">`).join("")).join("")}</div>`;
     const html = `
+<section class="howwin">
+  <h4>${t("How you win")}</h4>
+  ${demo}
+  <p>${t("There are no paylines. A win - a \"line pay\" - is a CLUSTER: 5 or more of the same symbol touching each other side by side or up and down (not corner to corner), anywhere on the 7 x 7 board. Above, six Candy Canes touch, so they pay the Candy Cane's 6-symbol prize. A win is shown by a wreath wrapped in Christmas lights running through the centre of every square in it.")}</p>
+  <p>${t("Every cluster on the board pays. Then the winning symbols pop, new ones fall in from the top, and anything new that connects pays again - one spin can win many times. The bigger the cluster, the bigger the pay (see the paytable below).")}</p>
+</section>
+
+<section>
+  <h4>${t("The features in short")}</h4>
+  <table class="guide">
+    <tr><td><img class="ptile" src="assets/flat/M.webp" alt="" draggable="false"></td><td><b>${t("Present Multi")}</b> - ${t("bursts open after the wins are paid and leaves its multiplier on its own square and the 4 around it. Any win that lands on those squares is multiplied by them.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/flat/BS.webp" alt="" draggable="false"></td><td><b>${t("Jolly Scatter")}</b> - ${t("3, 4 or 5 anywhere start 10, 12 or 15 free spins. In free spins every multiplier stays on the board until the bonus ends, and 3 or more Jolly Scatters add more spins.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/flat/ES.webp" alt="" draggable="false"></td><td><b>${t("Frost Scatter")}</b> - ${t("2 anywhere start The Blizzard: every Multi is worth x2 or more, a random number of extra presents appear every spin, and the presents you collect fill a bar across the top of the board that adds spins and takes the lowest symbols out of the bonus.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/flat/H1.webp" alt="" draggable="false"></td><td><b>${t("Santa's Sack")}</b> - ${t("very rare. When it lands, every symbol on the board goes into the sack and every square gets +2 on its multiplier. Fresh symbols then drop onto the new multipliers.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/xmas/wfx/elf.webp" alt="" draggable="false"></td><td><b>${t("Santa's Wake-Up and the Sleigh")}</b> - ${t("Santa sometimes wakes up and throws presents onto the board, and now and then his sleigh flies across before a spin and drops a few. A present never lands on a symbol that is part of a winning cluster.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/xmas/ui/morning.webp" alt="" draggable="false"></td><td><b>${t("Bonus buys")}</b> - ${t("the BONUS button lets you start the Bonus (Sleigh Ride), Christmas Morning or The Blizzard straight away. Each bonus has its own feature - see The three bonuses below.")}</td></tr>
+  </table>
+</section>
+
+<section>
+  <h4>${t("The three bonuses")}</h4>
+  <p class="fine">${t("Every bonus keeps every multiplier on the board until it ends, and 3 / 4 / 5 Jolly Scatters add 5 / 7 / 10 spins. On top of that each one has its own feature - from good, to better, to best.")}</p>
+  <table class="guide">
+    <tr><td><img class="ptile" src="assets/xmas/ui/card_red.webp" alt="" draggable="false"></td><td><b>${t("Sleigh Ride (Standard Bonus)")}</b> - ${t("10, 12 or 15 free spins in the snowy bar. Sleigh Drop: at the start of every spin, before the symbols drop, Santa's sleigh flies across the middle of the board and drops 1 or 2 presents (x1.25 or x1.5) onto it.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/xmas/ui/morning.webp" alt="" draggable="false"></td><td><b>${t("Christmas Morning")}</b> - ${t("12 free spins by the fire in the living room, starting with 8 to 12 presents already open. Present Toss: at the start of every spin, before the symbols drop, Santa tosses 3 presents onto the board. Each one multiplies the square it hits and the 4 squares around it.")}</td></tr>
+    <tr><td><img class="ptile" src="assets/xmas/ui/card_ice.webp" alt="" draggable="false"></td><td><b>${t("The Blizzard")}</b> - ${t("17 free spins out in the storm with Santa and Mrs Claus shivering. Every Multi is worth x2 or more, and after the symbols land a random number of extra presents (none to 4, x1.25 or x1.5) appear on the board every spin, never on a symbol of a winning cluster. Every present that bursts fills a slot on the bar across the top of the board: the 10th present of each bar (the 10th and the 30th of the bonus, marked in gold) adds 5 spins, and every time the bar fills (20 presents) the lowest-paying symbol still in play - first the Wreath, then the Snowflake - leaves the bonus for good and the bar starts over.")}</td></tr>
+  </table>
+</section>
+
 <section>
   <h4>${t("About the game")}</h4>
-  <p>${t(`Santa’s Wonderland is a 7-reel, 7-row video slot with cluster pays and tumbling reels. A cluster is 5 or more matching symbols touching horizontally or vertically, anywhere on the board; every cluster on the board pays, winning symbols are removed, new ones drop in, and the new board is paid again. The values below are multiples of the total bet, shown at your current bet of ${fmt(bet)}.`)}</p>
+  <p>${t(`Mr. & Mrs. Claus is a 7-reel, 7-row video slot with cluster pays and tumbling reels. A cluster is 5 or more matching symbols touching horizontally or vertically, anywhere on the board; every cluster on the board pays, winning symbols are removed, new ones drop in, and the new board is paid again. The values below are multiples of the total bet, shown at your current bet of ${fmt(bet)}.`)}</p>
   <div class="kvgrid">
     <div><span>RTP</span><b>${RTP}</b><small>${t("every mode")}</small></div>
     <div><span>${t("Max win")}</span><b>${x(MAX_WIN)}</b><small>${t("of the total bet")} · ${money(MAX_WIN)}</small></div>
@@ -122,10 +156,11 @@ const RULES = (() => {
   <table class="modes">
     <tr><th>${t("Mode")}</th><th>${t("Cost")}</th><th>${t("What you get")}</th></tr>
     <tr><td>${t("Base game")}</td><td>${x(1)} <em>${money(1)}</em></td><td>${t("One spin. Free spins trigger naturally from Jolly Scatter and Frost Scatter symbols.")}</td></tr>
-    <tr><td>${t("Buy Bonus")}</td><td>${x(cost.bonus)} <em>${money(cost.bonus)}</em></td><td>${t("A spin guaranteed to trigger the Standard Bonus (10, 12 or 15 free spins). RTP ")}${RTP}.</td></tr>
-    <tr><td>${t("Buy Extreme")}</td><td>${x(cost.extremebonus)} <em>${money(cost.extremebonus)}</em></td><td>${t("A spin guaranteed to trigger the Extreme Bonus. RTP ")}${RTP}.</td></tr>
+    <tr><td>${t("Buy Bonus")}</td><td>${x(cost.bonus)} <em>${money(cost.bonus)}</em></td><td>${t("A spin guaranteed to trigger the Standard Bonus, Sleigh Ride (10, 12 or 15 free spins with the Sleigh Drop before every spin). RTP ")}${RTP}.</td></tr>
+    <tr><td>${t("Christmas Morning")}</td><td>${x(cost.christmas)} <em>${money(cost.christmas)}</em></td><td>${t("12 free spins that start with 8 to 12 presents already opened on the board: their multipliers are on their cells before the first spin and stay for the whole bonus, and Santa tosses 3 more presents onto the board at the start of every spin. RTP ")}${RTP}.</td></tr>
+    <tr><td>${t("The Blizzard")}</td><td>${x(cost.extremebonus)} <em>${money(cost.extremebonus)}</em></td><td>${t("A spin guaranteed to trigger The Blizzard (17 free spins, every Multi x2 or more, extra presents every spin and the Present Bar). RTP ")}${RTP}.</td></tr>
   </table>
-  <p class="fine">${t("Both are chosen from the Bonus panel, which shows the exact total before you press Play. The max win applies to every mode.")}</p>
+  <p class="fine">${t("The three buys are chosen from the Bonus panel, which shows the exact total before you press Play. The max win applies to every mode.")}</p>
 </section>
 
 <section>
@@ -138,21 +173,27 @@ const RULES = (() => {
   <h4>${t("Special symbols")}</h4>
   <div class="prow">${tile("M")}<div class="pname">${t("Multi — Multiplier")}<small>M</small></div>
     <div class="ptext">${t(`Lands with a value from ${x(MULTI_MIN)} to ${x(MULTI_MAX)}, shown on the symbol. Every winning cluster on the board is paid first; only then does it blow out: the Multi and the four symbols sharing an edge with it are removed, each of those five cells keeps the Multi's value, and new symbols drop in on top. A winning cluster that covers one or more of those cells is multiplied by the SUM of the values on the cells it covers. When two Multis reach the same cell their values add. In the base game the values last for the rest of the spin, including every tumble; in a bonus they stay on the board for the whole feature. Jolly Scatter and the Frost Scatter are never removed by a Multi. The Multi does not form clusters and has no value of its own.`)}</div></div>
-  <div class="prow">${tile("M")}<div class="pname">${t("Wall Line and Full Wall")}<small>M</small></div>
-    <div class="ptext">${t("Wall Line: a straight line of 3 or 4 Multis can land together, along a row or down a column; their blasts overlap, so the cells between them collect more than one value. It can land on any spin, and far more often in a bonus. Full Wall: very rarely, in the base game, every cell of the board except a Jolly Scatter or Frost Scatter becomes a Multi at once; they all blow out together and the whole board drops in on top of their values.")}</div></div>
+  <div class="prow">${tile("M")}<div class="pname">${t("Present Line and Present Avalanche")}<small>M</small></div>
+    <div class="ptext">${t("Present Line: a straight line of 3 or 4 Multis can land together, along a row or down a column; their blasts overlap, so the cells between them collect more than one value. It can land on any spin, and far more often in a bonus. Present Avalanche: very rarely, in the base game, every cell of the board except a Jolly Scatter or Frost Scatter becomes a Multi at once; they all blow out together and the whole board drops in on top of their values.")}</div></div>
+  <div class="prow"><img class="ptile" src="assets/flat/M.webp" alt="" draggable="false"><div class="pname">${t("Santa's Wake-Up")}</div>
+    <div class="ptext">${t("On any spin, at random, Santa wakes up at the bar and throws 3 to 6 presents onto the board. Each one is a Multi that lands on a random cell - never on a scatter and never on a symbol of a cluster that is about to pay - with its own value, and blows out like any other Multi once the wins are paid. It can happen in the base game and, more often, in the free spins. Santa's Sleigh: rarely, in the base game, his sleigh flies across before the symbols drop and leaves 2 to 4 presents on the board in the same way.")}</div></div>
+  <div class="prow"><img class="ptile" src="assets/flat/H1.webp" alt="Santa's Sack" draggable="false"><div class="pname">${t("Santa's Sack — Special")}<small>H1</small></div>
+    <div class="ptext">${t("Santa's Sack never comes from the reels: very rarely (about 1 spin in 400 in the base game, more often in free spins) it lands on one random square that holds no scatter or Multi. Once the board's wins are paid, the sack collects every symbol on the board (the scatters stay) and adds +2 to the multiplier of every square. The cleared board refills as in a tumble. In the base game the values last for the rest of the spin; in a bonus they stay for the whole feature. The sack does not form clusters and has no value of its own.")}</div></div>
   <div class="prow"><div class="ptile multi"><span>x1.25</span><small>DROP</small></div><div class="pname">${t("Line Drops")}</div>
     <div class="ptext">${t("Every winning cluster, once paid, leaves a small multiplier (x1.25, x1.5 or x2) on one of its own cells for every five symbols it held, chosen at random. A line drop adds to whatever value that cell already holds and lasts exactly as a Multi's value does: for the rest of the spin in the base game, for the whole feature in a bonus. It never changes the win of the cluster that left it.")}</div></div>
   <div class="prow"><img class="ptile" src="assets/flat/BS.webp" alt="Jolly Scatter" draggable="false"><div class="pname">${t("Jolly Scatter — Bonus Scatter")}<small>BS</small></div>
     <div class="ptext">${t("Appears anywhere. 3, 4 or 5 Jolly Scatters on one spin award 10, 12 or 15 free spins (the Standard Bonus). Jolly Scatter does not form clusters and has no value of its own.")}</div></div>
-  <div class="prow"><img class="ptile" src="assets/flat/ES.webp" alt="The Frost Scatter" draggable="false"><div class="pname">${t("Frost Scatter — Extreme Scatter")}<small>ES</small></div>
-    <div class="ptext">${t("2 Frost Scatters anywhere on one spin award 17 free spins in the Extreme Bonus directly. 1 Frost Scatter on the same spin as a Jolly Scatter trigger upgrades that trigger to the Extreme Bonus, keeping its spin count. The Frost Scatter does not form clusters and has no value of its own.")}</div></div>
+  <div class="prow"><img class="ptile" src="assets/flat/ES.webp" alt="The Frost Scatter" draggable="false"><div class="pname">${t("Frost Scatter — Blizzard Scatter")}<small>ES</small></div>
+    <div class="ptext">${t("2 Frost Scatters anywhere on one spin award 17 free spins in The Blizzard directly. 1 Frost Scatter on the same spin as a Jolly Scatter trigger upgrades that trigger to The Blizzard, keeping its spin count. The Frost Scatter does not form clusters and has no value of its own.")}</div></div>
 </section>
 
 <section>
   <h4>${t("Free spins")}</h4>
-  <p><b>${t("Standard Bonus")}</b> — ${t("3 / 4 / 5 Jolly Scatters award 10 / 12 / 15 free spins. Multis land more often than in the base game and Wall Lines far more often, and every value on the board - a Multi's or a line drop's - stays there for the whole bonus.")}</p>
-  <p><b>${t("Extreme Bonus")}</b> — ${t("2 Frost Scatters award 17 free spins; a Jolly Scatter trigger with a Frost Scatter on the same spin is upgraded to Extreme with its own spin count. Multis land more often still, every Multi is worth x2 or more, and Wall Lines land far more often than in the base game.")}</p>
-  <p><b>${t("Spins")}</b> — ${t("a bonus plays exactly the free spins its trigger awarded. Free spins are not re-triggered and no spins are added during the feature.")}</p>
+  <p><b>${t("Standard Bonus - Sleigh Ride")}</b> — ${t("3 / 4 / 5 Jolly Scatters award 10 / 12 / 15 free spins. Sleigh Drop: on every free spin with no other present event, before the symbols drop, Santa's sleigh flies across the board and drops 1 or 2 presents (Multis worth x1.25 or x1.5) onto squares that will not take a symbol from a winning cluster. Every value on the board - a Multi's or a line drop's - stays there for the whole bonus.")}</p>
+  <p><b>${t("The Blizzard")}</b> — ${t("2 Frost Scatters award 17 free spins; a Jolly Scatter trigger with a Frost Scatter on the same spin is upgraded to The Blizzard with its own spin count. Every Multi is worth x2 or more. On every free spin with no other present event, once the symbols have landed, a random number of extra presents - often none, at most 4 - appear on random squares (x1.25 or x1.5), never on a scatter or on a symbol of a cluster that is about to pay. The Present Bar: every Multi that bursts in the bonus fills one of the bar's 20 slots. The 10th present of each bar - the 10th and the 30th of the bonus, marked on the bar in gold - adds 5 free spins. Each time the bar fills, the lowest-paying symbol still in play leaves the reels for the rest of the bonus - the Wreath on the first fill, the Snowflake on the second - its places taken by the other low symbols, and the bar empties and starts over. Every value stays for the whole bonus.")}</p>
+  <p><b>${t("Christmas Morning")}</b> — ${t("bought only: 12 free spins that start with 8 to 12 presents already opened on the board. Present Toss: at the start of every free spin, while the board is empty, Santa tosses 3 presents onto the board. Each lands on a square and adds its value (x1.25, x1.5 or x2) to that square and the 4 squares above, below, left and right of it; then the symbols drop. Every value stays for the whole bonus.")}</p>
+  <p><b>${t("Extra spins")}</b> — ${t("3 / 4 / 5 Jolly Scatters on a free spin award 5 / 7 / 10 more spins, in every bonus. In The Blizzard the Present Bar adds 5 more spins at the 10th and the 30th present. Frost Scatters do nothing during free spins.")}</p>
+  <p><b>${t("Santa's Sack in the bonuses")}</b> — ${t("Santa's Sack can land in any bonus, more often than in the base game. Its +2 on every square stays on the board for the rest of the bonus.")}</p>
   <p class="fine">${t("Free spins are played at the bet and mode of the triggering spin. If the connection drops, reload the game to finish the round.")}</p>
 </section>
 
@@ -161,7 +202,7 @@ const RULES = (() => {
   <table class="guide">
     <tr><td><b>${t("Spin")}</b></td><td>${t("Plays one round at the current bet. The spacebar does the same. While the reels are turning the button reads Skip and lands them at once (clicking the board also skips); every winning cluster is always shown in full.")}</td></tr>
     <tr><td><b>− / +</b></td><td>${t("Lowers or raises the bet through every level offered by the server.")}</td></tr>
-    <tr><td><b>${t("Bonus")}</b></td><td>${t("Opens the bonus chooser: pick Standard or Extreme, set the bet, and the total charge is shown before you press Play.")}</td></tr>
+    <tr><td><b>${t("Bonus")}</b></td><td>${t("Opens the bonus chooser: pick the Bonus, Christmas Morning or The Blizzard, set the bet, and the total charge is shown before you press Play.")}</td></tr>
     <tr><td><b>${t("Auto")}</b></td><td>${t("Plays a chosen number of rounds one after another at the current bet. You confirm the number before it starts; press it again to stop. It also stops when the balance can't cover the next round.")}</td></tr>
     <tr><td><b>${t("Rapid")}</b></td><td>${t("Shortens the reel spin and win animations. Results are unaffected.")}</td></tr>
     <tr><td><b>${t("Info")}</b></td><td>${t("Opens this page: the rules, the paytable and your recent rounds.")}</td></tr>

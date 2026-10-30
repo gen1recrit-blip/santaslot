@@ -1,8 +1,8 @@
 # Changelog
 
-## v1.0 - Santa's Wonderland (2026-10-30)
+## v1.0 - Mr. & Mrs. Claus (2026-10-30)
 
-Santa's Wonderland: a 7x7 cluster-pays Christmas slot for Stake Engine, drawn in a cartoon style.
+Mr. & Mrs. Claus: a 7x7 cluster-pays Christmas slot for Stake Engine, drawn in a cartoon style.
 
 **What's in this build**
 - Santa asleep at the bar: he wakes for "Ho ho ho" when 3+ Jolly Scatters land, and says "Merry Christmas" as the bonus total starts counting.

@@ -32,6 +32,15 @@ const RGS = (() => {
     XGC: { symbol: "GC", decimals: 2, after: true },
     XSC: { symbol: "SC", decimals: 2, after: true },
     XEC: { symbol: "SC", decimals: 2, after: true },
+    SC: { symbol: "SC", decimals: 2, after: true },
+    GC: { symbol: "GC", decimals: 2, after: true },
+    // crypto: shown with the code after the amount and as many places as the wallet carries (6)
+    BTC: { symbol: "BTC", decimals: 6, after: true },   ETH: { symbol: "ETH", decimals: 6, after: true },
+    LTC: { symbol: "LTC", decimals: 6, after: true },   BCH: { symbol: "BCH", decimals: 6, after: true },
+    DOGE: { symbol: "DOGE", decimals: 2, after: true }, SOL: { symbol: "SOL", decimals: 4, after: true },
+    TRX: { symbol: "TRX", decimals: 2, after: true },   XRP: { symbol: "XRP", decimals: 2, after: true },
+    BNB: { symbol: "BNB", decimals: 4, after: true },
+    USDT: { symbol: "USDT", decimals: 2, after: true }, USDC: { symbol: "USDC", decimals: 2, after: true },
   };
   // thousands grouped: 1,000,000.00 - the integer part only
   const group = s => s.replace(/^(\d+)/, d => d.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -163,6 +172,7 @@ const RGS = (() => {
       const open = state.round;
       state.round = null;
       if (open && open.active === false) return null;
+      if (open && (open.payoutMultiplier === 0 || open.payout === 0)) return null;   // a zero win: nothing to end (Stake)
       // Developers on the engine.io server see a sporadic 500 from end-round even though
       // the round settles fine — retry briefly, then confirm with authenticate rather
       // than tell the player their win failed when it didn't.
@@ -247,7 +257,8 @@ const RGS = (() => {
       let s = v.toFixed(meta.decimals);
       if (extra > 0 && unit > 1 && a % unit !== 0) {
         s = v.toFixed(maxDec).replace(/0+$/, "");
-        if (s.split(".")[1] && s.split(".")[1].length < meta.decimals) s = v.toFixed(meta.decimals);
+        const f = s.split(".")[1] || "";   // never "0." - at least the currency's usual places
+        if (f.length < meta.decimals) s = v.toFixed(meta.decimals);
       }
       s = group(s);
       return meta.after ? `${s} ${meta.symbol}` : `${meta.symbol}${s}`;
