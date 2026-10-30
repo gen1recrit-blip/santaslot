@@ -1812,20 +1812,20 @@
     36% { opacity: .62; transform: scale(.95); } 52% { opacity: .92; transform: scale(1.02); } 58% { opacity: .45; transform: scale(.9); }
     61% { opacity: 1; transform: scale(1.09); } 76% { opacity: .8; transform: scale(1); } 81% { opacity: .98; transform: scale(1.06); }
     88% { opacity: .6; transform: scale(.94); } 100% { opacity: .85; transform: scale(1); } }
-  /* a row of metal beer kegs standing against the wall under the sign, in the room's dim light with the sign's red on their tops */
+  /* a big pile of wrapped presents against the wall under the sign (owner, 2026-10-30: in place of the beer kegs), in the room's dim light with the sign's red on their tops */
   .barfx .elfbar { background: url("assets/xmas/wfx/elf_bartender.webp") center bottom / contain no-repeat; transform-origin: 50% 100%;
     filter: brightness(.8) saturate(.9); animation: elfIdle 7s ease-in-out infinite; }
   @keyframes elfIdle { 0%, 100% { transform: rotate(-1.2deg) translateY(0); } 25% { transform: rotate(0deg) translateY(-.8%); }
     50% { transform: rotate(1.3deg) translateX(1.5%) translateY(0); } 75% { transform: rotate(.2deg) translateX(.8%) translateY(-.6%); } }
   @media (prefers-reduced-motion: reduce) { .barfx .elfbar { animation: none; } }
   .barfx .milk { background: url("assets/xmas/wfx/milk.webp") center bottom / contain no-repeat; filter: brightness(.8) drop-shadow(0 4px 4px rgba(0,0,0,.5)); }
-  .barfx .kegs { background: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat;
-    filter: brightness(.6) saturate(.85) sepia(.1) drop-shadow(0 8px 10px rgba(0,0,0,.6)); }
+  .barfx .kegs { background: url("assets/xmas/wfx/presents.webp") center bottom / contain no-repeat;
+    filter: brightness(.72) saturate(.9) sepia(.08) drop-shadow(0 8px 10px rgba(0,0,0,.6)); }
   .barfx .kegs::before { content: ""; position: absolute; left: 4%; right: 4%; bottom: -4%; height: 14%; border-radius: 50%;
     background: radial-gradient(ellipse at center, rgba(0,0,0,.55), rgba(0,0,0,0) 70%); }   /* their shadow on the floor */
   .barfx .kegs::after { content: ""; position: absolute; inset: 0; mix-blend-mode: screen;
     background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 40, 45, .32), rgba(255, 40, 45, 0) 75%);
-    -webkit-mask: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat; mask: url("assets/xmas/wfx/kegs.webp") center bottom / contain no-repeat; }
+    -webkit-mask: url("assets/xmas/wfx/presents.webp") center bottom / contain no-repeat; mask: url("assets/xmas/wfx/presents.webp") center bottom / contain no-repeat; }
   .barfx .winfx { overflow: hidden; -webkit-mask: url("assets/xmas/wfx/window_mask.png") 0 0 / 100% 100% no-repeat; mask: url("assets/xmas/wfx/window_mask.png") 0 0 / 100% 100% no-repeat; }
   .barfx .winfx > i { opacity: .8; }
   .barfx .winfx > i { position: absolute; top: -6%; border-radius: 50%; background: #f4f8ff; box-shadow: 0 0 2px rgba(255,255,255,.8);
