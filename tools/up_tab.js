@@ -24,7 +24,7 @@
 (() => {
   const CFG = {
     team: "smukiez",
-    game: "santas-wonderland",
+    game: "mrandmrs-claus",
     repo: "gen1recrit-blip/santaslot",              // public repo: the tab reads it without a token
     commit: "9233162a47747586a1b166cfc5b505768ce0fb8a",
     parts: {                               // engine.io bundle -> where it lives in the repo
