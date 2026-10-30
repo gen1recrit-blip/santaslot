@@ -4348,8 +4348,14 @@ function symSet(name, im) {
 // so the reel begins moving from the board the player is already looking at
 const shownSym = [];
 const heldCells = new Set();   // squares a thrown or dropped present is sitting on: their own icon stays hidden under it
+// The Bonus's Sleigh Drop (owner, 2026-10-30): the symbols fall in first, then the sleigh drops its presents on top of
+// some of them. The book's board already has the presents (Multis) on those squares, so while the symbols fall in each
+// of those squares shows a low symbol instead - one matching none of its neighbours, so it can never look like part of
+// a cluster - and the present that lands on it replaces it. el -> { r, y, real, fake }
+const standIn = new Map();
 function setCell(r, y, sym) {
   const el = cellEls[r][y];
+  if (standIn.has(el)) sym = standIn.get(el).fake;
   el._spray = null;   // a new symbol: any spray this cell was waiting for was for the old one
   el.className = cellClass(sym) + (heldCells.has(el) ? " santahide" : "");
   fillCell(el, sym);
@@ -6701,8 +6707,11 @@ const handlers = {
     // come down - the drop follows the reveal in the book, so it is played here, ahead of it
     const pk = state.peek;
     let sleighGifts = null;
-    if (pk && pk.type === "wallDrop" && pk.kind === "sleigh" && (pk.positions || []).length) {
-      pk._shown = true;
+    flushStandIns();
+    if (pk && pk.type === "wallDrop" && pk.kind === "sleigh" && (pk.positions || []).length && ev.gameType !== "basegame") {
+      sleighStandIns(ev, pk.positions);   // the Bonus: the symbols come down first, the sleigh drops its presents after (wallDrop)
+    } else if (pk && pk.type === "wallDrop" && pk.kind === "sleigh" && (pk.positions || []).length) {
+      pk._shown = true;   // the base game's rare sleigh still flies before the spin
       const cells = pk.positions.map(p => cellEls[p.reel][Math.min(Math.max(p.row - 1, 0), ROWS - 1)]);
       cells.forEach(c => heldCells.add(c));   // the dropped present is the only present on its square while the symbols fall
       sleighGifts = await sleighPreDrop(cells);
@@ -7452,7 +7461,9 @@ function sleighFly(ms = 3400, atY = null) {
   document.body.appendChild(g);
   // through the middle of the screen (owner, 2026-10-30), not along the top
   const w = Math.min(innerWidth * .34, 460), y0 = (atY != null ? atY : innerHeight * (.42 + Math.random() * .08)) - w * .3, frames = [];
-  for (let k = 0; k <= 30; k++) { const u = k / 30, x = -w + (innerWidth + w * 2) * u, y = y0 - Math.sin(u * Math.PI) * innerHeight * .07;
+  // the rise over the middle: flatter when the sleigh is flying high, so it never climbs off the top of the screen
+  const amp = atY != null ? Math.min(innerHeight * .07, Math.max(0, y0)) : innerHeight * .07;
+  for (let k = 0; k <= 30; k++) { const u = k / 30, x = -w + (innerWidth + w * 2) * u, y = y0 - Math.sin(u * Math.PI) * amp;
     frames.push({ transform: `translate(${x.toFixed(0)}px, ${y.toFixed(0)}px) rotate(${(-6 + 4 * Math.cos(u * Math.PI)).toFixed(1)}deg)`, offset: u }); }
   g.style.width = w + "px";
   const a = g.animate(frames, { duration: ms * (ms < 3000 ? tempo() : 1), easing: "linear" });
@@ -7467,7 +7478,7 @@ function sleighFly(ms = 3400, atY = null) {
   // where the sleigh is: when its middle passes a given x (ms from now), and the point under it then
   const dur = ms * (ms < 3000 ? tempo() : 1), span = innerWidth + w * 2;
   const uAt = x => Math.max(0, Math.min(1, (x - w * .5 + w) / span));
-  return { when: x => uAt(x) * dur, at: x => { const u = uAt(x); return [x, y0 - Math.sin(u * Math.PI) * innerHeight * .07 + w * .32]; } };
+  return { when: x => uAt(x) * dur, at: x => { const u = uAt(x); return [x, y0 - Math.sin(u * Math.PI) * amp + w * .32]; } };
 }
 // each free spin starts in its bonus's own way
 function bonusSpinFx() {
@@ -7501,46 +7512,77 @@ function flyPresents(cells, from, { gap = 140, ms = 620, lift = 160, spin = 1, s
     }, i * gap * tempo());
   })));
 }
-// The Bonus's Sleigh Drop: the sleigh swoops low over the board and lets its presents fall straight down onto their cells
-async function sleighDrop(cells) {
-  // the sleigh flies right across the middle of the board (owner, 2026-10-30), and each present falls from it the
-  // moment it passes over that present's column
-  const b = $("board").getBoundingClientRect(), midY = b.top + b.height * .5;
-  if (REDUCED_MOTION) { await flyPresents(cells, () => [0, 0]); return; }
-  const path = sleighFly(1900, midY);
-  const drops = cells.map(c => new Promise(done => {
-    const r = c.getBoundingClientRect(), cx = r.left + r.width / 2;
-    setTimeout(() => { const [x, y] = path.at(cx); flyPresents([c], () => [x, y], { gap: 0, ms: 460, lift: 10, spin: .35, sound: "fsland", rate: 1.2 }).then(done); }, path.when(cx));
-  }));
-  for (const c of cells) c.classList.add("santahide");   // hidden until its present lands
-  await Promise.all(drops);
+// the low symbols a stand-in is drawn from (see standIn)
+const STANDIN_POOL = ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10"];
+function sleighStandIns(ev, positions) {
+  const pick = new Map(), nameAt = (r, row) => pick.get(r + "," + row) || (ev.board[r] && ev.board[r][row] ? ev.board[r][row].name : null);
+  for (const p of positions) {
+    const y = p.row - 1; if (y < 0 || y >= ROWS || !cellEls[p.reel]) continue;
+    const near = [[p.reel - 1, p.row], [p.reel + 1, p.row], [p.reel, p.row - 1], [p.reel, p.row + 1]].map(([r, row]) => nameAt(r, row));
+    const ok = STANDIN_POOL.filter(n => !near.includes(n)), name = ok[Math.floor(Math.random() * ok.length)] || "L1";
+    pick.set(p.reel + "," + p.row, name);
+    standIn.set(cellEls[p.reel][y], { r: p.reel, y, real: ev.board[p.reel][p.row], fake: { name } });
+  }
 }
-// The sleigh's run ahead of the symbols: the board empties, the sleigh flies across its middle and each present falls
-// from it onto its square as it passes, and sits there while the new symbols drop in around it. Returns the presents.
-async function sleighPreDrop(cells) {
-  const board = $("board"), b = board.getBoundingClientRect(), midY = b.top + b.height * .5;
-  board.classList.add("cleared");
-  const gifts = [];
-  if (REDUCED_MOTION || state.skip) return gifts;
-  await hold(180);
-  const path = sleighFly(1900, midY);
-  await Promise.all(cells.map((c, i) => new Promise(done => {
+// a stand-in gives way to the square's real symbol (the present)
+function unStandIn(c) {
+  const s = standIn.get(c); if (!s) return;
+  standIn.delete(c); setCell(s.r, s.y, s.real);
+}
+function flushStandIns() { for (const c of [...standIn.keys()]) unStandIn(c); }
+// Where the sleigh flies for a drop (owner, 2026-10-30): just above the highest of its squares, so every present
+// falls from underneath it - straight down and toward the player
+function sleighLineY(cells) {
+  const b = $("board").getBoundingClientRect(), r0 = cells[0].getBoundingClientRect();
+  const top = Math.min(...cells.map(c => c.getBoundingClientRect().top));
+  return Math.max(b.top - r0.height * .55, top - r0.height * .25);
+}
+// One present let go from under the sleigh: it starts tiny (far away, up at the sleigh) and grows to full size as it
+// falls onto its square, so it looks as though it drops out of the sleigh toward the player. Resolves with the present.
+function sleighGift(c, path, i) {
+  return new Promise(done => {
     const r = c.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, size = Math.max(36, r.width * .9);
     setTimeout(() => {
       const [sx, sy] = path.at(cx);
       const g = document.createElement("img"); g.className = "santagift"; g.src = "assets/flat/M.webp"; g.alt = "";
       Object.assign(g.style, { width: size + "px", height: size + "px", left: -size / 2 + "px", top: -size / 2 + "px" });
-      document.body.appendChild(g); gifts.push(g);
+      document.body.appendChild(g);
       sfx("fsland", 1.15 + i * .05);
-      const turn = (Math.random() < .5 ? -1 : 1) * (120 + Math.random() * 120), frames = [];
-      for (let k = 0; k <= 16; k++) { const t = k / 16, x = sx + (cx - sx) * t, y = sy + (cy - sy) * t * t;
-        frames.push({ transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(turn * (1 - t)).toFixed(0)}deg) scale(${(.5 + .5 * t).toFixed(3)})`, offset: t }); }
-      g.animate(frames, { duration: 480 * tempo(), easing: "linear", fill: "forwards" }).finished.catch(() => {}).then(() => {
+      const wob = (Math.random() < .5 ? -1 : 1) * (18 + Math.random() * 14), frames = [];
+      for (let k = 0; k <= 20; k++) {
+        const t = k / 20, y = sy + (cy - sy) * Math.pow(t, 1.5), sc = .12 + .88 * Math.pow(t, 1.7);
+        frames.push({ transform: `translate(${(sx + (cx - sx) * t).toFixed(1)}px, ${y.toFixed(1)}px) rotate(${(wob * Math.sin(t * Math.PI * 1.5) * (1 - t)).toFixed(1)}deg) scale(${sc.toFixed(3)})`,
+                      opacity: Math.min(1, t * 8), offset: t });
+      }
+      g.animate(frames, { duration: 700 * tempo(), easing: "linear", fill: "forwards" }).finished.catch(() => {}).then(() => {
         sfx("pop", .95 + i * .06); xmasPop(c, .6);
-        done();
+        done(g);
       });
     }, path.when(cx));
+  });
+}
+// The Bonus's Sleigh Drop, after the symbols have all come down: the sleigh crosses just above the drop squares and
+// each present falls from underneath it onto its square the moment it passes over, replacing the symbol there
+async function sleighDrop(cells) {
+  if (REDUCED_MOTION || state.skip || document.hidden) { cells.forEach(unStandIn); paintGrid(); return; }
+  await hold(250);   // the board settles first
+  const path = sleighFly(1900, sleighLineY(cells));
+  await Promise.all(cells.map((c, i) => sleighGift(c, path, i).then(g => {
+    unStandIn(c); c.classList.remove("santahide"); c.classList.add("pulse"); setTimeout(() => c.classList.remove("pulse"), 500);
+    paintGrid(); g.remove();
   })));
+  cells.forEach(unStandIn);
+  await hold(200);
+}
+// The base game's rare sleigh, ahead of the symbols: the board empties, the sleigh flies across and each present falls
+// from underneath it onto its square, and sits there while the new symbols drop in around it. Returns the presents.
+async function sleighPreDrop(cells) {
+  const board = $("board");
+  board.classList.add("cleared");
+  if (REDUCED_MOTION || state.skip) return [];
+  await hold(180);
+  const path = sleighFly(1900, sleighLineY(cells));
+  const gifts = await Promise.all(cells.map((c, i) => sleighGift(c, path, i)));
   await hold(220);
   return gifts;
 }
@@ -10178,7 +10220,7 @@ function totalWinScreen(amount, { total = true } = {}) {
             `<img class="twlogo" data-art="${art}" src="assets/${art}" alt="" draggable="false">`).join("") +
           `<i class="twsheen" aria-hidden="true"></i>` +   // the band of light across the lettering
         `</div>` +
-        `<div class="twamount" style='--splat: ${snowSplat()}'><div class="twfig">${numeralRow(fmt(0))}</div></div>` +
+        `<div class="twamount"><div class="twfig">${numeralRow(fmt(0))}</div></div>` +
       `</div>` +
       `<div class="twcont"><img src="assets/xmas/txt_continue.webp" alt="${T("Click or press Space to continue")}" draggable="false"></div>`;
     // the figure sits dead centre on the board, and stays there if the window changes under it
