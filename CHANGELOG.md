@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.1 - Mr. & Mrs. Claus (2026-10-31)
+
+**New**
+- The Christmas Miracle (x600 buy): one base spin on a board whose 49 squares all start at x500. Clusters pay through
+  the sum of their squares, so the smallest win is 1,000x; a spin with no cluster pays nothing. Once bought it stays on
+  for every spin until the player turns it off with the gold "Miracle on" badge, and its title screen plays only once.
+- The Middle Present: the centre square wears a candy-cane border, and a present on it adds its value to every square.
+- Christmas Morning: a new Mrs. Claus seated in her rocking chair, opening a present on her lap.
+- Bonus panel: the chosen bonus gets a thick gold outline and a ray of light behind it.
+- The bar: milk and chocolate milk drip from the two taps; a pile of wrapped presents in place of the kegs.
+- The Total Win figure sits on a bank of snow that stretches to fit the number.
+
+**Math (v11b; every mode RTP 96.7%, max win 10,000x)**
+- Santa's Wake-Up removed; every winning symbol leaves a multiplier on its square.
+- Sleigh Ride: the sleigh drops a x10, x20 or x50 present on about every other free spin.
+- Christmas Morning: every present x5 or more; Santa throws x10+ presents on about two free spins in three.
+- 3 Jolly Scatters in the base game start the Sleigh Ride, 4 or more start Christmas Morning; retriggers +5/+7/+10.
+- New mode `miracle` (cost 600).
+
 ## v1.0 - Mr. & Mrs. Claus (2026-10-30)
 
 Mr. & Mrs. Claus: a 7x7 cluster-pays Christmas slot for Stake Engine, drawn in a cartoon style.

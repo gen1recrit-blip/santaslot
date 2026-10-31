@@ -19,6 +19,12 @@
             "weights": "lookUpTable_extremebonus_0.csv"
         },
         {
+            "name": "miracle",
+            "cost": 600.0,
+            "events": "books_miracle.jsonl.zst",
+            "weights": "lookUpTable_miracle_0.csv"
+        },
+        {
             "name": "christmas",
             "cost": 250.0,
             "events": "books_christmas.jsonl.zst",
