@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.2 - Mr. & Mrs. Claus (2026-11-01)
+
+**Math v12: The Blizzard** - every present in it is x20 or more (x20 to x1000; the pop-in present x20 or x50), with far
+fewer of them: about 11 a bonus instead of ~55, so wins come bigger and less often. Price still x400, every mode RTP 96.7%,
+max win 10,000x. The base game's natural Blizzards play the same rules.
+
+**Front**
+- The Icicle symbol (one cartoon icicle) in place of the ice block.
+- The bar elf has new faces: wide-eyed on big wins, laughing on wins, wincing on a miss, a sly look at sleeping Santa and a
+  whistle (with notes) between spins.
+- The opening screen's six plates in two rows of three; the milk glass beside Santa's shoulder.
+- The bonus cards: a foil shine, twinkling stars (snowflakes on The Blizzard), a glow under each picture, golden rays behind
+  the Christmas Miracle, the prices on gold plates.
+- The bonus TOTAL WIN no longer flickers while counting or blinks out before TOTAL WIN; Santa sleeps through it.
+- The information page brought up to date (The Blizzard's x20 presents, the Present Bar, the Christmas Miracle staying on).
+
 ## v1.1 - Mr. & Mrs. Claus (2026-10-31)
 
 **New**
