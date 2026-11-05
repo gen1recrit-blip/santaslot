@@ -431,8 +431,17 @@ void main() {
     targets.forEach((t, i) => {
       if ((i & 1) !== h) return;
       const g = geometry(t);
-      if (!g) { if (t.key) { t.ctx.clearRect(0, 0, t.cv.width, t.cv.height); t.key = ""; } return; }
+      if (!g) { if (t.key) { t.ctx.clearRect(0, 0, t.cv.width, t.cv.height); t.key = ""; t.pkey = ""; } return; }
       if (still && t.key && t.drawn) return;
+      // A candy cane holds still (no flames, boil, glow or drops: nothing in it moves with time or a
+      // stoke), so it is drawn once and again only when its size or place changes. Measured on a phone
+      // (2026-11-04): redrawing it 30 times a second, a full-screen shader and a copy back, was half of
+      // every frame's work, for the very same pixels.
+      if (t.o.candy || window.SPRAYRIM_CANDY) {
+        const pk = [g.W, g.H, g.px, g.dw, g.dh, g.margin, Math.round(g.ox), Math.round(g.oy), g.band, g.inset, g.radius, g.L, g.flame, g.shadow.join(), t.o.glow].join("|");
+        if (t.drawn && t.pkey === pk) return;
+        t.pkey = pk;
+      }
       render(t, g, still ? 0 : now);
       t.drawn = true;
     });

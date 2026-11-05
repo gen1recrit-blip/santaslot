@@ -1,5 +1,32 @@
 # Changelog
 
+## v1.3 - Mr. & Mrs. Claus (2026-11-05)
+
+Front only (math v12 unchanged).
+
+**The bar and the shop**
+- The bottom bar is stretched out, with WIN always in its middle (gold, dim at 0.00). Each cluster's win figure is pulled
+  down off the board into it, and WIN pops and counts up as it lands. Balance and WIN shrink together only when they must.
+- Bonus Buy is a shop of four cards - Bonus, Christmas Morning, The Blizzard, Christmas Miracle - each with its own
+  Christmas scene and icon, a heat rating in snowflakes, the max win, the price at the current bet, and GET, which asks
+  once more (CONFIRM) before it buys. Balance and bet sit in a bar under the cards.
+- In a bonus the plate shows the free spins only; the bar's WIN carries the money (Big / Mega / Xtreme / Total Win stay).
+
+**The board**
+- A multiplier's value sits on a splat of snow (six of them, picked at random) instead of a plain square, and pops in
+  only once the tile over it has finished exploding.
+- The lean-in zoom for a third Jolly Scatter eases in and out (it was snapping), the camera goes home while the bonus
+  intro has the screen dark, and the board glides back to size as a bonus ends.
+
+**Phones and speed**
+- Santa stands beside the sign with a mug of milk on a phone held upright; the Bonus button and Santa are always on
+  screen there; no Claus in the bonuses on a phone; the wall is cut to its middle on narrow phones.
+- The animated symbols draw on one canvas each; the candy-cane frame is drawn once; the characters stop drawing while
+  off screen or behind a bonus scene; the bonuses' snow, blizzard, wind, confetti and window snow are canvas particles
+  (Christmas Morning went from ~200 running animations to ~17, The Blizzard from ~360 to ~11); no filter on the board
+  in the bonuses; the spin arrows turn on the compositor.
+- The TOTAL WIN numerals no longer squeeze on narrow screens.
+
 ## v1.2 - Mr. & Mrs. Claus (2026-11-01)
 
 **Math v12: The Blizzard** - every present in it is x20 or more (x20 to x1000; the pop-in present x20 or x50), with far

@@ -114,7 +114,7 @@ const RULES = (() => {
 <section class="howwin">
   <h4>${t("How you win")}</h4>
   ${demo}
-  <p>${t("There are no paylines. A win - a \"line pay\" - is a CLUSTER: 5 or more of the same symbol touching each other side by side or up and down (not corner to corner), anywhere on the 7 x 7 board. Above, six Candy Canes touch, so they pay the Candy Cane's 6-symbol prize. A win is shown by a wreath wrapped in Christmas lights running through the centre of every square in it.")}</p>
+  <p>${t("There are no paylines. A win - a \"line pay\" - is a CLUSTER: 5 or more of the same symbol touching each other side by side or up and down (not corner to corner), anywhere on the 7 x 7 board. Above, six Candy Canes touch, so they pay the Candy Cane's 6-symbol prize. A win is shown by a candy cane drawn through every square in it, and what it pays counts up over it.")}</p>
   <p>${t("Every cluster on the board pays. Then the winning symbols pop, new ones fall in from the top, and anything new that connects pays again - one spin can win many times. The bigger the cluster, the bigger the pay (see the paytable below).")}</p>
 </section>
 
