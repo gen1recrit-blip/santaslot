@@ -22,14 +22,14 @@
     --teal: #3FBFB2;
     --green: #4ADE80;
     --orange: #FF8A2A;       /* the bottom-bar icon buttons and their pop-ups */
-    --mono: "Fredoka", "Helvetica Neue", Arial, sans-serif;
-    --disp: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
+    --mono: "Grandstander", "Helvetica Neue", Arial, sans-serif;
+    --disp: "Grandstander Black", "Grandstander", "Arial Black", sans-serif;
     /* Timegoing carries the money and the multipliers (balance, bet, the values on the
        board) and every line of body copy in the rules and menus; BROMO is capitals only -
        no digits, no punctuation - so it takes the BALANCE label and the currency code, and
        anything else in that run falls through to the next face glyph by glyph. */
-    --num: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
-    --label: "Luckiest Guy", "Fredoka", "Arial Black", sans-serif;
+    --num: "Grandstander Black", "Grandstander", "Arial Black", sans-serif;
+    --label: "Grandstander Black", "Grandstander", "Arial Black", sans-serif;
     --wall-scale: contain;   /* background wall size — `cover` fills and crops, `contain` fits it all in */
     /* The scene's lean. The wall art is drawn dead-on (its brick courses are parallel to
        0.2 degrees - no vanishing point to match), so the whole scene is turned a little as
@@ -70,12 +70,21 @@
     src: url("assets/fredoka.ttf") format("truetype");
     font-weight: 300 700; font-display: swap;
   }
-  /* the Christmas lettering (owner, 2026-10-30: the graffiti faces are gone): Luckiest Guy - a chunky, rounded cartoon face -
-     for titles, labels and figures; Fredoka for anything read at length. Luckiest Guy is Apache 2.0 (luckiest_guy_LICENSE.txt). */
+  /* the lettering (owner, 2026-11-06, after engine.io's review named "standard fonts"): Luckiest Guy and Fredoka are out of
+     the game's screens. Grandstander - a hand-drawn cartoon face with the wobble of the symbols' own ink lines - sets every
+     label, figure and line of text in play; its Black cut ("Grandstander Black", a static 900 instance, so a font: 400
+     shorthand still gets the heavy letters) takes the titles and figures Luckiest Guy had. Only the info screen's small print
+     keeps a plain face (Fredoka, --read / --legible / --plain). Grandstander is OFL (grandstander_OFL.txt); both files are
+     subset to Latin, punctuation and currency signs. */
   @font-face {
-    font-family: "Luckiest Guy";
-    src: url("assets/luckiest_guy.ttf") format("truetype");
-    font-display: swap;
+    font-family: "Grandstander";
+    src: url("assets/grandstander.ttf") format("truetype");
+    font-weight: 100 900; font-display: swap;
+  }
+  @font-face {
+    font-family: "Grandstander Black";
+    src: url("assets/grandstander_black.ttf") format("truetype");
+    font-weight: 100 900; font-display: swap;
   }
   * { box-sizing: border-box; }
   /* The game frame never scrolls: fitToScreen() scales #app to the window instead.
@@ -83,7 +92,7 @@
   html, body { height: 100%; overflow: hidden; touch-action: manipulation; }
   body {
     margin: 0; color: var(--ink); background: var(--bg);
-    font-family: "Fredoka", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Grandstander", "Helvetica Neue", Arial, sans-serif;
     position: relative;
   }
   /* The wall: an old charcoal brick wall at night (the same wall the bonus intro stands on;
@@ -510,11 +519,11 @@
     border-image: url("assets/info_panel.webp") 4.9% 6.25% fill / 20px stretch;
     box-shadow: 0 14px 34px rgba(0, 0, 0, .6);
     /* the info panel's lettering (owner, 2026-10-26): white Fredoka with a black outline */
-    font-family: "Fredoka", var(--read); font-weight: 500; font-size: clamp(14px, 2.05vh, 19px); line-height: 1.5; letter-spacing: .01em;
+    font-family: "Grandstander", var(--read); font-weight: 500; font-size: clamp(14px, 2.05vh, 19px); line-height: 1.5; letter-spacing: .01em;
     color: #fff; -webkit-text-stroke: 3px #000; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0,0,0,.55);
   }
   .bonusintro .bhow p { margin: 0 0 .7em; } .bonusintro .bhow p:last-child { margin-bottom: 0; }
-  .bonusintro .bhow b { font-family: "Fredoka", var(--num); font-weight: 700; color: var(--gold); font-size: 1.1em; letter-spacing: .1em; -webkit-text-stroke: 4px #000; }
+  .bonusintro .bhow b { font-family: "Grandstander", var(--num); font-weight: 700; color: var(--gold); font-size: 1.1em; letter-spacing: .1em; -webkit-text-stroke: 4px #000; }
   .bonusintro .bhow strong { font-weight: 700; color: var(--fs-green); letter-spacing: .06em; -webkit-text-stroke: 4px #000; }
   /* "Click or press Space to continue": the bonus intro waits for the player */
   .bonusintro .bcont {
@@ -877,16 +886,16 @@
   /* the info panel's lettering (owner, 2026-10-26): Fredoka in white with a black outline, and
      the yellow bold - the titles and the figures in the copy - spaced out */
   .fbox h3 {
-    margin: 2.5cqw 0 1.5cqw; font-family: "Fredoka", var(--disp); font-weight: 700; font-size: 5.6cqw; letter-spacing: .12em;
+    margin: 2.5cqw 0 1.5cqw; font-family: "Grandstander", var(--disp); font-weight: 700; font-size: 5.6cqw; letter-spacing: .12em;
     text-transform: uppercase; line-height: 1.15;
     color: var(--gold); -webkit-text-stroke: 1.1cqw #000; paint-order: stroke fill;
     text-shadow: 0 .5cqw 0 rgba(0,0,0,.6), 0 0 10px rgba(0,0,0,.5);
   }
   .fbox p {
-    margin: 0; font-family: "Fredoka", var(--read); font-weight: 500; font-size: 4.1cqw; line-height: 1.45; letter-spacing: .01em;
+    margin: 0; font-family: "Grandstander", var(--read); font-weight: 500; font-size: 4.1cqw; line-height: 1.45; letter-spacing: .01em;
     color: #fff; -webkit-text-stroke: .75cqw #000; paint-order: stroke fill; text-shadow: 0 .4cqw 0 rgba(0,0,0,.55);
   }
-  .fbox p b { font-family: "Fredoka", var(--num); font-weight: 700; color: var(--gold); font-size: 1.08em; letter-spacing: .1em; }
+  .fbox p b { font-family: "Grandstander", var(--num); font-weight: 700; color: var(--gold); font-size: 1.08em; letter-spacing: .1em; }
   .features .fcont {
     position: absolute; left: 0; right: 0; bottom: 4vh; text-align: center;
     font-family: var(--disp); font-size: clamp(16px, 2.6vh, 24px); letter-spacing: .14em; text-transform: uppercase;
@@ -997,7 +1006,7 @@
   .popover {
     position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%);
     z-index: 30; min-width: 250px; background: var(--panel); border: 2px solid var(--orange);
-    padding: 12px 14px; box-shadow: 0 10px 30px rgba(0,0,0,.55); font-family: var(--legible);
+    padding: 12px 14px; box-shadow: 0 10px 30px rgba(0,0,0,.55); font-family: "Grandstander", var(--legible);
   }
   .popover::after {   /* the little arrow pointing at its button */
     content: ""; position: absolute; top: 100%; left: 50%; margin-left: -7px;
@@ -1387,7 +1396,32 @@
      the 2026-10-27 re-theme (tools/sprayrim/make_rims.py --plate cuts it; the file kept its name) */
   .boardplate {
     position: absolute; inset: 14px; z-index: -1; pointer-events: none; border-radius: 12px;
-    background: rgba(10, 5, 7, .34); opacity: 1;   /* no texture: the bar shows straight through, a shade darker than outside the candy cane (owner, 2026-10-29) */   /* .58 until the 2026-10-27 wall: its livelier tag fought the symbols */
+    /* solid now (owner, 2026-11-06, after engine.io's review: the bar showing through the board read as unfinished):
+       the board is a slab of the game's own planks (wood_plate, darkened: board_wood.webp), and every square a well
+       carved into it (.reel's slot.webp) - an Advent-calendar cabinet the symbols drop into */
+    background: #1c0f09 url("assets/xmas/board_wood.webp") center / cover no-repeat; opacity: 1;
+    box-shadow: 0 0 0 3px #120805;
+  }
+  /* the wells, one per square, down every reel (a square plus the gap under it per tile): they stay put while the
+     symbols fall in and out of them */
+  /* (on a layer of their own under the multiplier slots, .welllayer, placed square by square with them in
+     placeMultLayer(): painted on the reels they covered the snow squares, which sit under the cells) */
+  .welllayer { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .welllayer > i { position: absolute; border-radius: 13%; background: url("assets/xmas/slot.webp") center / 100% 100% no-repeat; }
+  /* a winning cluster lights its wells (owner, 2026-11-06, the animation polish): each square it covers glows warm gold
+     from the inside and gets a gold rim, in the moment the cluster pays, so the whole shape reads at a glance */
+  .welllayer > i.lit {
+    background-color: rgba(255, 196, 60, .55); background-blend-mode: screen;
+    box-shadow: 0 0 0 3px #ffd23c, 0 0 0 5px #160a05, 0 0 22px 6px rgba(255, 200, 60, .65);
+    animation: wellLit calc(.45s * var(--tempo, 1)) cubic-bezier(.2, .9, .3, 1.4) both;
+  }
+  @keyframes wellLit { from { scale: .86; box-shadow: 0 0 0 0 #ffd23c, 0 0 0 0 #160a05, 0 0 0 0 rgba(255, 200, 60, 0); } }
+  @media (prefers-reduced-motion: reduce) { .welllayer > i.lit { animation: none; } }
+  /* a high-paying symbol (tiers 1 and 2: Santa's Sack to the Stocking) sits in a gold-rimmed well of its own, which
+     comes and goes with it - drops in with it, bursts with it */
+  .cell.t1::before, .cell.t2::before {
+    content: ""; position: absolute; inset: -2px; pointer-events: none;
+    background: url("assets/xmas/slot_gold.webp") center / 100% 100% no-repeat;
   }
   /* the live spray rim (sprayrim.js) draws the outline: the picture stays as the fallback */
   .board.livefx #paintframe { visibility: hidden; }
@@ -1485,7 +1519,7 @@
   /* text tiles (wild + characters, until their art lands) must not spill past the cell —
      the graffiti face runs much wider than the UI font it replaced */
   .cell > div { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .cell img { width: 88%; height: 88%; object-fit: contain; pointer-events: none; }
+  .cell img { width: 104%; height: 104%; object-fit: contain; pointer-events: none; }   /* SYM_BOX */
   /* Each cell's contents sit in one lasting box (.ico) that idleStretch() animates. The icon
      inside is replaced on every fill; the box is not, so its idle path carries straight on. */
   .cell .ico {
@@ -1609,7 +1643,7 @@
   .cell.booster .multface {
     position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center;
     font-family: var(--num); font-size: 30px; line-height: 1;
-    font-family: "Luckiest Guy", var(--num); font-weight: 400; font-size: 32px;   /* bundled: no outside font host (Stake) */
+    font-family: "Grandstander Black", var(--num); font-weight: 400; font-size: 32px;   /* bundled: no outside font host (Stake) */
     color: var(--heat, #2e9e57); -webkit-text-stroke: 5px #170a14; paint-order: stroke fill;
     text-shadow: 0 3px 0 rgba(0,0,0,.55);   /* Christmas lettering in its heat colour: green -> purple (owner, 2026-10-29) */
   }
@@ -1715,7 +1749,7 @@
     background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.95) 49%, transparent 58%) no-repeat; background-size: 300% 100%; background-position: 100% 0;
     -webkit-mask: url("assets/flat/L7.webp") center / contain no-repeat; mask: url("assets/flat/L7.webp") center / contain no-repeat; }
   .wfxp .wsay { left: 50%; top: -16%; margin-left: -2.6em; width: 5.2em; text-align: center; padding: .08em 0; border-radius: 1em; z-index: 4;
-    font: 400 16px "Luckiest Guy", "Fredoka", cursive; color: #7a3d12; background: #fffaf0; border: 2px solid #1d1416; box-shadow: 0 2px 0 rgba(0,0,0,.4); }
+    font: 400 16px "Grandstander Black", "Grandstander", cursive; color: #7a3d12; background: #fffaf0; border: 2px solid #1d1416; box-shadow: 0 2px 0 rgba(0,0,0,.4); }
   /* the snowman's snow, over the whole board; and the bar's tree lights, flashing behind Mrs. Claus for the tree */
   .board > .boardsnow { position: absolute; inset: 3%; overflow: hidden; pointer-events: none; z-index: 2; border-radius: 10px; }
   .boardsnow > i { position: absolute; top: -4%; width: var(--sz, 6px); height: var(--sz, 6px); border-radius: 50%; background: #fff;
@@ -1906,7 +1940,7 @@
     font-family: var(--num); font-size: calc(44px * var(--shrink, 1)); line-height: 1;
     /* --heat is set by paintCell() from the value: green for a nudge, through yellow and
        orange, to red for the big ones */
-    font-family: "Fredoka", "Arial Rounded MT Bold", var(--num); font-weight: 700; letter-spacing: .01em;   /* a clean, round, bold face */
+    font-family: "Grandstander", "Arial Rounded MT Bold", var(--num); font-weight: 700; letter-spacing: .01em;   /* a clean, round, bold face */
     color: var(--heat, #2e9e57); -webkit-text-stroke: calc(4px * var(--shrink, 1)) #1a1020; paint-order: stroke fill;
     opacity: .7; text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 0 6px rgba(255,255,255,.6);   /* Christmas lettering in its heat colour, on snow (owner, 2026-10-29) */
     transition: opacity .18s linear;
@@ -1919,8 +1953,12 @@
      splats, one picked at random (and maybe mirrored) each time a value comes onto a cell (paintCell: .sp1-.sp5, .spf),
      hanging a little past the cell so the splashes reach out */
   .multlayer .gmult::before {
-    content: ""; position: absolute; inset: -9%; z-index: -1;
-    background: url("assets/xmas/wfx/splat_0.webp") center / contain no-repeat;
+    content: ""; position: absolute; inset: 3%; z-index: -1; border-radius: 13%;
+    /* (owner, 2026-11-06: "change the snow multiplier background to fill in the whole square") the splat's packed-snow
+       middle, blown up to fill the square to its corners and cut to the well's rounded square: a square of snow with
+       the splat's own shading, a different one (and maybe mirrored) each time */
+    background: #f4f8fc url("assets/xmas/wfx/splat_0.webp") center / 170% 170% no-repeat;
+    box-shadow: inset 0 0 0 3px #160a05, inset 0 -6px 0 3px rgba(150, 186, 222, .45);
   }
   .multlayer .gmult.sp1::before { background-image: url("assets/xmas/wfx/splat_1.webp"); }
   .multlayer .gmult.sp2::before { background-image: url("assets/xmas/wfx/splat_2.webp"); }
@@ -2159,7 +2197,7 @@
     position: absolute; z-index: 5; pointer-events: none; white-space: nowrap; text-align: center;
     translate: -50% -50%;
     display: flex; align-items: center; gap: .18em;
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: .02em;
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: .02em;
     color: rgb(140, 252, 84); -webkit-text-stroke: 3px rgba(12, 8, 18, .85); paint-order: stroke fill;
     text-shadow: 0 0 6px currentColor, 0 0 18px currentColor, 0 3px 0 rgba(0, 0, 0, .5);
     will-change: transform, opacity;
@@ -2218,7 +2256,7 @@
     max-width: min(92vw, 520px); padding: 9px 18px 8px; border-radius: 12px;
     background: rgba(10, 8, 14, .93); border: 2px solid #E0283A;
     box-shadow: 0 8px 24px rgba(0, 0, 0, .55);
-    font-family: var(--legible); font-size: clamp(11px, 2vh, 16px); line-height: 1.35; color: #f4f0ea;
+    font-family: "Grandstander", var(--legible); font-weight: 600; font-size: clamp(11px, 2vh, 16px); line-height: 1.35; color: #f4f0ea;
     text-align: center; pointer-events: none;
     opacity: 0; transform: translate(-50%, 10px);
     transition: opacity .25s ease, transform .3s cubic-bezier(.2, .9, .3, 1.2);
@@ -2337,12 +2375,12 @@
      bar's WIN counts the bonus's money; the Big / Mega / Xtreme and Total Win screens still play */
   .fsline .fswinbox { display: none; }
   .fslbl {
-    font-family: "Fredoka", var(--label); font-weight: 700; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
+    font-family: "Grandstander", var(--label); font-weight: 700; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
     color: var(--acc); -webkit-text-stroke: 3px #0b0a0d; paint-order: stroke fill; text-shadow: 0 0 10px rgba(var(--glow), .55);
   }
   #fsNow {
     display: flex; align-items: baseline; justify-content: center; gap: 5px;
-    font-family: "Fredoka", var(--num); font-weight: 700; color: #fff; -webkit-text-stroke: 5px #0b0a0d; paint-order: stroke fill;
+    font-family: "Grandstander", var(--num); font-weight: 700; color: #fff; -webkit-text-stroke: 5px #0b0a0d; paint-order: stroke fill;
     text-shadow: 0 3px 0 rgba(0, 0, 0, .55);
   }
   #fsNow .cur { display: inline-block; font-size: 34px; line-height: 1; }
@@ -2354,7 +2392,7 @@
   @keyframes fsRetrig { 0% { scale: 1; } 25% { scale: 1.16; } 100% { scale: 1; } }
   .fsplus {
     position: absolute; left: 50%; top: 0; z-index: 3; pointer-events: none; white-space: nowrap;
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 30px; color: var(--acc);
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: 30px; color: var(--acc);
     -webkit-text-stroke: 5px #0b0a0d; paint-order: stroke fill; text-shadow: 0 0 14px rgba(var(--glow), .9);
     animation: fsPlus 1.5s cubic-bezier(.2, .9, .3, 1) forwards;
   }
@@ -2657,7 +2695,7 @@
     max-width: 100%; padding: 4px 13px 5px; border-radius: 999px; white-space: nowrap;
     background: linear-gradient(180deg, var(--acchi), var(--acc) 46%, var(--accd));
     border: 2px solid #0b0a0d; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .5), 0 3px 0 rgba(0, 0, 0, .55);
-    font-family: "Fredoka", var(--disp); font-weight: 700; font-size: 15px; line-height: 1.1; letter-spacing: .07em; text-transform: uppercase;
+    font-family: "Grandstander", var(--disp); font-weight: 700; font-size: 15px; line-height: 1.1; letter-spacing: .07em; text-transform: uppercase;
     color: #fff; -webkit-text-stroke: 3.5px #0b0a0d; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0, 0, 0, .45);
   }
   .bonuscard .cardart {
@@ -2668,11 +2706,11 @@
   /* the spins it gives: the figures large in white, FREE SPINS under them in the card's paint */
   .bonuscard .spins {
     display: flex; flex-direction: column; align-items: center; line-height: 1.05;
-    font-family: "Fredoka", var(--label); font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase;
+    font-family: "Grandstander", var(--label); font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase;
     color: var(--acc); -webkit-text-stroke: 3px #0b0a0d; paint-order: stroke fill;
   }
   .bonuscard .spins b {
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: min(25px, 12.5cqw); letter-spacing: .03em; text-transform: none; white-space: nowrap;
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: min(25px, 12.5cqw); letter-spacing: .03em; text-transform: none; white-space: nowrap;
     color: #fff; -webkit-text-stroke: 4.5px #0b0a0d; margin-bottom: 2px;
   }
   /* its price (paintBonus): the x-cost over the money, on a dark well of its own */
@@ -2682,11 +2720,11 @@
     box-shadow: inset 0 0 0 1px rgba(var(--glow), .22);
   }
   .bonuscard .mult b {
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 26px; line-height: 1; letter-spacing: .04em;
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: 26px; line-height: 1; letter-spacing: .04em;
     color: #fff; -webkit-text-stroke: 4.5px #000; paint-order: stroke fill;
   }
   .bonuscard .mult span {
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 17px; line-height: 1.2; letter-spacing: .05em;
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: 17px; line-height: 1.2; letter-spacing: .05em;
     color: var(--gold); -webkit-text-stroke: 3.5px #000; paint-order: stroke fill;
   }
   .bonuscard .desc {
@@ -2722,7 +2760,7 @@
   }
   /* the words and figures in the info panel's lettering (owner, 2026-10-26) */
   .bonusbet .lbl {
-    font-family: "Fredoka", var(--label); font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase;
+    font-family: "Grandstander", var(--label); font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase;
     color: #fff; -webkit-text-stroke: 3.5px #000; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0,0,0,.55);
   }
   .bonusbet .amt { color: #fff; -webkit-text-stroke: 4px #000; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0,0,0,.55); }
@@ -2738,15 +2776,15 @@
   .bonusbet button:active:not(:disabled) { transform: scale(.9); }
   .bonusbet button:disabled { filter: grayscale(.9) brightness(.7); opacity: .6; cursor: default; }
   .bonusbet .amt {
-    font-family: "Fredoka", var(--num); font-size: 26px; font-weight: 700; min-width: 124px; text-align: center;
+    font-family: "Grandstander", var(--num); font-size: 26px; font-weight: 700; min-width: 124px; text-align: center;
     letter-spacing: .06em; font-variant-numeric: tabular-nums;
   }
   .bonustotal {
-    text-align: center; font-family: "Fredoka", var(--plain); font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
+    text-align: center; font-family: "Grandstander", var(--plain); font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
     color: #fff; -webkit-text-stroke: 3.5px #000; paint-order: stroke fill; text-shadow: 0 2px 0 rgba(0,0,0,.55); margin: 10px 0 14px;
   }
   .bonustotal b {
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 34px; letter-spacing: .06em; text-transform: none; line-height: 1.1;
+    font-family: "Grandstander", var(--num); font-weight: 700; font-size: 34px; letter-spacing: .06em; text-transform: none; line-height: 1.1;
     color: var(--gold); -webkit-text-stroke: 6px #000; display: block; margin-top: 2px;
     text-shadow: 0 3px 0 rgba(0, 0, 0, .6), 0 0 18px rgba(245, 197, 24, .35);
   }
@@ -2822,7 +2860,7 @@
     background: var(--word) center / contain no-repeat; filter: drop-shadow(0 3px 3px rgba(0,0,0,.45));
   }
   .bonusnote {
-    text-align: center; font-family: "Fredoka", var(--legible); font-weight: 500; font-size: 12.5px; letter-spacing: .01em; color: #fff;
+    text-align: center; font-family: "Grandstander", var(--legible); font-weight: 500; font-size: 12.5px; letter-spacing: .01em; color: #fff;
     -webkit-text-stroke: 2.5px #000; paint-order: stroke fill; text-shadow: 0 1px 0 rgba(0,0,0,.6); margin-top: 12px;
   }
   /* a phone keeps the two cards side by side, each a size down, so the whole buy fits one screen
@@ -2987,13 +3025,16 @@
      every piece's box in % of the frame, so the whole HUD scales as one and stays crisp. The pop-ups
      it opens (.hudpop: auto play, volume) and the rules panel rise out of it in the same paint. */
   :root {
-    --hud-fill: rgba(38, 37, 41, .5);   /* a slightly greyish black, half see-through (owner, 2026-11-03) */
-    --hud-line: #000;           /* the outline: black */
-    --hud-hi: #fff;             /* the outline under the pointer, or with its pop-up open: white (owner, 2026-11-03) */
-    --hud-on: #B8F23A;          /* Rapid / Auto on, the chosen option (the spin's pressed ring is white) */
-    --hud-ink: #f4f1f8;
-    --hud-soft: #c4bcd2;
-    --hud-font: "Fredoka", "Segoe UI", Roboto, Arial, sans-serif;
+    /* a painted wooden sign since 2026-11-06 (engine.io's review: the dark glass bar was another game's look): the
+       game's own planks (buildHud's #hudwood pattern), the ink-brown outline all the art is drawn with, cream glyphs
+       and gold for what is on */
+    --hud-fill: url(#hudwood);
+    --hud-line: #160a05;
+    --hud-hi: #FFD34E;          /* the outline under the pointer, or with its pop-up open */
+    --hud-on: #FFD34E;          /* Rapid / Auto on, the chosen option */
+    --hud-ink: #fbefd6;
+    --hud-soft: #f2c768;
+    --hud-font: "Grandstander", "Segoe UI", Roboto, Arial, sans-serif;
     /* the glyphs, drawn as masks so they take the button's colour */
     --i-menu: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round'><path d='M4 6.5h16M4 12h16M4 17.5h16'/></svg>");
     --i-sound: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 9.2h3.6L12 5v14l-4.9-4.2H3.5z' stroke-width='1.6'/><path d='M15.6 8.8a4.6 4.6 0 0 1 0 6.4M18.4 6a8.6 8.6 0 0 1 0 12' fill='none' stroke-width='2.2'/></svg>");
@@ -3005,8 +3046,8 @@
     --i-minus: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'><path d='M5 12h14'/></svg>");
     --i-spin: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M19.5 12.6A7.6 7.6 0 1 1 17.4 6.6'/><path d='M18.4 2.6v4.6h-4.6'/></svg>");
     /* the spin hexagon's inner ring, and the same lit while a round plays */
-    --spin-hex: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='%23fff' fill-opacity='.05' stroke='%23fff' stroke-opacity='.2' stroke-width='3' stroke-linejoin='round'/></svg>");
-    --spin-hex-on: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='%23fff' fill-opacity='.08' stroke='%23fff' stroke-opacity='.95' stroke-width='3.5' stroke-linejoin='round'/></svg>");   /* pressed: a white outline, glowing (owner, 2026-11-03) */
+    --spin-hex: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='%23160a05' fill-opacity='.35' stroke='%23F2B33D' stroke-opacity='.9' stroke-width='5' stroke-linejoin='round'/></svg>");   /* a gold ring round a darker well */
+    --spin-hex-on: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 148 128'><path d='M39 4h70l35 60-35 60H39L4 64z' fill='%23160a05' fill-opacity='.2' stroke='%23FFE08A' stroke-opacity='1' stroke-width='5.5' stroke-linejoin='round'/></svg>");   /* pressed: a white outline, glowing (owner, 2026-11-03) */
   }
   .bottom { justify-content: center; padding: 10px 16px 16px; }
   .hud { display: flex; justify-content: center; width: 100%; }
@@ -3021,7 +3062,7 @@
   .hudshape, .tabshape { inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .tabshape { position: absolute; }
   .hudshape path, .tabshape path {
-    fill: var(--hud-fill); stroke: var(--hud-line); stroke-width: 3; stroke-linejoin: round;
+    fill: var(--hud-fill); stroke: var(--hud-line); stroke-width: 4; stroke-linejoin: round;
     transition: fill .15s ease, stroke .15s ease;
   }
   /* the four tabs: the shape, and the glyph in the middle of it */
@@ -3045,16 +3086,16 @@
   .hudframe .sidebtn.auto  { --icon: var(--i-play); }
   .hudframe .sidebtn.auto.on { --icon: var(--i-stop); }      /* running: the press stops it */
   .hudframe :is(.hudbtn, .sidebtn):hover:not(:disabled) .tabshape path,
-  .hudframe .hudbtn.open .tabshape path { fill: rgba(30, 26, 40, .62); stroke: var(--hud-hi); }
+  .hudframe .hudbtn.open .tabshape path { stroke: var(--hud-hi); filter: brightness(1.18); }
   .hudframe :is(.hudbtn, .sidebtn):active:not(:disabled) { transform: scale(.93); }
   /* Rapid armed, Auto running: the glyph and the outline in lime */
   .hudframe .sidebtn.on, .hudframe .sidebtn.on:disabled { color: var(--hud-on); }
   .hudframe .sidebtn.on .tabshape path { stroke: var(--hud-on); }
-  .hudframe .sidebtn.on::before { filter: drop-shadow(0 0 5px rgba(184, 242, 58, .75)); }
+  .hudframe .sidebtn.on::before { filter: drop-shadow(0 0 5px rgba(255, 211, 78, .8)); }
   /* nothing greys during a round: a button that cannot act simply does not act */
   .hudframe button:disabled, .hudframe .sidebtn:disabled, .hudframe .sidebtn.on:disabled, .hudframe .hudbtn:disabled { opacity: 1; cursor: default; filter: none; }
   .hudframe .sidebtn:disabled::before { filter: none; }
-  .hudframe .sidebtn.on:disabled::before { filter: drop-shadow(0 0 5px rgba(184, 242, 58, .75)); }
+  .hudframe .sidebtn.on:disabled::before { filter: drop-shadow(0 0 5px rgba(255, 211, 78, .8)); }
   .hud button:focus { outline: none; }
   .hud button:focus-visible { outline: none; }
   .hudframe :is(.hudbtn, .sidebtn):focus-visible .tabshape path { stroke: #fff; }
@@ -3076,7 +3117,8 @@
   .hudstat { display: flex; flex-direction: column; justify-content: center; gap: calc(4px * var(--hs, 1)); line-height: 1; min-width: 0; }
   .hudstat .lbl, #balanceLbl {
     font-family: var(--hud-font); font-weight: 600; font-size: calc(14px * var(--hs, 1)); letter-spacing: .16em; text-transform: uppercase;
-    color: var(--hud-soft); text-shadow: none; white-space: nowrap;
+    color: var(--hud-soft); white-space: nowrap;
+    -webkit-text-stroke: calc(3px * var(--hs, 1)) var(--hud-line); paint-order: stroke fill;   /* inked, like the art */
   }
   .hudstat .lbl .cur { margin-left: .5em; opacity: .7; }
   .hudstat .val, #balance, #betVal {
@@ -3167,7 +3209,7 @@
   .spinbtn:hover:not(:disabled)::after { scale: 1.1; }
   .spinbtn:hover:not(:disabled)::before { background-image: var(--spin-hex-on); }   /* hover: the white outline */
   .spinbtn.armed { color: #fff; }
-  .spinbtn.armed::before { background-image: var(--spin-hex-on); filter: drop-shadow(0 0 7px rgba(255, 255, 255, .7)); }
+  .spinbtn.armed::before { background-image: var(--spin-hex-on); filter: drop-shadow(0 0 7px rgba(255, 211, 78, .75)); }
   .spinbtn.spun::after { animation: spin360 .8s cubic-bezier(.55, .05, .15, 1); }
   .spinbtn:focus-visible::before { filter: drop-shadow(0 0 5px rgba(255, 255, 255, .9)); }
   /* the viewer has no spin button and no stake */
@@ -3444,7 +3486,7 @@
   .miraclebtn .mx {
     position: absolute; left: -12%; top: -12%; width: calc(24px * var(--hs, 1)); height: calc(24px * var(--hs, 1)); border-radius: 50%;
     display: grid; place-items: center; background: #2a0d07; border: 2px solid #fdfbf7; color: #fff;
-    font: 700 calc(15px * var(--hs, 1)) / 1 "Fredoka", sans-serif;
+    font: 700 calc(15px * var(--hs, 1)) / 1 "Grandstander", sans-serif;
   }
   .miraclebtn:hover { transform: scale(1.07); }
   .miraclebtn:active { transform: scale(.94); }
@@ -3691,7 +3733,7 @@
   @media (max-width: 760px) and (orientation: portrait) { .fboxes { flex-wrap: wrap; } .fbox { width: clamp(120px, 42vw, 220px); } }
   /* ---- the Christmas polish pass (owner, 2026-10-30: "make it Christmas themed") ---- */
   /* the loading screen's notice reads easily under the logo */
-  .intromsg { font-family: "Fredoka", var(--read) !important; font-size: clamp(10px, 1.55vh, 13px) !important; line-height: 1.5; color: #f3ead8 !important; opacity: .92; max-width: min(640px, 88vw); }
+  .intromsg { font-family: "Grandstander", var(--read) !important; font-size: clamp(10px, 1.55vh, 13px) !important; line-height: 1.5; color: #f3ead8 !important; opacity: .92; max-width: min(640px, 88vw); }
   /* a phone (or a slow machine, html.lowfx): the lights hold steady instead of every bulb twinkling on its own clock */
   @media (max-width: 760px), (pointer: coarse) {
     .xlights > .glow { animation: none !important; opacity: .55; }
@@ -3823,7 +3865,7 @@
     opacity: .9;
   }
   .fban p {
-    margin: 0; font-family: "Fredoka", var(--read); font-weight: 500; font-size: 5.3cqw; line-height: 1.4; letter-spacing: .01em;
+    margin: 0; font-family: "Grandstander", var(--read); font-weight: 500; font-size: 5.3cqw; line-height: 1.4; letter-spacing: .01em;
     color: #fff; -webkit-text-stroke: .9cqw #1d0c03; paint-order: stroke fill; text-shadow: 0 .45cqw 0 rgba(0,0,0,.5);
   }
   .fban p b { font-weight: 700; color: #ffd23c; letter-spacing: .06em; font-size: 1.06em; }
@@ -3942,7 +3984,7 @@
   .snowbar .sbleft { flex: none; min-width: 3.4em; padding: .15em .5em; border-radius: 10px; background: #fff7e6; border: 3px solid #2a0d07; text-align: center; line-height: 1;
     box-shadow: 0 3px 0 rgba(0,0,0,.35); }
   .snowbar .sbleft b { display: block; font: 400 clamp(14px, 2.4vh, 24px)/1 var(--disp); color: #c2121f; }
-  .snowbar .sbleft small { display: block; font: 700 clamp(8px, 1.1vh, 11px)/1 "Fredoka", sans-serif; color: #2a0d07; letter-spacing: .08em; }
+  .snowbar .sbleft small { display: block; font: 700 clamp(8px, 1.1vh, 11px)/1 "Grandstander", sans-serif; color: #2a0d07; letter-spacing: .08em; }
   .snowbar .sbgone { flex: none; display: flex; gap: 2px; }
   .snowbar .sbgone img { width: clamp(18px, 3vh, 30px); height: auto; filter: grayscale(1) brightness(.8); opacity: .8;
     background: linear-gradient(to top right, transparent 46%, #c2121f 46% 54%, transparent 54%); border-radius: 50%; }
@@ -3980,7 +4022,7 @@
   .helperask { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: rgba(10,6,4,.55); }
   .helperask .hacard { width: min(380px, 88vw); padding: 18px 20px 16px; text-align: center; border-radius: 22px; color: #fff;
     border: 9px solid transparent; background: linear-gradient(#5a2e1a, #3a1c10) padding-box, repeating-linear-gradient(45deg, #d61f2a 0 9px, #fdfbf7 9px 18px) border-box;
-    box-shadow: 0 0 0 2px #2a0d07, 0 14px 30px rgba(0,0,0,.6); font-family: "Fredoka", sans-serif; }
+    box-shadow: 0 0 0 2px #2a0d07, 0 14px 30px rgba(0,0,0,.6); font-family: "Grandstander", sans-serif; }
   .helperask img { width: 74px; height: auto; margin-top: -4px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.5)); }
   .helperask h3 { margin: 4px 0 6px; font: 400 24px/1.1 var(--disp); color: #ffd23c; -webkit-text-stroke: 4px #2a0d07; paint-order: stroke fill; letter-spacing: .03em; }
   .helperask p { margin: 0 0 14px; font-size: 15px; line-height: 1.45; }
@@ -4130,97 +4172,133 @@
     .hud .bonusbtn, .helperbtn, .miraclebtn { bottom: calc(12vh / max(var(--fit, 1), .2) + var(--hud-fh, 136) * var(--hs, 1) * 1px + 6px); }
   }
 
-  /* ---------- the bonus shop (owner, 2026-11-05, after Tipsy Harvest's) ----------
-     Cards in the bar's paint (half-black, thin outline, Fredoka), each with a Christmas banner across its top - the
-     bonus's own scene with its icon (assets/bonus/banner_*.webp); gold for the money, a fat yellow GET that asks once
-     more (CONFIRM). The game behind dims (.infowrap). */
+  /* ---------- the bonus shop (owner, 2026-11-05; re-dressed 2026-11-06 after engine.io's review) ----------
+     The four buys hang like the features screen's banners (.frope / .frod / .fcloth, painted by paintBanner()): each a
+     cloth in its bonus's colour from a snowy rod on a cord, swinging a little, its scene framed at the top of the
+     cloth, its heat in snowflakes, its name in gold, what it does, the price in the game's cream numerals and a GET
+     painted on a plank of the bar's own wood. Nothing in it is a stock button or a gradient of its own: the wood, the
+     cloth, the gold trim and the ink outline are the game's. The game behind dims (.infowrap). */
   .bshop {
-    position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px;
-    padding: 18px 20px 20px; font-family: "Fredoka", var(--num); color: #f4f1f8;
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 4px 20px 16px; font-family: "Grandstander", var(--num); color: #fbefd6;
   }
   .bshoptitle {
-    margin: 0; font-family: "Fredoka", var(--num); font-weight: 700; font-size: 22px; letter-spacing: .22em;
-    text-transform: uppercase; color: #fff; text-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+    margin: 0; font-family: var(--disp); font-weight: 400; font-size: 36px; letter-spacing: .07em; line-height: 1;
+    text-transform: uppercase; color: #ffd23c; -webkit-text-stroke: 7px #1d0c03; paint-order: stroke fill;
+    text-shadow: 0 4px 0 rgba(0, 0, 0, .55);
   }
+  /* the close button: a round plank with a cream cross */
   .bshopx {
-    position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; padding: 0; border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, .25); background: rgba(20, 18, 24, .7); cursor: pointer; color: #fff;
+    position: absolute; top: 0; right: 6px; width: 46px; height: 46px; padding: 0; border-radius: 50%; cursor: pointer; color: #fbefd6;
+    border: 3px solid #160a05; background: #6b3f1f url("assets/xmas/wfx/wood_plate.webp") center / 420% auto no-repeat;
+    box-shadow: inset 0 0 0 2px rgba(255, 224, 150, .35), 0 4px 0 #160a05;
   }
-  .bshopx::before, .bshopx::after { content: ""; position: absolute; left: 50%; top: 50%; width: 18px; height: 3px; border-radius: 2px; background: currentColor; translate: -50% -50%; rotate: 45deg; }
-  .bshopx::after { rotate: -45deg; }
-  .bshopx:hover { border-color: #fff; }
-  .bshoprow { display: flex; gap: 18px; justify-content: center; align-items: stretch; }
+  .bshopx::before {
+    content: ""; position: absolute; inset: 9px; background: currentColor; filter: drop-shadow(0 2px 0 #160a05);
+    -webkit-mask: var(--xmark) center / contain no-repeat; mask: var(--xmark) center / contain no-repeat;
+  }
+  .bshopx::after { content: none; }
+  .bshopx:focus-visible { outline: 3px solid #ffd23c; outline-offset: 2px; }
+  .bshopx:focus:not(:focus-visible) { outline: none; }
+  .bshopx:hover { color: #ffd23c; }
+  .bshopx:active { translate: 0 3px; box-shadow: inset 0 0 0 2px rgba(255, 224, 150, .35), 0 1px 0 #160a05; }
+  /* the row: room above for the cords */
+  .bshoprow { display: flex; gap: 22px; justify-content: center; align-items: stretch; padding-top: 66px; margin-bottom: 30px; }   /* (the tassels hang under the row) */
   .bscard {
-    --acc: #F2B33D;
-    position: relative; width: 250px; display: flex; flex-direction: column; overflow: hidden;
-    background: rgba(28, 26, 32, .92); border: 2px solid #000; border-radius: 18px;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, .07) inset, 0 14px 30px rgba(0, 0, 0, .55);
-    transition: transform .2s cubic-bezier(.2, .9, .3, 1.3), box-shadow .2s ease;
+    --acc: #F2B33D; --mx: 0; --my: 0;
+    position: relative; width: 236px; flex: none; container-type: inline-size; display: flex; flex-direction: column;
+    transform-origin: 50% 0; animation: fsway 5.6s ease-in-out infinite;
+    filter: drop-shadow(0 12px 12px rgba(0, 0, 0, .55));
+    transition: scale .22s cubic-bezier(.2, .9, .3, 1.3);
   }
-  @media (hover: hover) { .bscard:hover { transform: translateY(-4px); } }
-  .bscard.on { box-shadow: 0 0 0 2px var(--acc) inset, 0 0 26px color-mix(in srgb, var(--acc) 55%, transparent), 0 14px 30px rgba(0, 0, 0, .55); }
+  .bscard:nth-child(2) { animation-duration: 6.1s; animation-delay: -2s; }
+  .bscard:nth-child(3) { animation-duration: 5.3s; animation-delay: -3.4s; }
+  .bscard:nth-child(4) { animation-duration: 5.9s; animation-delay: -1.2s; }
+  @media (hover: hover) { .bscard:hover { scale: 1.035; z-index: 2; animation-play-state: paused; } }
+  /* the cloth: its scene at the top, the words down it, GET above the point */
+  .fcloth.bscloth { flex: 1 1 auto; padding: 7cqw 8cqw 21cqw; gap: 2.2cqw; translate: none; }
   .bsban {
-    position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 2px solid #000;
-    background: radial-gradient(120% 90% at 50% 100%, color-mix(in srgb, var(--acc) 60%, #000) 0%, #1a0d10 70%, #0c0608 100%);
+    position: relative; flex: none; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3cqw;
+    border: 1.3cqw solid #1d0c03; box-shadow: 0 0 0 1cqw #e8b84a, 0 0 0 1.9cqw #1d0c03; background: #1d0c03;
   }
   .bsban > img.bsart { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .bsban .bsico { position: absolute; left: 50%; top: 52%; height: 72%; translate: -50% -50%; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .6)); }
+  .bsban .bsico { position: absolute; left: 50%; top: 52%; height: 72%; translate: -50% -50%; }
   .bsban.art .bsico { display: none; }   /* the banner art carries its own icon */
-  .bsbody { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 14px 6px; text-align: center; flex: 1; }
-  .bspips { display: flex; gap: 4px; }
+  .bscard.on .bsban { box-shadow: 0 0 0 1cqw #ffd23c, 0 0 0 1.9cqw #1d0c03, 0 0 6cqw 2cqw #ffd23c; }
+  .bspips { display: flex; gap: 1.6cqw; margin-top: 2.6cqw; }
   .bspips i {
-    width: 20px; height: 20px; background: rgba(255, 255, 255, .16);
+    width: 8cqw; height: 8cqw; background: rgba(20, 8, 2, .45);
     -webkit-mask: var(--flake) center / contain no-repeat; mask: var(--flake) center / contain no-repeat;
   }
-  .bspips i.on { background: var(--acc); }
-  .bsttl { font-weight: 700; font-size: 24px; line-height: 1.05; letter-spacing: .03em; text-transform: uppercase; color: #fff; text-shadow: 0 2px 0 rgba(0, 0, 0, .45); }
-  .bsdesc { font-weight: 500; font-size: 15px; line-height: 1.3; color: #c9c2d6; min-height: 3.9em; }
-  .bsmax { display: flex; justify-content: space-between; align-items: baseline; align-self: stretch; margin-top: auto; padding-top: 8px; font-size: 13px; letter-spacing: .12em; color: #9a92a8; font-weight: 600; text-transform: uppercase; }
-  .bsmax b { color: #fff; letter-spacing: .02em; font-size: 15px; }
-  .bsfoot { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 14px 14px; border-top: 2px solid rgba(0, 0, 0, .6); background: rgba(0, 0, 0, .22); }
-  .bsprice { font-weight: 700; font-size: 30px; line-height: 1.1; color: #FFC93C; font-variant-numeric: tabular-nums; text-shadow: 0 2px 0 rgba(0, 0, 0, .45); white-space: nowrap; }
-  .bsx { font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #9a92a8; }
+  .bspips i.on { background: #fbefd6; }
+  .bsttl {
+    display: flex; align-items: center; justify-content: center; min-height: 2.1em; text-align: center; text-wrap: balance;
+    font-family: var(--disp); font-weight: 400; font-size: 10.6cqw; line-height: 1.02; letter-spacing: .04em; text-transform: uppercase;
+    color: #ffd23c; -webkit-text-stroke: 2.2cqw #1d0c03; paint-order: stroke fill; text-shadow: 0 1cqw 0 rgba(0, 0, 0, .5);
+  }
+  .bsdesc {
+    min-height: 5.3em; text-align: center; font-family: "Grandstander", var(--read); font-weight: 600; font-size: 5.6cqw; line-height: 1.32;
+    color: #fff; -webkit-text-stroke: 1.1cqw #1d0c03; paint-order: stroke fill;
+  }
+  .bsmax {
+    display: flex; align-items: baseline; justify-content: center; gap: 2.4cqw; font-weight: 800; font-size: 4.6cqw; letter-spacing: .12em;
+    text-transform: uppercase; color: #ffe08a; -webkit-text-stroke: 1cqw #1d0c03; paint-order: stroke fill;
+  }
+  .bsmax b { font-family: var(--disp); font-weight: 400; font-size: 6cqw; letter-spacing: .03em; color: #fff; -webkit-text-stroke: 1.4cqw #1d0c03; }
+  .bsfoot { display: flex; flex-direction: column; align-items: center; gap: .6cqw; width: 100%; margin-top: auto; padding-top: 1.4cqw; }
+  .bsprice { font-size: 13cqw; line-height: 1; white-space: nowrap; }
+  .bsx { font-weight: 800; font-size: 4.4cqw; letter-spacing: .14em; text-transform: uppercase; color: #ffe08a; -webkit-text-stroke: .9cqw #1d0c03; paint-order: stroke fill; }
+  /* GET: a plank of the bar's wood with gold letters, pressed in when clicked; CONFIRM is the same plank stained red */
   .bsget {
-    margin-top: 10px; width: 100%; padding: 10px 0 12px; border: 0; border-radius: 14px; cursor: pointer;
-    font-family: "Fredoka", var(--num); font-weight: 700; font-size: 26px; letter-spacing: .06em; color: #1d1405; text-transform: uppercase;
-    background: linear-gradient(#FFD34E, #F2B33D); box-shadow: 0 5px 0 #A86E12, 0 8px 14px rgba(0, 0, 0, .4);
-    transition: transform .1s ease, filter .15s ease, box-shadow .1s ease;
+    margin-top: 2.6cqw; width: 86%; padding: 2.4cqw 0 3.2cqw; border-radius: 4cqw; cursor: pointer; border: 1.2cqw solid #160a05;
+    background: #7a4522 url("assets/xmas/wfx/wood_plate.webp") center / 260% auto no-repeat;
+    box-shadow: inset 0 0 0 .8cqw rgba(255, 224, 150, .35), 0 1.8cqw 0 #160a05;
+    font-family: var(--disp); font-weight: 400; font-size: 11cqw; letter-spacing: .07em; line-height: 1; text-transform: uppercase;
+    color: #ffd23c; -webkit-text-stroke: 2.2cqw #160a05; paint-order: stroke fill;
+    transition: translate .1s ease, filter .15s ease, box-shadow .1s ease;
   }
-  .bsget:hover:not(:disabled) { filter: brightness(1.08); }
-  .bsget:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 1px 0 #A86E12, 0 3px 8px rgba(0, 0, 0, .4); }
-  .bsget:disabled { filter: grayscale(.8) brightness(.6); cursor: default; font-size: 20px; }
-  .bsget.armed { background: linear-gradient(#FFF1B8, #FFC93C); animation: bsArm .8s ease-in-out infinite alternate; font-size: 22px; }
-  @keyframes bsArm { to { filter: brightness(1.15); transform: scale(1.03); } }
-  @media (prefers-reduced-motion: reduce) { .bsget.armed { animation: none; } .bscard { transition: none; } }
-  /* the bar under the cards: what you have, and what each spin plays */
+  .bsget:hover:not(:disabled) { filter: brightness(1.16); }
+  .bsget:active:not(:disabled) { translate: 0 1.4cqw; box-shadow: inset 0 0 0 .8cqw rgba(255, 224, 150, .35), 0 .4cqw 0 #160a05; }
+  .bsget:disabled { filter: grayscale(.85) brightness(.62); cursor: default; font-size: 7.4cqw; }
+  .bsget.armed { background-color: #c0241d; background-blend-mode: multiply; color: #fff; font-size: 9.6cqw; animation: bsArm .8s ease-in-out infinite alternate; }
+  @keyframes bsArm { to { filter: brightness(1.18); scale: 1.04; } }
+  @media (prefers-reduced-motion: reduce) { .bsget.armed, .bscard { animation: none; } .bscard { transition: none; } }
+  /* the bar under the banners, on a plank like the game's own bar: what you have, and what each spin plays */
   .bshopbar {
-    display: flex; align-items: center; gap: 22px; padding: 10px 26px; border-radius: 16px;
-    background: rgba(38, 37, 41, .7); border: 2px solid #000; box-shadow: 0 0 0 2px rgba(255, 255, 255, .06) inset;
+    display: flex; align-items: center; gap: 22px; padding: 10px 28px 12px; border-radius: 14px; border: 3px solid #160a05;
+    background: #6b3f1f url("assets/xmas/wfx/wood_plate.webp") center / cover no-repeat;
+    box-shadow: inset 0 0 0 2px rgba(255, 224, 150, .3), 0 6px 0 #160a05, 0 10px 18px rgba(0, 0, 0, .45);
   }
-  .bsstat { display: flex; flex-direction: column; gap: 3px; }
-  .bsstat .lbl { font-weight: 600; font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: #F2B33D; }
-  .bsstat .val { font-weight: 700; font-size: 28px; line-height: 1; color: #fff; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bsstat { display: flex; flex-direction: column; gap: 4px; }
+  .bsstat .lbl {
+    font-family: "Grandstander", var(--num); font-weight: 800; font-size: 14px; letter-spacing: .16em; text-transform: uppercase;
+    color: #f2c768; -webkit-text-stroke: 3px #160a05; paint-order: stroke fill;
+  }
+  .bsstat .val { font-size: 30px; line-height: 1; white-space: nowrap; }
+  .bsstat .val:not(.glyphs) { font-family: var(--disp); color: #fbefd6; -webkit-text-stroke: 4px #160a05; paint-order: stroke fill; }
+  .bshop .val.glyphs > .gx { color: #fbefd6; -webkit-text-stroke: .12em #160a05; font-family: var(--disp); }
   .bsplay { align-items: center; }
-  .bssep { width: 2px; align-self: stretch; background: rgba(255, 255, 255, .16); }
+  .bssep { width: 3px; align-self: stretch; border-radius: 2px; background: rgba(22, 10, 5, .65); }
   .bsbet { display: flex; align-items: center; gap: 14px; }
   .bshop #bonusBetDown, .bshop #bonusBetUp {
-    width: 32px; height: 32px; padding: 0; border: 0; background: #fff; cursor: pointer; filter: none; transform: none;
+    width: 32px; height: 32px; padding: 0; border: 0; background: #fbefd6; cursor: pointer; filter: drop-shadow(0 2px 0 #160a05); transform: none;
     -webkit-mask: var(--chev) center / 70% no-repeat; mask: var(--chev) center / 70% no-repeat;
   }
   .bshop #bonusBetUp { rotate: 180deg; }
-  .bshop #bonusBetDown:hover:not(:disabled), .bshop #bonusBetUp:hover:not(:disabled) { background: #FFC93C; }
+  .bshop #bonusBetDown:hover:not(:disabled), .bshop #bonusBetUp:hover:not(:disabled) { background: #ffd23c; }
   .bshop #bonusBetDown:disabled, .bshop #bonusBetUp:disabled { opacity: .3; cursor: default; }
   .bshop #bonusBetDown::before, .bshop #bonusBetUp::before { content: none; }
   :root {
     --flake: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'><path d='M12 1.8v20.4M3.2 6.9l17.6 10.2M3.2 17.1l17.6-10.2M12 1.8L9.4 4.4M12 1.8l2.6 2.6M12 22.2l-2.6-2.6M12 22.2l2.6-2.6M3.2 6.9l3.6.9M3.2 6.9l.9-3.5M20.8 17.1l-3.6-.9M20.8 17.1l-.9 3.5M3.2 17.1l.9 3.5M3.2 17.1l3.6-.9M20.8 6.9l-.9-3.5M20.8 6.9l-3.6.9'/></svg>");
+    --xmark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='4.2' stroke-linecap='round'><path d='M5 5l14 14M19 5L5 19'/></svg>");
     --chev: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 9l7 7 7-7'/></svg>");
   }
-  /* upright screens: two cards a row */
+  /* upright screens: two banners a row */
   @media (max-width: 1100px) and (orientation: portrait) {
-    /* laid out at two cards' width whatever the screen (fitBonus scales the whole shop down to fit), so a phone gets
+    /* laid out at two banners' width whatever the screen (fitBonus scales the whole shop down to fit), so a phone gets
        the 2 x 2 grid rather than one tall column */
-    .bshoprow { flex-wrap: wrap; width: 518px; max-width: none; flex: none; }
-    .bscard { width: 250px; }
+    .bshoprow { flex-wrap: wrap; width: 520px; max-width: none; flex: none; gap: 74px 22px; }
+    .bscard { width: 236px; }
   }
   /* the canvas snow (startSnowfall and the rest): each layer one canvas filling its host */
   canvas.snowcv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; transition: opacity .8s ease; will-change: transform; }   /* a layer of its own: a new frame of snow never repaints what is around it */
@@ -4230,6 +4308,13 @@
      unpainted: the tree lights, the window's snow, the taps, the elf (owner, 2026-11-05: bonuses laggy) */
   body.away .barfx, body.away .barfx * { animation-play-state: paused !important; }
   body.away .barfx { visibility: hidden; transition: visibility 0s 1.3s; }
+  /* the bar's figures in the game's own numerals (owner, 2026-11-06): the balance and the bet in the cream set
+     (assets/numc: the TOTAL WIN digits' shapes and snow caps, flat cream, ink-outlined), the WIN in the candy-cane set
+     itself; putFig() writes them, one picture per character, an em tall, so the figures still size by font-size */
+  .val.glyphs { display: inline-flex; align-items: flex-end; height: 1.08em; gap: 0; color: transparent; }
+  .val.glyphs > img { height: 1.08em; width: auto; flex: none; margin: 0 -.035em; pointer-events: none; }
+  .val.glyphs > img.p { margin: 0 -.06em; }   /* comma and point sit closer */
+  .val.glyphs > .gx { color: var(--hud-ink); -webkit-text-stroke: .12em var(--hud-line); paint-order: stroke fill; font-family: var(--hud-font); line-height: 1; }
 </style>
 </head>
 <body>
@@ -4268,13 +4353,13 @@
       <button class="hudbtn menu" id="menuBtn" aria-label="Game information">Info</button>
       <button class="hudbtn audio" id="audioBtn" aria-label="Sound and music volume" aria-expanded="false">Audio</button>
       <div class="hudbar">
-        <div class="hudstat stat"><span class="lbl" id="balanceLbl">Balance</span><span class="val" id="balance">0.00</span></div>
+        <div class="hudstat stat"><span class="lbl" id="balanceLbl">Balance</span><span class="val glyphs" data-set="numc" id="balance">0.00</span></div>
         <div class="chip stat juris" id="jurisBox" hidden><span class="val" id="jurisVal"></span></div>
         <!-- the round's win (owner, 2026-11-04: "after i win i want it to say how much i won in the bottom bar"): it comes
              in with the first pay, counts up with the round and stays until the next spin starts -->
-        <div class="hudstat stat hudwin zero" id="hudWin" aria-live="polite"><span class="lbl">Win</span><span class="val" id="hudWinVal">0.00</span></div>
+        <div class="hudstat stat hudwin zero" id="hudWin" aria-live="polite"><span class="lbl">Win</span><span class="val glyphs" data-set="num" id="hudWinVal">0.00</span></div>
         <div class="hudbet">
-          <div class="hudstat stat bet"><span class="lbl">Bet</span><span class="val" id="betVal">1.00</span></div>
+          <div class="hudstat stat bet"><span class="lbl">Bet</span><span class="val glyphs" data-set="numc" id="betVal">1.00</span></div>
           <div class="betstep">
             <button id="betUp" aria-label="Raise bet">+</button>
             <button id="betDown" aria-label="Lower bet">−</button>
@@ -4334,13 +4419,13 @@
       <h3 class="bshoptitle" id="bonusTitle">Bonus Buy</h3>
       <div class="bshoprow" id="bshopRow"></div>
       <div class="bshopbar">
-        <div class="bsstat"><span class="lbl" id="bshopBalLbl">Balance</span><span class="val" id="bshopBal">0.00</span></div>
+        <div class="bsstat"><span class="lbl" id="bshopBalLbl">Balance</span><span class="val glyphs" data-set="numc" id="bshopBal">0.00</span></div>
         <i class="bssep" aria-hidden="true"></i>
         <div class="bsstat bsplay">
           <span class="lbl" id="bonusBetLbl">Bet</span>
           <div class="bsbet">
             <button type="button" id="bonusBetDown" aria-label="Lower bet"></button>
-            <span class="val" id="bonusBetVal">1.00</span>
+            <span class="val glyphs" data-set="numc" id="bonusBetVal">1.00</span>
             <button type="button" id="bonusBetUp" aria-label="Raise bet"></button>
           </div>
         </div>
@@ -4698,6 +4783,7 @@ const FLAT = {};   // the flat icon pictures, kept: the paytable, the shards of 
 for (const [k, def] of Object.entries(SYM)) {   // pre-warm icon cache
   if (def.img) { const i = new Image(); i.src = def.img; FLAT[k] = i; }
 }
+const SYM_BOX = 1.04;   // a symbol's box as a share of its square (was .88): the icon fills about four fifths of it (measureRigBox)
 const REELS = 7, ROWS = 7;   // the 7x7 cluster board; the events still pad every reel by one row top and bottom
 // Cost multipliers mirror index.json. The RGS applies them server-side (it debits
 // amount x cost); these are only so the buy buttons can show the right price.
@@ -4773,6 +4859,9 @@ function buildBoard() {
   const board = $("board");
   // the idle stretch of every cell (and of the multiplier slot under it) is driven by
   // idleStretch(), started once the board is built
+  const wells = document.createElement("div");   // the carved wells, one per square, under everything that sits in them
+  wells.className = "welllayer"; wells.setAttribute("aria-hidden", "true");
+  board.appendChild(wells);
   const layer = document.createElement("div");
   layer.className = "multlayer"; layer.id = "multLayer";
   board.appendChild(layer);
@@ -4787,6 +4876,7 @@ function buildBoard() {
       const g = document.createElement("div");
       g.className = "gmult"; g.hidden = true;
       layer.appendChild(g); multEls[r].push(g);
+      g.well = wells.appendChild(document.createElement("i"));
     }
   }
   for (let r = 0; r < REELS; r++) {
@@ -4805,6 +4895,7 @@ function buildBoard() {
       c.ico = document.createElement("span");      // the lasting box the icon sits in (idleStretch moves it)
       c.ico.className = "ico";
       c.appendChild(c.ico);
+      c.well = multEls[r][y].well;   // its carved well on the layer under it (lit while it wins: .welllayer > i.lit)
       reel.appendChild(c); cellEls[r].push(c);
     }
     board.appendChild(reel);
@@ -5166,7 +5257,7 @@ function rigWantDensity() {
   const c = cellEls[0] && cellEls[0][0], dpr = window.devicePixelRatio || 1;
   let px = dpr;   // no board laid out yet: about a css px per unit
   if (c && c.offsetWidth && c.offsetHeight) {
-    const bw = c.clientWidth * .88, bh = c.clientHeight * .88;   // the rig's box (measureRigBox)
+    const bw = c.clientWidth * SYM_BOX, bh = c.clientHeight * SYM_BOX;   // the rig's box (measureRigBox)
     let unit = 0;
     for (const r of Object.values(RIGS)) unit = Math.max(unit, Math.min(bw / r.w, bh / r.h));
     if (!unit) unit = Math.max(bw, bh) / 100;   // before the rigs are baked: the widest a 100-unit icon can be drawn
@@ -5748,7 +5839,7 @@ function brigUnitPx(rig) {
   const c = cellEls[0] && cellEls[0][0], dpr = window.devicePixelRatio || 1;
   if (!c || !c.clientWidth) return dpr;
   if (!brigFit) { const b = $("board"); brigFit = (b && b.offsetWidth ? b.getBoundingClientRect().width / b.offsetWidth : 1) || 1; }
-  return Math.min(c.clientWidth * .88 / rig.w, c.clientHeight * .88 / rig.h) * brigFit * dpr;
+  return Math.min(c.clientWidth * SYM_BOX / rig.w, c.clientHeight * SYM_BOX / rig.h) * brigFit * dpr;
 }
 // a cell's canvas covering box (rig units), at the rig's density
 function brigSize(el, box) {
@@ -5966,8 +6057,31 @@ function rigDrain() {
 // landing's animationend sends it too, and spraysDone catches any the two both missed; sprayDue
 // only ever acts once.
 function dropIn(cell, ms, hit = ms * DROP_CONTACT) {
-  if (hit > 0) setTimeout(() => rigDrop(cell), hit); else rigDrop(cell);
+  if (hit > 0) setTimeout(() => { rigDrop(cell); landPuff(cell); }, hit); else { rigDrop(cell); landPuff(cell); }
   if (cell._spray === "due") setTimeout(() => sprayDue(cell), ms);
+}
+// A landing kicks up snow (owner, 2026-11-06, the animation polish after engine.io's review): where a falling symbol hits
+// the floor of the board (the bottom row) a few puffs of snow burst out sideways along its bottom edge and settle - seven
+// columns, four puffs each, so a whole board landing stays light.
+let landPuffN = 0, landPuffT = 0;
+function landPuff(cell) {
+  const layer = $("sprayLayer");
+  if (!layer || !cell || REDUCED_MOTION || document.hidden) return;
+  const r = cellEls.findIndex(col => col.includes(cell)), bottom = r >= 0 && cellEls[r][ROWS - 1] === cell;
+  if (!bottom) return;
+  const now = performance.now();
+  if (now - landPuffT > 100) { landPuffT = now; landPuffN = 0; }
+  if (++landPuffN > 8) return;
+  const [fx, fy] = boardXY(cell), w = cell.offsetWidth, cx = fx + w / 2, by = fy + cell.offsetHeight - 6;
+  const t = tempo(), rnd = (a, b) => a + Math.random() * (b - a), n = 4;
+  for (let i = 0; i < n; i++) {
+    const side = i % 2 ? 1 : -1, e = document.createElement("i"); e.className = "snowpuff landpuff"; layer.append(e);
+    const x0 = cx + side * rnd(.12, .3) * w, x1 = x0 + side * rnd(.16, .34) * w, y1 = by - rnd(4, 16), sc = rnd(.5, .85);
+    e.animate([{ transform: `translate(${x0.toFixed(1)}px, ${by.toFixed(1)}px) scale(${(sc * .4).toFixed(2)})`, opacity: 0 },
+               { offset: .2, opacity: .9 },
+               { transform: `translate(${x1.toFixed(1)}px, ${y1.toFixed(1)}px) scale(${sc.toFixed(2)}, ${(sc * .7).toFixed(2)})`, opacity: 0 }],
+      { duration: rnd(360, 520) * t, delay: rnd(0, 40) * t, easing: "cubic-bezier(.15,.8,.35,1)", fill: "both" }).finished.then(() => e.remove(), () => e.remove());
+  }
 }
 // One gravity for every fall on the board. A whole column's fall (the reveal's: the column's own
 // height and a little more, dropPx()) takes the first DROP_CONTACT of half a second; a shorter one
@@ -5986,11 +6100,12 @@ function setDrop(cell, px, pace = 1) {
   cell.style.setProperty("--bnc", (.45 + .55 * blur).toFixed(2));
   return time;
 }
-// The rig's box matches the flat icon's (88% of the cell); measured once per layout.
+// The rig's box: a share of the cell (SYM_BOX); measured once per layout. It was the flat icon's 88% until the symbols
+// were made bigger (owner, 2026-11-06, engine.io's review: the symbols read small and lost on the board): SYM_BOX.
 function measureRigBox() {
   const c = cellEls[0] && cellEls[0][0];
   if (!c) return;
-  const w = c.clientWidth * .88, h = c.clientHeight * .88;
+  const w = c.clientWidth * SYM_BOX, h = c.clientHeight * SYM_BOX;
   if (w > 0 && h > 0) { $("board").style.setProperty("--boxw", w.toFixed(2)); $("board").style.setProperty("--boxh", h.toFixed(2)); }
 }
 // Between rounds the board performs: every so often a resting symbol plays its idle - never
@@ -6563,7 +6678,7 @@ const SMEAR = { trail: 1.1, gain: 1.6, res: 1.5 };   // trail: its length as a s
 function makeSmear(img) {
   return new Promise((resolve, reject) => {
     const c0 = cellEls[0] && cellEls[0][0];
-    const bw = ((c0 && c0.clientWidth) || 111) * .88, bh = ((c0 && c0.clientHeight) || 94) * .88;   // the icon box (measureRigBox)
+    const bw = ((c0 && c0.clientWidth) || 111) * SYM_BOX, bh = ((c0 && c0.clientHeight) || 94) * SYM_BOX;   // the icon box (measureRigBox)
     const W = Math.round(bw * SMEAR.res), CH = Math.round(bh * SMEAR.res), L = Math.round(CH * SMEAR.trail), H = CH + L;
     const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
     const g = cv.getContext("2d", { willReadFrequently: true });
@@ -6819,12 +6934,13 @@ function placeMultLayer() {
     }
     g.style.left = x + "px"; g.style.top = top + "px";
     g.style.width = cell.offsetWidth + "px"; g.style.height = cell.offsetHeight + "px";
+    if (g.well) Object.assign(g.well.style, { left: g.style.left, top: g.style.top, width: g.style.width, height: g.style.height });
   }
   placeMidBox();
 }
 function eachCell(fn) { for (let r = 0; r < REELS; r++) for (let y = 0; y < ROWS; y++) fn(cellEls[r][y], r, y); }
 function clearFx() {
-  eachCell(el => el.classList.remove("winhit", "unhit", "flood", "pulse", "drop", "scatland"));
+  eachCell(el => { el.classList.remove("winhit", "unhit", "flood", "pulse", "drop", "scatland"); if (el.well) el.well.classList.remove("lit"); });
   clearWinChip(true);   // any win figure still drifting off
   $("board").classList.remove("spotlight");
   clearWinChip();
@@ -7369,6 +7485,37 @@ const tweens = new WeakMap();   // el -> in-flight count, so a new one cancels t
 // Roll the figure from one amount to the next. rAF stalls in a hidden tab, so a hard
 // timeout always lands the exact final number — the displayed figure can never be left
 // stranded part-way through a count.
+// The bar's figures in the game's own numerals (owner, 2026-11-06): an element with .glyphs shows its text as pictures,
+// one per character from its data-set (numc: the cream set; num: the candy-cane set), and anything that is not a digit,
+// a comma, a point or a dollar sign as inked text. Only the characters that changed are swapped, so a count-up touches a
+// digit or two a frame. Any other element just gets the text.
+const GLYPH_NAME = { ",": "comma", ".": "dot", "$": "dollar" };
+function putFig(el, text) {
+  if (!el) return;
+  text = String(text);
+  if (!el.classList.contains("glyphs")) { el.textContent = text; return; }
+  if (el._fig === text) return;
+  el._fig = text;
+  el.setAttribute("aria-label", text);
+  const set = el.dataset.set || "numc", chars = [...text];
+  const same = el.children.length === chars.length && el.childNodes.length === chars.length;
+  if (!same) el.replaceChildren();
+  chars.forEach((ch, i) => {
+    const k = same ? el.children[i] : null;
+    if (k && k._ch === ch) return;
+    const name = /[0-9]/.test(ch) ? ch : GLYPH_NAME[ch];
+    let n;
+    if (name) {
+      n = document.createElement("img");
+      // (each set spelled out, so the build tools see exactly which pictures these are: assets/num/*, assets/numc/*)
+      n.src = set === "num" ? `assets/num/${name}.webp` : `assets/numc/${name}.webp`; n.alt = ""; n.draggable = false;
+      if (ch === "," || ch === ".") n.className = "p";
+    } else { n = document.createElement("span"); n.className = "gx"; n.textContent = ch; }
+    n._ch = ch;
+    if (k) el.replaceChild(n, k); else el.appendChild(n);
+  });
+}
+const figText = el => (el && el._fig != null) ? el._fig : (el ? el.textContent : "");
 function countTo(el, from, to, ms, f = fmt) {
   const live = tweens.get(el);
   if (live) { cancelAnimationFrame(live.raf); clearTimeout(live.land); tweens.delete(el); }
@@ -7379,9 +7526,9 @@ function countTo(el, from, to, ms, f = fmt) {
   const finish = () => {
     const t = tweens.get(el);
     if (t && t.token === token) { cancelAnimationFrame(t.raf); clearTimeout(t.land); tweens.delete(el); }
-    el.textContent = f(to);
+    putFig(el, f(to));
   };
-  if (REDUCED_MOTION || ms <= 0 || from === to) { el.textContent = f(to); return; }   // skip only quickens (ms is already on the tempo)
+  if (REDUCED_MOTION || ms <= 0 || from === to) { putFig(el, f(to)); return; }   // skip only quickens (ms is already on the tempo)
   const t0 = performance.now();
   const step = now => {
     const t = tweens.get(el);
@@ -7392,7 +7539,7 @@ function countTo(el, from, to, ms, f = fmt) {
     if (p >= 1) { finish(); return; }
     // ease-out, snapped to whole cents: only the landed figure may carry sub-cent digits
     const v = from + (to - from) * (1 - Math.pow(1 - p, 3));
-    el.textContent = f(Math.round(v / 10000) * 10000);
+    putFig(el, f(Math.round(v / 10000) * 10000));
     t.raf = requestAnimationFrame(step);
   };
   tweens.set(el, { token, raf: requestAnimationFrame(step), land: setTimeout(finish, ms + 150) });
@@ -7430,8 +7577,9 @@ function fitHudFigures() {
   const on = !!(box && wv && box.offsetParent);
   const figs = [[bal, fmtBal(state.balance)], ...(on ? [[wv, fmt(Math.max(hudWinTo, hudWinShown))]] : [])];
   for (const [el] of figs) el.style.fontSize = "";
-  const kept = figs.map(([el]) => el.textContent);
-  for (const [el, t] of figs) el.textContent = t;
+  // (the WIN before any win reads the currency's own zero, not the markup's bare 0.00)
+  const kept = figs.map(([el], i) => i > 0 && !hudWinShown && !hudWinTo ? fmt(0) : figText(el));
+  for (const [el, t] of figs) putFig(el, t);
   const cs = getComputedStyle(bar), gap = parseFloat(cs.columnGap) || 0;
   const room = bar.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0) - gap * 2 - 4;
   // the figures and labels at their own width (a flex column stretches them to the widest of the pair)
@@ -7440,7 +7588,7 @@ function fitHudFigures() {
     const l = el.parentElement.querySelector(".lbl, #balanceLbl");
     return { el, v: own(el), l: l ? own(l) : 0, px: parseFloat(getComputedStyle(el).fontSize) || 0 };
   });
-  figs.forEach(([el], i) => { el.textContent = kept[i]; });
+  figs.forEach(([el], i) => { putFig(el, kept[i]); });
   const bs = on ? getComputedStyle(box) : null;
   const winPad = bs ? ["paddingLeft", "paddingRight", "borderLeftWidth", "borderRightWidth"].reduce((t, p) => t + (parseFloat(bs[p]) || 0), 0) : 0;
   const winMin = bs ? parseFloat(bs.minWidth) || 0 : 0, betW = betBox.offsetWidth;
@@ -8322,7 +8470,7 @@ const handlers = {
       clearFxWins();
       for (const p of w.positions) restyle(cellEls[p.reel][p.row - 1]);   // apply the removal so every cluster's tiles pop in fresh,
                                      // including cells carried over from the previous cluster
-      for (const p of w.positions) { const cell = cellEls[p.reel][p.row - 1]; cell.classList.add("winhit"); rigPlay(cell, "win"); }
+      for (const p of w.positions) { const cell = cellEls[p.reel][p.row - 1]; cell.classList.add("winhit"); rigPlay(cell, "win"); if (cell.well) cell.well.classList.add("lit"); }
       // every tile of it acts out its own win (symWinFx), and the cluster's board-wide part plays once
       const fxMs = Math.max(0, ...w.positions.map(p => symWinFx(cellEls[p.reel][p.row - 1], w.symbol)));
       clusterWinFx(w.symbol);
@@ -8566,7 +8714,7 @@ const handlers = {
     charReact("big_win");
     const more = Math.max(0, (ev.totalFs || 0) - (state.fsTotal || 0));
     state.fsTotal = ev.totalFs || state.fsTotal;
-    if (BONUS_FX.kind === "std") sleighFly();   // the sleigh comes round again with the extra spins
+    // (v13, owner 2026-11-06: no sleigh over the board in the bonuses - it used to come round again with the extra spins)
     await featureTitle("assets/xmas/ui/title_extra.webp", more ? "+" + more : "", 1700);
     for (const c of cells) c.classList.remove("pulse");
   },
@@ -8983,7 +9131,7 @@ function startBonusFx(kind) {
   if (kind === "xmas") el.innerHTML = `<i class="sunrise"></i>`;
   if (kind === "ext") el.innerHTML = `<i class="flash"></i>`;   // the frost and the aurora live in the scene, behind the board
   document.body.appendChild(el);
-  if (kind === "ext") snowbarEl();   // The Blizzard's bar along the top of the board
+  // (v13, owner 2026-11-06: "on the blizzard bonus just make it normal" - no Present Bar along the top of the board)
   if (REDUCED_MOTION) return;
   // the falling things are canvas particles (startSnowfall and the rest): the sleigh ride's snow is soft and a third as
   // thick, the blizzard twice as thick and driven across, with its wind; Christmas Morning has its confetti
@@ -9729,7 +9877,7 @@ if (document.readyState !== "loading") setTimeout(barScenery, 0); else addEventL
 
 function clearFxWins() {
   // a lit tile shrinks back on an animation of its own (.unhit), not a transition (see .cell)
-  eachCell(el => { if (el.classList.contains("winhit")) { el.classList.remove("winhit"); el.classList.add("unhit"); } });
+  eachCell(el => { if (el.well) el.well.classList.remove("lit"); if (el.classList.contains("winhit")) { el.classList.remove("winhit"); el.classList.add("unhit"); } });
   clearWinChip(); clearWinLine();
 }
 
@@ -10227,10 +10375,10 @@ async function presentRound(round, { settle = true } = {}) {
 // MODE_COST) shows no card. key names the banner (assets/bonus/banner_<key>.webp: the bonus's own Christmas scene
 // with its icon); heat is how wild it runs, in snowflakes.
 const BUYS = [
-  { mode: "bonus", key: "bonus", title: "Bonus", desc: "10, 12 or 15 free spins. The sleigh drops x10-and-up presents, and every value stays all bonus.", heat: 3, acc: "#E0283A", icon: "assets/flat/BS.webp" },
-  { mode: "christmas", key: "christmas", title: "Christmas Morning", desc: "12 free spins starting with 8 to 12 presents open. Every present x5 or more.", heat: 4, acc: "#4CC27A", icon: "assets/xmas/ui/morning.webp" },
-  { mode: "extremebonus", key: "extremebonus", title: "The Blizzard", desc: "10, 12 or 17 free spins. Every present x20 or more, stacking all feature.", heat: 5, acc: "#7EC8F2", icon: "assets/flat/ES.webp" },
-  { mode: "miracle", key: "miracle", title: "Christmas Miracle", desc: "1 spin with every square at x500. Stays on for every spin until you turn it off.", heat: 5, acc: "#F5C518", icon: "assets/flat/M.webp" },
+  { mode: "bonus", key: "bonus", hue: "red", title: "Bonus", desc: "10, 12 or 15 free spins in the snowy bar. Every value stays on the board all bonus.", heat: 3, acc: "#E0283A", icon: "assets/flat/BS.webp" },
+  { mode: "christmas", key: "christmas", hue: "green", title: "Christmas Morning", desc: "12 free spins starting with 8 to 12 presents open. Every present x5 or more.", heat: 4, acc: "#4CC27A", icon: "assets/xmas/ui/morning.webp" },
+  { mode: "extremebonus", key: "extremebonus", hue: "ice", title: "The Blizzard", desc: "10, 12 or 17 free spins. Every present x20 or more, and every value stays all bonus.", heat: 5, acc: "#7EC8F2", icon: "assets/flat/ES.webp" },
+  { mode: "miracle", key: "miracle", hue: "night", title: "Christmas Miracle", desc: "1 spin with every square at x500. Stays on for every spin until you turn it off.", heat: 5, acc: "#F5C518", icon: "assets/flat/M.webp" },
 ];
 let bonusMode = "bonus";
 let bshopArmed = null, bshopArmT = 0;
@@ -10239,8 +10387,17 @@ function bshopCard(o) {
   card.className = "bscard";
   card.dataset.mode = o.mode;
   card.style.setProperty("--acc", o.acc);
-  const ban = document.createElement("div");
-  ban.className = "bsban";
+  // a banner of the features screen's: the cord and the rod, then the cloth in the bonus's colour (paintBanner)
+  card.innerHTML =
+    `<svg class="frope" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="o" d="M4 30L50 2L96 30"/><path d="M4 30L50 2L96 30"/></svg>` +
+    `<div class="frod"><i class="fsnow"></i></div>` +
+    `<div class="fcloth bscloth" data-hue="${o.hue || "brown"}" data-id="bs${o.key}"><svg class="fshape" aria-hidden="true"></svg>` +
+      `<div class="bsban"></div>` +
+      `<div class="bspips">${Array.from({ length: 5 }, (_, i) => `<i class="${i < o.heat ? "on" : ""}"></i>`).join("")}</div>` +
+      `<div class="bsttl"></div><div class="bsdesc"></div><div class="bsmax"><span></span><b></b></div>` +
+      `<div class="bsfoot"><span class="bsprice val glyphs" data-set="numc"></span><div class="bsx"></div><button type="button" class="bsget"></button></div>` +
+    `</div>`;
+  const ban = card.querySelector(".bsban");
   const art = new Image();
   art.className = "bsart"; art.alt = ""; art.draggable = false;
   art.onload = () => ban.classList.add("art");
@@ -10250,15 +10407,15 @@ function bshopCard(o) {
   const ic = new Image();   // the icon on its own, shown only if the banner never loads
   ic.className = "bsico"; ic.alt = ""; ic.draggable = false; ic.src = o.icon;
   ban.append(ic);
-  card.append(ban);
-  card.insertAdjacentHTML("beforeend",
-    `<div class="bsbody"><div class="bspips">${Array.from({ length: 5 }, (_, i) => `<i class="${i < o.heat ? "on" : ""}"></i>`).join("")}</div>` +
-    `<div class="bsttl"></div><div class="bsdesc"></div><div class="bsmax"><span></span><b></b></div></div>` +
-    `<div class="bsfoot"><div class="bsprice"></div><div class="bsx"></div><button type="button" class="bsget"></button></div>`);
   card.querySelector(".bsttl").textContent = T(o.title);
   card.querySelector(".bsdesc").textContent = T(o.desc);
   card.querySelector(".bsget").addEventListener("click", () => bshopGet(o));
   return card;
+}
+// the cloths are painted to their size: when the shop opens, and when it is resized
+function paintShopCloths() {
+  const row = $("bshopRow");
+  if (row && !$("bonusWrap").hidden) row.querySelectorAll(".bscloth").forEach(c => paintBanner(c));
 }
 // The first press of GET asks (CONFIRM, for a few seconds); the second buys: high-cost modes are never one click.
 function bshopGet(o) {
@@ -10288,7 +10445,7 @@ function paintBonus() {
   for (const card of row.children) {
     const o = BUYS.find(x => x.mode === card.dataset.mode), cost = MODE_COST[o.mode], price = cost * bet();
     const over = price > state.balance, btn = card.querySelector(".bsget"), armed = bshopArmed === o.mode;
-    card.querySelector(".bsprice").textContent = fmt(price);
+    putFig(card.querySelector(".bsprice"), fmt(price));
     card.querySelector(".bsx").textContent = `${fmtMult(cost)}× ${T("bet")}`;
     const mx = card.querySelector(".bsmax");
     mx.firstChild.textContent = T("Max win");
@@ -10298,8 +10455,8 @@ function paintBonus() {
     btn.textContent = over ? T("Low balance") : armed ? T("Confirm") : T("Get");
     btn.disabled = over;
   }
-  $("bshopBal").textContent = fmtBal(state.balance);
-  $("bonusBetVal").textContent = fmt(bet());
+  putFig($("bshopBal"), fmtBal(state.balance));
+  putFig($("bonusBetVal"), fmt(bet()));
   $("bonusBetUp").disabled = state.betIdx >= state.bets.length - 1;
   $("bonusBetDown").disabled = state.betIdx <= 0;
 }
@@ -10329,6 +10486,7 @@ function fitBonus() {
   // the wrap keeps a 20 px margin: room for it
   const k = Math.min((innerHeight - 28) / (panel.offsetHeight + 12), (innerWidth - 28) / (panel.offsetWidth + 12));
   pop.style.scale = k < 1 ? k.toFixed(3) : "";
+  paintShopCloths();
 }
 addEventListener("resize", fitBonus);
 $("bonusBtn").addEventListener("click", () => openBonus());
@@ -10629,6 +10787,14 @@ function buildHud() {
   shape.setAttribute("viewBox", `0 0 ${n2(FW)} ${n2(FH)}`);
   shape.querySelector("path").setAttribute("d", round(body, [16, 10, 10, 12, 12, 14, 12, 12, 10, 10]));
   const NS = "http://www.w3.org/2000/svg";
+  // the wood the sign is cut from (owner, 2026-11-06): the game's own planks, one pattern in the bar's units that the bar
+  // and its four tabs all fill from (--hud-fill), so the grain runs on across the gaps
+  if (!shape.querySelector("pattern#hudwood")) {
+    const defs = document.createElementNS(NS, "defs");
+    defs.innerHTML = `<pattern id="hudwood" patternUnits="userSpaceOnUse" x="0" y="0" width="352" height="211">` +
+      `<image href="assets/xmas/wfx/wood_plate.webp" width="352" height="211" preserveAspectRatio="none"/></pattern>`;
+    shape.prepend(defs);
+  }
   for (const [id, pts] of Object.entries(tabs)) {
     const btn = $(id);
     if (!btn) continue;
@@ -10728,7 +10894,7 @@ function paintHelper() {
 }
 function refreshBet() {
   const shown = fmt(bet() * (MODE_COST[baseMode()] || 1));   // what a spin costs: x600 while the Miracle is on
-  $("betVal").textContent = shown;
+  putFig($("betVal"), shown);
   fitFigure($("betVal"), shown);
   fitHudFigures();
   paintHelper();
@@ -11489,7 +11655,7 @@ async function makeSleeper({ el, sleeper: S }) {
   const bufW = meshW ? meshW.geometry.getBuffer("aPosition") : null;
   let wakeFrom = 0, wakeMs = 0;
   const zs = (S.z ? [0, 1, 2] : []).map(i => {
-    const z = new PIXI.Text({ text: "Z", style: { fontFamily: "Fredoka, Arial Rounded MT Bold, sans-serif", fontWeight: "700",
+    const z = new PIXI.Text({ text: "Z", style: { fontFamily: "Grandstander, Arial Rounded MT Bold, sans-serif", fontWeight: "700",
       fontSize: 54 + 16 * i, fill: 0xffffff, stroke: { color: 0x14243c, width: 9 } } });
     z.anchor.set(.5); z.alpha = 0; frame.addChild(z); return z;
   });
@@ -12016,7 +12182,7 @@ function preloadAll(onProgress) {
   waits.push(one(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()));
   // the bonus screen's faces are not on the page yet, so fonts.ready would not wait for them
   if (document.fonts && document.fonts.load) {
-    for (const f of ['1em "Luckiest Guy"', '1em "Fredoka"']) waits.push(one(document.fonts.load(f)));
+    for (const f of ['1em "Grandstander Black"', '1em "Grandstander"']) waits.push(one(document.fonts.load(f)));
   }
   tick();
   return Promise.all(waits);
@@ -13011,7 +13177,9 @@ tiltPlates(document.querySelectorAll(".bonuscard"));   // the buy-bonus cards ca
 // The banners' cloth, drawn to each banner's size (and redrawn when it changes): a gold trim with a dark
 // cartoon outline, the cloth in its colour with a fine polka dot and soft folds, the shade under the
 // rod, a stitched line inside the trim, and a gold tassel at the point
-const BANNER_HUES = { brown: ["#94582f", "#6a391c", "#3f200d"], green: ["#36a456", "#1f7438", "#0f4821"] };
+const BANNER_HUES = { brown: ["#94582f", "#6a391c", "#3f200d"], green: ["#36a456", "#1f7438", "#0f4821"],
+  // the shop's cloths (2026-11-06): the Bonus red, The Blizzard ice blue, the Christmas Miracle a night sky
+  red: ["#c8392f", "#982016", "#5a0f0a"], ice: ["#4a8fc4", "#2c6296", "#16395e"], night: ["#3d4383", "#272b5e", "#13163a"] };
 function paintBanner(cloth) {
   const W = cloth.offsetWidth, H = cloth.offsetHeight;
   if (!W || !H) return;
@@ -13095,7 +13263,7 @@ function runFeatures() {
         T(`<b>3</b> anywhere start the Sleigh Ride, <b>4</b> or more Christmas Morning. Every multiplier stays on the board for the whole bonus, and 3 more Jolly Scatters add <b>+5</b> spins or more.`)) +
       banner(3, "brown", `<img src="${SYM.ES.img}" alt="${T("The Frost Scatter")}" draggable="false">`,
         T("Frost Scatter · The Blizzard"),
-        T(`<b>2</b> anywhere award <b>17</b> free spins in The Blizzard: every present is <b>x20</b> or more, and a bar of presents adds spins and takes the lowest symbols out.`)) +
+        T(`<b>2</b> anywhere award <b>17</b> free spins in The Blizzard, where every present is <b>x20</b> or more.`)) +
       // (owner, 2026-11-03: Santa's Sleigh, Santa's Sack and the Middle Present are off the opening screen)
     `</div>` +
     `<div class="fcont"><span class="fhit"><span class="ftxt">${T("Click to continue")}</span></span></div>`;
@@ -13162,14 +13330,12 @@ function bonusIntroHow(extreme) {
   return `<p><strong>${T("How the Multi works in here")}</strong></p>` +
     `<p>${T(`A Multi lands with a value from <b>${extreme ? "x20" : isXmasBonus() ? "x5" : MULTI_RANGE[0]}</b> to <b>${MULTI_RANGE[1]}</b>. Every winning cluster is paid first; then it blows out, clearing itself and the four symbols beside it, and each of those five cells keeps its value. A cluster that lands on those cells is multiplied by the <strong>sum</strong> of the values it covers, and values that meet add together.`)}</p>` +
     `<p>${T(extreme
-      ? `The Blizzard: every present is worth <b>x20</b> or more - fewer of them than in the other bonuses, but every one big - an extra present appears now and then after the symbols land, and every present that bursts fills a slot on the bar across the top. The <b>10th</b> present of each bar (gold) adds <b>5</b> spins, and each of the first two full bars (<b>20</b> presents) takes the lowest symbol out of the bonus.`
+      ? `The Blizzard: every present is worth <b>x20</b> or more - fewer of them than in the other bonuses, but every one big - and every value stays for the whole bonus.`
       : isXmasBonus()
-      ? `Christmas Morning: the presents are already open - their multipliers sit on the board from the first spin - and every present in here is <b>x5</b> or more. On about two free spins in three Santa throws a present that bursts into <b>3</b> worth <b>x10</b> or more, each landing on a square of its own - and one in the <b>candy-cane square</b> puts its value on <b>every</b> square.`
-      : `Sleigh Drop: on about every other free spin Santa's sleigh swoops over and drops a present worth <b>x10</b> or more - one dropped into the <b>candy-cane square</b> sets off the whole board - and every value stays for the whole bonus.`)}</p>` +
+      ? `Christmas Morning: the presents are already open - their multipliers sit on the board from the first spin - and every present in here is <b>x5</b> or more. Every value stays for the whole bonus.`
+      : `Sleigh Ride: every value stays on the board for the whole bonus, so the multipliers build up spin after spin - and a present that bursts in the <b>candy-cane square</b> sets off the whole board.`)}</p>` +
     `<p>${T(`Land <b>3</b>, <b>4</b> or <b>5</b> Jolly Scatters in the bonus for <b>+5</b>, <b>+7</b> or <b>+10</b> more spins.`)}</p>` +
-    `<p>${T(extreme
-      ? `Now and then a line of <b>3</b> or <b>4</b> presents drops in, each <b>x20</b> or more, and every symbol of a winning cluster turns into a small multiplier on its square - all of it stays for the rest of the bonus.`
-      : `Every symbol of a winning cluster turns into a small multiplier on its square - all of it stays for the rest of the bonus.`)}</p>`;
+    `<p>${T(`Every symbol of a winning cluster turns into a small multiplier on its square - all of it stays for the rest of the bonus.`)}</p>`;
 }
 function bonusIntro(spins, extreme) {
   musicTo("bonus", 1.4);   // the base loop fades out with the game as the bonus's comes up
@@ -13654,7 +13820,7 @@ async function bootReplay(p) {
   state.mode = p.mode || "base";
   const modeName = T({ base: "Base game", ante: "Santa's Helper", bonus: "Buy Bonus", christmas: "Christmas Morning", extremebonus: "The Blizzard", miracle: "Christmas Miracle" }[state.mode] || state.mode);
   $("balanceLbl").innerHTML = (SOCIAL ? "Replay" : "Replay bet") + `<span class="cur">${RGS.currencyName()}</span>`;
-  $("balance").textContent = fmt(bet());
+  putFig($("balance"), fmt(bet()));
   refreshBet(); setButtons(false);
   const wrap = $("replayWrap"), meta = $("replayMeta"), status = $("replayStatus"),
         result = $("replayResult"), play = $("replayPlay");

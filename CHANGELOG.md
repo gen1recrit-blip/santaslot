@@ -1,5 +1,30 @@
 # Changelog
 
+## v1.4 - Mr. & Mrs. Claus (2026-11-06)
+
+After engine.io's first review (rated 60, not approved): a visual overhaul and animation polish, and simpler bonuses.
+
+**Math v13** - the bonuses have no features of their own on their free spins any more. In the Sleigh Ride the sleigh no
+longer drops presents. In Christmas Morning Santa no longer throws presents; it still starts with 8 to 12 presents
+already open, every present x5 or more. The Blizzard is a normal bonus with every present x20 or more: no Present Bar
+(no extra spins from it, no symbols taken out), no pop-in presents and no Present Line. The base game's sleigh stays.
+Re-simulated and re-optimised: every mode RTP 96.7%, max win 10,000x.
+
+**The board**
+- A solid board of the game's own planks, with every square a well carved into it; the high-paying symbols sit in
+  gold-rimmed wells. The symbols are about 15% bigger.
+- A multiplier's snow fills its whole square.
+- A winning cluster lights up its wells in gold as it pays, and snow puffs up where the bottom row lands.
+
+**The bar and the shop**
+- The bottom bar is a painted wooden sign; the balance and the bet are in the game's own cream numerals, the WIN in
+  the candy-cane ones.
+- Bonus Buy hangs like the opening screen's banners: a cloth in each bonus's colour on a snowy rod, its scene framed at
+  the top, a wooden GET (CONFIRM turns it red), the price in cream numerals, and a wooden balance and bet bar.
+- The lettering in the game is Grandstander, a hand-drawn cartoon face (Luckiest Guy and Fredoka are gone from the
+  game's screens; only the info page's small print keeps a plain face).
+- The shop, the opening screen, the bonus intros and the info page describe the bonuses as they now play.
+
 ## v1.3 - Mr. & Mrs. Claus (2026-11-05)
 
 Front only (math v12 unchanged).
