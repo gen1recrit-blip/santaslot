@@ -3534,6 +3534,7 @@
   @media (prefers-reduced-motion: reduce) { .cell > .sackbeam { animation: none; } }
   .cell.santahide .ico { visibility: hidden; }
   .bonusintro .blogo.morning, .bonusintro .blogo.blizzard { width: min(70vw, 58vh, 560px); height: auto; }
+  .bonusintro .blogo.snowed { width: min(78vw, 70vh, 600px); height: auto; }   /* one wide line: as wide as the two-line titles are tall */
   .bonusgo.green { --glow: 46, 158, 87; }
   /* ---- the bonuses' own worlds (startBonusFx) ---- */
   /* the Extreme Bonus outside in the blizzard (blizzardScene) */
@@ -3659,6 +3660,10 @@
   @keyframes steam { 0% { opacity: 0; transform: translateY(0) scale(.6); } 25% { opacity: .85; } 100% { opacity: 0; transform: translate(8px, -60px) scale(1.6); } }
   @keyframes breath { 0%, 55% { opacity: 0; transform: translate(0, 0) scale(.4); } 62% { opacity: .9; } 100% { opacity: 0; transform: translate(26px, -30px) scale(1.8); } }
   body.away #camnear { opacity: 0; transition: opacity .8s ease; }
+  /* (owner, 2026-11-06: no Mr. and Mrs. Claus "in the total win screen") the bar's pair step out while a bonus's TOTAL WIN
+     is up, and come back as it goes */
+  body:has(.totalwin.istotal) #camnear, body:has(.totalwin.istotal) #bgwall .barcast { opacity: 0; }
+  #bgwall .barcast { transition: opacity .8s ease; }   /* Santa at the bar (in the wall's picture) goes with them */
   #camnear { transition: opacity .8s ease; }
   @media (prefers-reduced-motion: reduce) { .bscene .bzchar, .bscene .breath { animation: none; } }
   .bonusfx { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; transition: opacity .9s ease; }
@@ -6967,7 +6972,7 @@ function stripsFor(gameType) {
   return (typeof STRIP_SETS !== "undefined" && STRIP_SETS[key]) || null;
 }
 
-const FALLBACK_STRIP = ["L1", "H4", "L3", "H1", "L5", "H3", "L2", "H5", "L4", "H2"];
+const FALLBACK_STRIP = ["L2", "H4", "L4", "H6", "L5", "H3", "L6", "H7", "L7", "H2"];   // (v14: no Snowball, Ornament or Icicle)
 
 // Two Jolly Scatters down and a reel held for the third: the board leans in. It eases up a touch
 // bigger, about a point part way toward the held column, over the rest of the reveal - full
@@ -7407,7 +7412,7 @@ async function renderReveal(ev) {
       sfx("heartbeat");
       heartTimer = setInterval(() => sfx("heartbeat", 1.04), 760 * t);
       frameMood("antic", 0);   // two Jolly Scatters and one more to come: the cane's lights cycle through their colours
-      if (window.__santa && window.__santa.wake) window.__santa.wake(900);
+      // (owner, 2026-11-06: "dont make mr claus look up and smile anymore" - Santa sleeps on through the wait)
     }
     // and the board leans in for the wait, reaching full size as the last held icon lands
     boardZoom(true, goldReels, revealMs - (performance.now() - revealStart) - 250 * t);
@@ -8359,6 +8364,9 @@ const handlers = {
   // bursts open, and the square it hit and the four around it take its value. Then the symbols come down.
   // The Blizzard's Present Meter (owner, 2026-10-30): every present that bursts in the bonus fills it; every 10 add 5 spins
   async presentMeter(ev) {
+    // (v13/v14, owner 2026-11-06: "make the blizzard bonus not have the top of it where if you get presents you get more
+    // spins just remove all of that") - The Blizzard has no Present Bar: nothing is shown, whatever a book says
+    if (ev) return;
     const bar = snowbarEl(), st = bar._s, step = ev.step || SNOWBAR.step, gone = ev.gone || [];
     // a fill: the bar shows full, then each symbol it takes out goes, and the bar starts over
     for (const sym of ev.removed || []) {
@@ -8544,9 +8552,9 @@ const handlers = {
       // refilled reel one symbol off the book; 31% of post-tumble winning cells showed the
       // wrong icon.
       const listed = (ev.newSymbols && ev.newSymbols[r]) ? ev.newSymbols[r].slice() : [];
-      const news = listed.slice(1).concat([state.pad[r] || listed[0] || survSyms[0] || { name: "L1" }]);
+      const news = listed.slice(1).concat([state.pad[r] || listed[0] || survSyms[0] || { name: "L2" }]);
       if (listed.length) state.pad[r] = listed[0];
-      while (news.length < H) news.unshift(news[0] || survSyms[0] || { name: "L1" });
+      while (news.length < H) news.unshift(news[0] || survSyms[0] || { name: "L2" });
       if (news.length > H) news.splice(0, news.length - H);
       const finalSyms = news.concat(survSyms);              // top -> bottom, length ROWS
       for (let fy = 0; fy < ROWS; fy++) {
@@ -9115,7 +9123,7 @@ function startBonusFx(kind) {
   // the falling things are canvas particles (startSnowfall and the rest): the sleigh ride's snow is soft and a third as
   // thick, the blizzard twice as thick and driven across, with its wind; Christmas Morning has its confetti
   if (kind === "std") BONUS_FX.stops.push(startSnowfall(el, { share: 1 / 3, alpha: .8 }));
-  if (kind === "ext") { BONUS_FX.stops.push(startSnowfall(el, { style: "blizzard", share: 2, alpha: .8 }), startWind(el)); }
+  if (kind === "ext") { BONUS_FX.stops.push(startSnowfall(el, { style: "storm", share: 1.6, alpha: .8 }), startWind(el)); }
   if (kind === "xmas") BONUS_FX.stops.push(startConfetti(el));
   // (owner, 2026-10-31: no sleigh across the screen as the bonus comes in - it flashed past behind the intro; the sleigh
   // still crosses on every free spin with its presents, and on a retrigger)
@@ -9142,33 +9150,18 @@ function bonusScene(kind) {
     (kind === "xmas" ? `<i class="fireglow"></i><i class="sunbeam"></i>` : "") +
     (kind === "ext" ? `<i class="aurora a1"></i><i class="aurora a2"></i>` : "") + `<div class="bzsnow"></div>` +
     (kind === "xmas"
-      // Christmas Morning (owner, 2026-10-31): Mrs. Claus - her own face on a new body - in her rocking chair, lifting
-      // the lid of the present in her lap again and again (the box's back, its glow, its front and the light out of it;
-      // her left hand on it; her right forearm with the lid, turning at the elbow) - and Santa with his throwing hand as
-      // a picture of its own and the steam rising off his cocoa
-      ? `<div class="bgfit"></div>` +   // the snow in its windows: startPaneSnow, below
-        // (owner, 2026-11-03: "make Mrs. Claus's arms and legs look like Mr. Claus, then make her not holding a present") she is
-        // the knitting Mrs. Claus of the bar now - her arms in their sleeves and fur cuffs and her striped legs like his
-        // robe and pyjamas, knitting in her rocking chair (makeSleeper, the same live knitting) instead of opening a present
-        `<div class="bzchar left rocker knitter" id="xmasKnit"></div>` +
-        `<div class="bzchar right santaxm"><div class="sfig"><img src="assets/xmas/ui/santa_morning_body.webp" alt="" draggable="false" loading="lazy">` +
-        [1, 2, 3].map(k => `<i class="wisp w${k}"><svg viewBox="0 0 40 100" aria-hidden="true"><path d="M20 98 C 6 80, 34 66, 19 48 S 6 20, 22 2"/></svg></i>`).join("") +
-        `<div class="sarm"><img src="assets/xmas/ui/santa_morning_arm.webp" alt="" draggable="false" loading="lazy"><img class="handgift" src="assets/flat/M.webp" alt="" draggable="false"></div></div></div>`
+      // Christmas Morning: the cabin's living room, sun through the frosty windows and snow falling outside them
+      ? `<div class="bgfit"></div>`   // the snow in its windows: startPaneSnow, below
+        // (owner, 2026-11-06: "in the christmas morning bonus remove mr and mrs claus from it" - the room on its own, Mrs.
+        // Claus knitting in her rocking chair and Santa with his cocoa are gone)
       : cfg.cast === false ? ""   // The Blizzard: the storm alone, no Clauses out in it
       : `<div class="bzchar left"><img src="assets/xmas/ui/${cfg.left}.webp" alt="" draggable="false" loading="lazy"><i class="breath"></i></div>` +
         `<div class="bzchar right"><img src="assets/xmas/ui/${cfg.right}.webp" alt="" draggable="false" loading="lazy"><i class="breath"></i></div>`) +
     // (owner, 2026-10-30: no pile of presents beside Santa on Christmas morning)
-    (kind === "ext" ? `<i class="frostedge"></i>` : "");
+    "";   // (owner, 2026-11-06: "remove all the bushes in the corners" - the frost frame round The Blizzard, .frostedge, is gone)
   $("bgwall").after(sc);
-  if (!REDUCED_MOTION) sc._snow = cfg.snow ? [startSnowfall(sc.querySelector(".bzsnow"), { style: "blizzard", share: cfg.snow })] : [];
+  if (!REDUCED_MOTION) sc._snow = cfg.snow ? [startSnowfall(sc.querySelector(".bzsnow"), { style: kind === "ext" ? "storm" : "blizzard", share: cfg.snow })] : [];
   if (!REDUCED_MOTION && kind === "xmas") sc._snow.push(startPaneSnow(sc.querySelector(".bgfit")));
-  if (kind === "xmas") {
-    const mrs = CHARACTERS.find(c => c.el === "charfx2");
-    // (not on a phone held upright, where the bonus has no Mrs. Claus: made if it is turned)
-    const knit = () => mrs ? makeSleeper({ el: "xmasKnit", sleeper: { ...mrs.sleeper, table: null, _texT: null, fill: true } }).then(k => { if (k) k.enter(); return k; }).catch(() => null) : null;
-    if (!UPRIGHT_PHONE.matches) sc._knit = knit();
-    else UPRIGHT_PHONE.addEventListener?.("change", function turned(e) { if (e.matches) return; UPRIGHT_PHONE.removeEventListener("change", turned); if (sc.isConnected && !sc._knit) sc._knit = knit(); });
-  }
   // the pair beside the board, never over it: on a screen narrower than 16:9 (a 16:10 laptop) the board takes more of the
   // width, so each is made smaller to fit the room beside it, and moved toward the edge if it is still too big
   const fitCast = () => {
@@ -9290,13 +9283,13 @@ function flyPresents(cells, from, { gap = 140, ms = 620, lift = 160, spin = 1, s
   })));
 }
 // the low symbols a stand-in is drawn from (see standIn)
-const STANDIN_POOL = ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10"];
+const STANDIN_POOL = ["L2", "L4", "L5", "L6", "L7", "L8", "L9", "L10"];
 function sleighStandIns(ev, positions) {
   const pick = new Map(), nameAt = (r, row) => pick.get(r + "," + row) || (ev.board[r] && ev.board[r][row] ? ev.board[r][row].name : null);
   for (const p of positions) {
     const y = p.row - 1; if (y < 0 || y >= ROWS || !cellEls[p.reel]) continue;
     const near = [[p.reel - 1, p.row], [p.reel + 1, p.row], [p.reel, p.row - 1], [p.reel, p.row + 1]].map(([r, row]) => nameAt(r, row));
-    const ok = STANDIN_POOL.filter(n => !near.includes(n)), name = ok[Math.floor(Math.random() * ok.length)] || "L1";
+    const ok = STANDIN_POOL.filter(n => !near.includes(n)), name = ok[Math.floor(Math.random() * ok.length)] || "L2";
     pick.set(p.reel + "," + p.row, name);
     standIn.set(cellEls[p.reel][y], { r: p.reel, y, real: ev.board[p.reel][p.row], fake: { name } });
   }
@@ -9739,7 +9732,8 @@ async function santaThrow(cells, { keep = false } = {}) {   // keep: before the 
 }
 function santaWake(line) {
   const ms = line === "merry" ? 3300 : 3200;
-  if (window.__santa && window.__santa.wake && !REDUCED_MOTION) window.__santa.wake(ms);
+  // (owner, 2026-11-06: "dont make mr claus look up and smile anymore" - he no longer lifts his head off the bar; his
+  // "Ho ho ho!" still comes, a chuckle in his sleep)
   // his line always plays to the end: nothing that closes a screen stops it, and a clip still decoding
   // is played the moment it is ready rather than dropped (sfx() lets a late clip go after 600 ms)
   const name = line === "merry" ? "merry" : "hohoho";
@@ -9806,9 +9800,9 @@ function barScenery() {
       // nozzle, falling and splashing on the drip tray
       + `<i class="tapdrip milkd" style="${box(3097, 1212, 3113, 1316)}"><b></b><s></s></i>`
       + `<i class="tapdrip chocd" style="${box(3141, 1212, 3157, 1313)}"><b></b><s></s></i>`
-      + `<i class="elfbar" style="${box(3140, 870, 3392, 1290)}">${ELF_FACES.map(f => `<b class="ef ef-${f}" data-f="${f}"></b>`).join("")}<s class="enote n1"></s><s class="enote n2"></s></i>`   // an elf tends the bar, behind the counter, polishing a glass (owner, 2026-10-30); his faces (2026-10-31): elfFace
-      + `<i class="milkspill" style="${box(3091, 1952, 3331, 2045)}"></i>`   // (2026-11-03: down on the boards under the stool, not up at the rail; inside a 16:10 laptop's view)
       // (the Christmas pictures on the walls are gone again: owner, 2026-11-03, "remove the two pictures you put in")
+      // (owner, 2026-11-06: "remove the cup on the ground and the elf in the background" - the elf behind the bar and
+      // Santa's spilled glass of milk on the boards are gone)
       ;   // Santa's glass of milk, knocked off the counter (owner, 2026-11-03): on its side on the boards under his boots, run out in a puddle
       // (owner, 2026-10-31: "remove the presents in the background") the pile of presents on the floor under the board is gone
     wall.insertBefore(fx, $("walltag"));   // over the picture, under the sign (its red light falls on the kegs) and Santa
@@ -10357,8 +10351,8 @@ async function presentRound(round, { settle = true } = {}) {
 // MODE_COST) shows no card. key names the banner (assets/bonus/banner_<key>.webp: the bonus's own Christmas scene
 // with its icon); heat is how wild it runs, in snowflakes.
 const BUYS = [
-  { mode: "bonus", key: "bonus", hue: "red", title: "Bonus", desc: "10, 12 or 15 free spins in the snowy bar. Every value stays on the board all bonus.", heat: 3, acc: "#E0283A", icon: "assets/flat/BS.webp" },
-  { mode: "christmas", key: "christmas", hue: "green", title: "Christmas Morning", desc: "12 free spins starting with 8 to 12 presents open. Every present x5 or more.", heat: 4, acc: "#4CC27A", icon: "assets/xmas/ui/morning.webp" },
+  { mode: "bonus", key: "bonus", hue: "red", title: "Snowed In", desc: "10 free spins in the snowy bar. Every value stays on the board all bonus.", heat: 3, acc: "#E0283A", icon: "assets/flat/BS.webp" },
+  { mode: "christmas", key: "christmas", hue: "green", title: "Christmas Morning", desc: "12 free spins starting with 5 to 8 presents open. Every present x5 or more.", heat: 4, acc: "#4CC27A", icon: "assets/xmas/ui/morning.webp" },
   { mode: "extremebonus", key: "extremebonus", hue: "ice", title: "The Blizzard", desc: "10, 12 or 17 free spins. Every present x20 or more, and every value stays all bonus.", heat: 5, acc: "#7EC8F2", icon: "assets/flat/ES.webp" },
   { mode: "miracle", key: "miracle", hue: "night", title: "Christmas Miracle", desc: "1 spin with every square at x500. Stays on for every spin until you turn it off.", heat: 5, acc: "#F5C518", icon: "assets/flat/M.webp" },
 ];
@@ -12034,7 +12028,7 @@ if (window.ResizeObserver) {
 }
 
 buildBoard();
-eachCell((el, r, y) => setCell(r, y, { name: ["L1","L2","L3","L4","L5"][(r + y) % 5] }));
+eachCell((el, r, y) => setCell(r, y, { name: ["L2","L4","L5","L6","L7"][(r + y) % 5] }));
 fitToScreen();   // fit once the board exists; `load` and fonts.ready refine it after art settles
 
 // the button doubles as Skip mid-round — only clunk when it actually starts a spin
@@ -12669,6 +12663,7 @@ function startSnowfall(host, { style = "soft", share = 1, alpha = 1 } = {}) {
              o: (.55 + near * .45) * alpha, blur: near < .3 };
   };
   const blizzard = style === "blizzard";
+  if (style === "storm") return startStorm(host, sp, n, alpha);
   const paint = (g, p, t, W, H, k) => {
     const u = frac(t, p.dur, p.dl), vw = innerWidth, vh = innerHeight;
     const x = p.x * W + (blizzard ? -.38 * vw * u : p.sw * Math.sin(u * Math.PI * 2)), y = -.04 * H + 1.08 * vh * u;
@@ -12677,6 +12672,28 @@ function startSnowfall(host, { style = "soft", share = 1, alpha = 1 } = {}) {
     g.drawImage(p.blur ? sp.blur : sp.flake, (x - s / 2) * k, (y - s / 2) * k, s * k, s * k);
   };
   return snowLayer(host, "snow-" + style, n, spawn, paint);
+}
+// The Blizzard's storm (owner, 2026-11-06: "make all the snow moving in the background like its a blizzard"): the snow is
+// driven hard across the screen, right to left, a screen and a half in two to four seconds - the near flakes faster and
+// drawn out along their path into short streaks, every flake buffeted by its own gusts - so the whole scene moves.
+function startStorm(host, sp, n, alpha) {
+  const spawn = () => {
+    const near = Math.random(), dur = 3.6 - near * 1.9 + Math.random() * .8;
+    return { x: Math.random() * 1.7, s: 2.5 + near * near * 10, near, dur, dl: Math.random() * dur, ph: Math.random() * 6.28,
+             gw: 12 + Math.random() * 34, o: (.5 + near * .5) * alpha, blur: near < .3 };
+  };
+  const paint = (g, p, t, W, H, k) => {
+    const u = frac(t, p.dur, p.dl), vw = innerWidth, vh = innerHeight;
+    const gust = Math.sin(t * 1.7 + p.ph) * p.gw + Math.sin(t * .63 + p.ph * 2) * p.gw * .6;
+    const x = p.x * W - (1.5 + .5 * p.near) * vw * u + gust, y = -.06 * H + 1.12 * vh * u + gust * .25;
+    const s = p.s * (p.blur ? 1.6 : 1.25), str = 1 + 1.6 * p.near;   // the near ones stretched along their path
+    const a = Math.atan2(1.12 * vh, -(1.5 + .5 * p.near) * vw), c = Math.cos(a) * k, sn = Math.sin(a) * k;
+    g.globalAlpha = p.o;
+    g.setTransform(c * str, sn * str, -sn, c, x * k, y * k);
+    g.drawImage(p.blur ? sp.blur : sp.flake, -s / 2, -s / 2, s, s);
+    g.setTransform(1, 0, 0, 1, 0, 0);
+  };
+  return snowLayer(host, "snow-storm", n, spawn, paint);
 }
 // The Blizzard's wind: streaks of white blowing right to left across the screen, tilted down (not on a slow machine)
 function startWind(host) {
@@ -12691,7 +12708,7 @@ function startWind(host) {
     g.drawImage(sp.wind, 0, -1, p.l, 2);
     g.setTransform(1, 0, 0, 1, 0, 0);
   };
-  return snowLayer(host, "wind", 26, spawn, paint, { before: false });
+  return snowLayer(host, "wind", 40, spawn, paint, { before: false });
 }
 // Christmas Morning's confetti: paper in the presents' colours tumbling down, turning over as it falls
 function startConfetti(host) {
@@ -13242,7 +13259,7 @@ function runFeatures() {
         T(`Lands worth <b>x1.25</b> to <b>x1000</b>. After the wins are paid it bursts and leaves its value on its square and the 4 around it - any win on those squares is multiplied by their <b>sum</b>.`)) +
       banner(2, "green", `<img src="${SYM.BS.img}" alt="${T("Jolly Scatter")}" draggable="false">`,
         T("Jolly Scatter · Bonus"),
-        T(`<b>3</b> anywhere start the Sleigh Ride, <b>4</b> or more Christmas Morning. Every multiplier stays on the board for the whole bonus, and 3 more Jolly Scatters add <b>+5</b> spins or more.`)) +
+        T(`<b>3</b> anywhere start Snowed In, <b>4</b> or more Christmas Morning. Every multiplier stays on the board for the whole bonus, and 3 more Jolly Scatters add <b>+5</b> spins or more.`)) +
       banner(3, "brown", `<img src="${SYM.ES.img}" alt="${T("The Frost Scatter")}" draggable="false">`,
         T("Frost Scatter · The Blizzard"),
         T(`<b>2</b> anywhere award <b>17</b> free spins in The Blizzard, where every present is <b>x20</b> or more.`)) +
@@ -13315,7 +13332,7 @@ function bonusIntroHow(extreme) {
       ? `The Blizzard: every present is worth <b>x20</b> or more - fewer of them than in the other bonuses, but every one big - and every value stays for the whole bonus.`
       : isXmasBonus()
       ? `Christmas Morning: the presents are already open - their multipliers sit on the board from the first spin - and every present in here is <b>x5</b> or more. Every value stays for the whole bonus.`
-      : `Sleigh Ride: every value stays on the board for the whole bonus, so the multipliers build up spin after spin - and a present that bursts in the <b>candy-cane square</b> sets off the whole board.`)}</p>` +
+      : `Snowed In: every value stays on the board for the whole bonus, so the multipliers build up spin after spin - and a present that bursts in the <b>candy-cane square</b> sets off the whole board.`)}</p>` +
     `<p>${T(`Land <b>3</b>, <b>4</b> or <b>5</b> Jolly Scatters in the bonus for <b>+5</b>, <b>+7</b> or <b>+10</b> more spins.`)}</p>` +
     `<p>${T(`Every symbol of a winning cluster turns into a small multiplier on its square - all of it stays for the rest of the bonus.`)}</p>`;
 }
@@ -13326,7 +13343,7 @@ function bonusIntro(spins, extreme) {
     const wrap = document.createElement("div");
     wrap.className = "bonusintro" + (extreme ? " x" : "");   // .x: the Extreme Bonus's violet
     wrap.setAttribute("role", "dialog");
-    wrap.setAttribute("aria-label", T(extreme ? "The Blizzard" : "Bonus"));
+    wrap.setAttribute("aria-label", T(extreme ? "The Blizzard" : isXmasBonus() ? "Christmas Morning" : "Snowed In"));
     wrap.innerHTML =
       `<div class="wall"></div>` +
       `<div class="inner"><div class="bstack">` +
@@ -13334,7 +13351,8 @@ function bonusIntro(spins, extreme) {
           ? `<img class="blogo morning" src="assets/xmas/ui/title_morning.webp" alt="${T("Christmas Morning")}" draggable="false">`
           : extreme
           ? `<img class="blogo blizzard" src="assets/xmas/ui/title_blizzard.webp" alt="${T("The Blizzard")}" draggable="false">`
-          : `<img class="blogo" src="assets/bonus_btn_text.webp" alt="${T("Bonus")}" draggable="false">`) +
+          // the normal bonus has a name of its own (owner, 2026-11-06): SNOWED IN, in the BONUS title's candy-cane lettering
+          : `<img class="blogo snowed" src="assets/xmas/ui/title_snowed.webp" alt="${T("Snowed In")}" draggable="false">`) +
         `<div class="byou"><img src="assets/xmas/txt_you_won.webp" alt="${T("You won")}" draggable="false"></div>` +
         `<div class="bnum" aria-label="${spins}"><i class="brays" aria-hidden="true"></i><div class="bfig">${numeralRow(REDUCED_MOTION ? String(spins) : "0")}</div></div>` +
         `<div class="bfs"><img src="assets/xmas/txt_free_spins.webp" alt="${T("Free spins")}" draggable="false"></div>` +

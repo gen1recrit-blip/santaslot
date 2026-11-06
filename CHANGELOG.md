@@ -2,21 +2,23 @@
 
 ## v1.4 - Mr. & Mrs. Claus (2026-11-06)
 
-After engine.io's first review (rated 60, not approved): a visual overhaul and animation polish, and simpler bonuses.
+After engine.io's first review (rated 60, not approved): a visual overhaul and animation polish, fewer symbols and
+simpler bonuses.
 
-**Math v13** - the bonuses have no features of their own on their free spins any more. In the Sleigh Ride the sleigh no
-longer drops presents. In Christmas Morning Santa no longer throws presents; it still starts with 8 to 12 presents
-already open, every present x5 or more. The Blizzard is a normal bonus with every present x20 or more: no Present Bar
-(no extra spins from it, no symbols taken out), no pop-in presents and no Present Line. The base game's sleigh stays.
-Re-simulated and re-optimised: every mode RTP 96.7%, max win 10,000x.
+**Math v14**
+- The Snowball, the Ornament and the Icicle are gone: 13 paying symbols instead of 16. Their places on the reels are
+  shared out among the others, and the paytable comes down to match (the clusters are bigger and more frequent).
+- The normal bonus is now **Snowed In**: 3 Jolly Scatters, 10 free spins (bought, it always lands exactly 3). 4 or 5
+  Jolly Scatters are always **Christmas Morning** (bought, it lands 4 or 5).
+- No bonus has a feature of its own on its free spins any more: no sleigh drops in Snowed In, no presents thrown by
+  Santa in Christmas Morning (which now starts with 5 to 8 presents open), and The Blizzard is a normal bonus with
+  every present x20 or more (no Present Bar, no pop-in presents, no Present Line). The base game's sleigh stays.
+- Re-simulated and re-optimised: every mode RTP 96.7%, max win 10,000x.
 
 **The board**
-- A solid board of the game's own planks, with every square a well carved into it; the high-paying symbols sit in
-  gold-rimmed wells. The symbols are about 15% bigger.
+- A solid board of the game's own planks, every square the same carved well; the symbols are about 15% bigger.
 - A multiplier's snow fills its whole square.
-- Every square is the same plain well (no gold rims, no snow in the corner).
 - A winning cluster lights up its wells in gold as it pays, and snow puffs up where the bottom row lands.
-- The Blizzard is the storm alone: Santa and Mrs. Claus are no longer out in it.
 
 **The bar and the shop**
 - The bottom bar is a painted wooden sign; its figures are lettered in the game's heavy face, cream with an ink
@@ -25,7 +27,17 @@ Re-simulated and re-optimised: every mode RTP 96.7%, max win 10,000x.
   the top, a wooden GET (CONFIRM turns it red), and a wooden balance and bet bar.
 - The lettering in the game is Grandstander, a hand-drawn cartoon face (Luckiest Guy and Fredoka are gone from the
   game's screens; only the info page's small print keeps a plain face).
-- The shop, the opening screen, the bonus intros and the info page describe the bonuses as they now play.
+
+**Scenes**
+- Snowed In has its own candy-cane title.
+- Christmas Morning is the cabin's living room on its own, and The Blizzard the storm on its own: no Mr. and Mrs. Claus
+  in either, nor at the bar while a bonus's TOTAL WIN is up.
+- The Blizzard's snow is driven hard across the screen; the frost frame is gone, and more snowy pines stand round the
+  street.
+- At the bar, the elf and the spilled glass of milk are gone, and Santa sleeps on (he no longer looks up).
+
+**Info page** - rewritten against the game as it is now: the new paytable, the three bonuses and how each starts, the
+shop, and nothing that is no longer in the game.
 
 ## v1.3 - Mr. & Mrs. Claus (2026-11-05)
 
