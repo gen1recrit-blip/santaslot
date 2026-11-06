@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.5 - Mr. & Mrs. Claus (2026-11-06)
+
+A new Mrs. Claus and a cleaner Blizzard. Math unchanged (v14).
+
+**Mrs. Claus**
+- A brand-new Mrs. Claus in the bar: a slimmer, flirty pin-up in a short red velvet dress with fur trim, striped
+  thigh-high stockings and heels, legs crossed, rocking in her chair with a mug of cocoa in both hands. No quilt, no
+  knitting.
+- The cocoa's steam rises off the mug in soft wisps that sway and fade, rocking with her.
+- Both eyes open: she blinks every few seconds and winks now and then.
+- The side table keeps its jar of gingerbread cookies; the glass of milk is gone.
+
+**The bar**
+- Santa sits a little further left on his stool.
+
+**The Blizzard**
+- The snowflakes painted into its background picture are gone (they never moved); only the falling snow is left.
+
 ## v1.4 - Mr. & Mrs. Claus (2026-11-06)
 
 After engine.io's first review (rated 60, not approved): a visual overhaul and animation polish, fewer symbols and

@@ -10932,21 +10932,17 @@ const CHARACTERS = [
   { el: "charfx", sleeper: { img: "assets/xmas/santa_bar.webp", wake: "assets/xmas/santa_bar_wake.webp", torso: [238, 400], head: [620, 300], z: [600, 170], stillX: 470,
     // (owner, 2026-10-31: "fix the corner ... it looks bad") his face lay right on the counter's corner, its edges poking
     // out beside his cheek; a touch to the right, his head rests on the bar top and he hides the corner
-    inBar: { pic: [3840, 2160], at: [3490, 1404], contact: [562, 445], scale: .736 } } },
-  // Mrs. Claus (owner, 2026-10-30): in her rocking chair, knitting a patchwork quilt, rocking gently back and forth;
-  // beside her a side table with a jar of gingerbread cookies and a glass of milk (the table holds still, in front)
-  { el: "charfx2", sleeper: { img: "assets/xmas/mrs_rock.webp", blink: "assets/xmas/mrs_rock_blink.webp", table: "assets/xmas/mrs_table.webp",
-    rock: { pivot: [600, 1110], deg: 2.6, period: 3.6 },
-    torso: [610, 640], head: [640, 330], neck: [630, 500], calmX: 300, size: .72, align: "right",
-    // (owner, 2026-11-03: "make her move her arms and then the little sticks move to make it look like she's knitting")
-    // each needle turns about its knob, resting on the chair's arm, and her hand on it and her forearm go with it; the
-    // right needle's tip dips into the stitch and comes back out, the left one gives to meet it, the knitting between
-    // them shifts with both. In the picture's pixels; a finer mesh so the needles stay straight as they move
-    grid: [60, 80],
-    knit: { period: 1.05, collar: 548,
-      L: { pivot: [484, 706], tip: [680, 552], hand: [588, 610, 52, 42], elbow: [420, 600], deg: -2.6, phase: .55 },
-      R: { pivot: [826, 686], tip: [644, 550], hand: [720, 598, 46, 40], elbow: [850, 560], deg: 4.6, phase: 0 },
-      cloth: [560, 596, 736, 728] } } },
+    inBar: { pic: [3840, 2160], at: [3455, 1404], contact: [562, 445], scale: .736 } } },
+  // Mrs. Claus (owner, 2026-11-06: "just make a brand new mrs clause ... in a rocking chair", "dont make her that fat",
+  // "make her look kinda slutty"): a new, slimmer pin-up Mrs. Claus with her legs crossed, a mug of cocoa in her hands - no
+  // quilt, no knitting - rocking gently back and forth, the cocoa's steam rising off the mug ("make the steam move"); beside
+  // her the side table with its jar of gingerbread cookies ("remove the milk on the table") - the table holds still, in front
+  // (owner, 2026-11-06: "make both of her eyes open and blink normally and wink every once and while")
+  { el: "charfx2", sleeper: { img: "assets/xmas/mrs_rock.webp", blink: "assets/xmas/mrs_rock_blink.webp", wink: "assets/xmas/mrs_rock_wink.webp",
+    table: "assets/xmas/mrs_table.webp",
+    rock: { pivot: [520, 1128], deg: 2.6, period: 3.6 },
+    torso: [500, 560], head: [510, 300], neck: [515, 420], calmX: 300, size: .72, align: "right",
+    steam: [601, 578] } },   // the top of the cocoa's cream, in the picture's pixels
 ];
 const CHAR_RATE = .8;                     // both rigs play at 80% speed, as the clips did
 // The pair redraw at most about 60 times a second: on the owner's 165 Hz screen each figure - its
@@ -11620,6 +11616,7 @@ async function makeSleeper({ el, sleeper: S }) {
     tex = await PIXI.Assets.load(S.img);
     if (S.blink) texB = await PIXI.Assets.load(S.blink);
     if (S.wake) S._texW = await PIXI.Assets.load(S.wake);
+    if (S.wink) S._texK = await PIXI.Assets.load(S.wink);
     if (S.table) S._texT = await PIXI.Assets.load(S.table);
   } catch (e) { console.warn("seated character:", e.message); return null; }
   root.classList.add("sleeper");
@@ -11650,7 +11647,21 @@ async function makeSleeper({ el, sleeper: S }) {
   // the blink is a second picture of the same pose, bent the same way, shown for a moment now and then
   const meshB = texB ? new PIXI.MeshPlane({ texture: texB, verticesX: GX, verticesY: GY }) : null;
   if (meshB) { meshB.visible = false; rocker.addChild(meshB); }
+  // a wink: a third picture of the same pose (one eye shut), bent the same way, shown now and then for a little longer
+  const meshK = S._texK ? new PIXI.MeshPlane({ texture: S._texK, verticesX: GX, verticesY: GY }) : null;
+  if (meshK) { meshK.visible = false; rocker.addChild(meshK); }
+  const bufK = meshK ? meshK.geometry.getBuffer("aPosition") : null;
+  let winkUntil = 0, nextWink = performance.now() + 9000 + Math.random() * 7000;
   if (S._texT) frame.addChild(new PIXI.Sprite(S._texT));   // the side table, still, in front of the chair
+  // the cocoa's steam (owner, 2026-11-06: "make the steam move"): three soft wisps that rise off the mug one after another,
+  // swaying and fading out - in the rocker, so they rock with her, and lifted with her breath like the hands that hold it.
+  // Silvery with a faint darker rim, as Santa's is: it rises over her white fur collar and has to show against it.
+  const wisps = (S.steam ? [0, 1, 2] : []).map(() => {
+    const g = new PIXI.Graphics(), path = q => q.moveTo(0, 0).bezierCurveTo(-9, -14, 9, -26, 0, -40).bezierCurveTo(-7, -50, 6, -60, 0, -70);
+    path(g).stroke({ width: 11, color: 0x7d8ea6, alpha: .45, cap: "round", join: "round" });
+    path(g).stroke({ width: 7, color: 0xffffff, alpha: 1, cap: "round", join: "round" });
+    g.alpha = 0; rocker.addChild(g); return g;
+  });
   const bufB = meshB ? meshB.geometry.getBuffer("aPosition") : null;
   let blinkUntil = 0, nextBlink = performance.now() + 3000;
   // woken (santaWake): the picture of him with his head up and laughing, bent the same way, lifting off the bar
@@ -11764,6 +11775,7 @@ async function makeSleeper({ el, sleeper: S }) {
       }
       buf.update();
       if (bufB) { bufB.data.set(d); bufB.update(); }
+      if (bufK) { bufK.data.set(d); bufK.update(); }
       if (bufW) {   // his head up off the bar for a moment: eased up, held (a laugh's bob in it), eased back down
         const a = (performance.now() - wakeFrom) / Math.max(1, wakeMs), on = a >= 0 && a < 1;
         meshW.visible = on; mesh.visible = !on && !(meshB && meshB.visible);
@@ -11779,10 +11791,24 @@ async function makeSleeper({ el, sleeper: S }) {
         }
       }
     }
-    if (meshB) {                                                           // her slow, heavy blink every few seconds
+    if (meshB || meshK) {                                                  // her blink every few seconds, a wink now and then
       const now = performance.now();
-      if (now > nextBlink) { blinkUntil = now + 260; nextBlink = now + 3500 + Math.random() * 4000; }
-      meshB.visible = now < blinkUntil; mesh.visible = !meshB.visible;
+      if (meshK && now > nextWink && now > blinkUntil) { winkUntil = now + 700; nextWink = now + 9000 + Math.random() * 7000; nextBlink = Math.max(nextBlink, now + 1500); }
+      else if (meshB && now > nextBlink && now > winkUntil) { blinkUntil = now + 260; nextBlink = now + 3500 + Math.random() * 4000; }
+      const winking = !!meshK && now < winkUntil, blinking = !!meshB && !winking && now < blinkUntil;
+      if (meshK) meshK.visible = winking;
+      if (meshB) meshB.visible = blinking;
+      mesh.visible = !winking && !blinking;
+    }
+    if (wisps.length) {                                                   // the steam rising off her cocoa
+      const [sx, sy] = S.steam;
+      const lift = REDUCED_MOTION ? 0 : Math.sin(TAU * t / 4.6) * A * Math.exp(-((sx - tx) ** 2 + (sy - ty) ** 2) / (2 * sT * sT));
+      wisps.forEach((g, k) => {
+        const p = REDUCED_MOTION ? .35 : (t / 2.8 + k / 3) % 1;
+        g.position.set(sx + (k - 1) * 7 + Math.sin(p * TAU + k * 2) * 5, sy - lift - p * 46);
+        g.alpha = REDUCED_MOTION ? .25 : Math.sin(Math.PI * p) * .55;
+        g.scale.set(.55 + .45 * p, .55 + .55 * p); g.rotation = Math.sin(p * Math.PI + k) * .18;
+      });
     }
     zs.forEach((z, i) => {                                                 // Z's drifting up off him, one after another
       const p = ((t / 4.2 + i / 3) % 1);
