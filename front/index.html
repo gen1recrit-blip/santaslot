@@ -1417,12 +1417,8 @@
   }
   @keyframes wellLit { from { scale: .86; box-shadow: 0 0 0 0 #ffd23c, 0 0 0 0 #160a05, 0 0 0 0 rgba(255, 200, 60, 0); } }
   @media (prefers-reduced-motion: reduce) { .welllayer > i.lit { animation: none; } }
-  /* a high-paying symbol (tiers 1 and 2: Santa's Sack to the Stocking) sits in a gold-rimmed well of its own, which
-     comes and goes with it - drops in with it, bursts with it */
-  .cell.t1::before, .cell.t2::before {
-    content: ""; position: absolute; inset: -2px; pointer-events: none;
-    background: url("assets/xmas/slot_gold.webp") center / 100% 100% no-repeat;
-  }
+  /* (every square is the same plain well: the gold-rimmed wells the high-paying symbols had read as random - owner,
+     2026-11-06: "why is there gold around some but not others" - so the high pays stand out by their art alone) */
   /* the live spray rim (sprayrim.js) draws the outline: the picture stays as the fallback */
   .board.livefx #paintframe { visibility: hidden; }
   .board .sprayrim.framefx { translate: var(--fx, 0px) var(--fy, 0px); rotate: var(--fr, 0deg); scale: var(--fsx, 1) var(--fsy, 1); }
@@ -4276,7 +4272,6 @@
   }
   .bsstat .val { font-size: 30px; line-height: 1; white-space: nowrap; }
   .bsstat .val:not(.glyphs) { font-family: var(--disp); color: #fbefd6; -webkit-text-stroke: 4px #160a05; paint-order: stroke fill; }
-  .bshop .val.glyphs > .gx { color: #fbefd6; -webkit-text-stroke: .12em #160a05; font-family: var(--disp); }
   .bsplay { align-items: center; }
   .bssep { width: 3px; align-self: stretch; border-radius: 2px; background: rgba(22, 10, 5, .65); }
   .bsbet { display: flex; align-items: center; gap: 14px; }
@@ -4308,13 +4303,16 @@
      unpainted: the tree lights, the window's snow, the taps, the elf (owner, 2026-11-05: bonuses laggy) */
   body.away .barfx, body.away .barfx * { animation-play-state: paused !important; }
   body.away .barfx { visibility: hidden; transition: visibility 0s 1.3s; }
-  /* the bar's figures in the game's own numerals (owner, 2026-11-06): the balance and the bet in the cream set
-     (assets/numc: the TOTAL WIN digits' shapes and snow caps, flat cream, ink-outlined), the WIN in the candy-cane set
-     itself; putFig() writes them, one picture per character, an em tall, so the figures still size by font-size */
-  .val.glyphs { display: inline-flex; align-items: flex-end; height: 1.08em; gap: 0; color: transparent; }
-  .val.glyphs > img { height: 1.08em; width: auto; flex: none; margin: 0 -.035em; pointer-events: none; }
-  .val.glyphs > img.p { margin: 0 -.06em; }   /* comma and point sit closer */
-  .val.glyphs > .gx { color: var(--hud-ink); -webkit-text-stroke: .12em var(--hud-line); paint-order: stroke fill; font-family: var(--hud-font); line-height: 1; }
+  /* the bar's figures (owner, 2026-11-06): lettered in the game's heavy face (Grandstander Black), cream with the ink
+     outline the art is drawn with and the bar's drop shadow, tabular so a count-up never jitters; the WIN in gold. The
+     picture numerals tried first crowded and stood uneven at this size ("the numbers look messed up") */
+  .val.glyphs, .hudstat .val.glyphs, #balance.glyphs, #betVal.glyphs {
+    font-family: var(--disp) !important; font-weight: 400; letter-spacing: .03em; line-height: 1.05; font-variant-numeric: tabular-nums;
+    color: #fbefd6; -webkit-text-stroke: .14em #160a05; paint-order: stroke fill; text-shadow: 0 .08em 0 rgba(0, 0, 0, .45);
+  }
+  /* the WIN in gold, the colour of what is won */
+  #hudWinVal.glyphs { color: #ffd23c; text-shadow: 0 .08em 0 rgba(0, 0, 0, .45), 0 0 .4em rgba(255, 200, 60, .35); }
+  .hudstat.hudwin.zero #hudWinVal.glyphs { text-shadow: 0 .08em 0 rgba(0, 0, 0, .45); }
 </style>
 </head>
 <body>
@@ -4353,13 +4351,13 @@
       <button class="hudbtn menu" id="menuBtn" aria-label="Game information">Info</button>
       <button class="hudbtn audio" id="audioBtn" aria-label="Sound and music volume" aria-expanded="false">Audio</button>
       <div class="hudbar">
-        <div class="hudstat stat"><span class="lbl" id="balanceLbl">Balance</span><span class="val glyphs" data-set="numc" id="balance">0.00</span></div>
+        <div class="hudstat stat"><span class="lbl" id="balanceLbl">Balance</span><span class="val glyphs" id="balance">0.00</span></div>
         <div class="chip stat juris" id="jurisBox" hidden><span class="val" id="jurisVal"></span></div>
         <!-- the round's win (owner, 2026-11-04: "after i win i want it to say how much i won in the bottom bar"): it comes
              in with the first pay, counts up with the round and stays until the next spin starts -->
-        <div class="hudstat stat hudwin zero" id="hudWin" aria-live="polite"><span class="lbl">Win</span><span class="val glyphs" data-set="num" id="hudWinVal">0.00</span></div>
+        <div class="hudstat stat hudwin zero" id="hudWin" aria-live="polite"><span class="lbl">Win</span><span class="val glyphs" id="hudWinVal">0.00</span></div>
         <div class="hudbet">
-          <div class="hudstat stat bet"><span class="lbl">Bet</span><span class="val glyphs" data-set="numc" id="betVal">1.00</span></div>
+          <div class="hudstat stat bet"><span class="lbl">Bet</span><span class="val glyphs" id="betVal">1.00</span></div>
           <div class="betstep">
             <button id="betUp" aria-label="Raise bet">+</button>
             <button id="betDown" aria-label="Lower bet">−</button>
@@ -4419,13 +4417,13 @@
       <h3 class="bshoptitle" id="bonusTitle">Bonus Buy</h3>
       <div class="bshoprow" id="bshopRow"></div>
       <div class="bshopbar">
-        <div class="bsstat"><span class="lbl" id="bshopBalLbl">Balance</span><span class="val glyphs" data-set="numc" id="bshopBal">0.00</span></div>
+        <div class="bsstat"><span class="lbl" id="bshopBalLbl">Balance</span><span class="val glyphs" id="bshopBal">0.00</span></div>
         <i class="bssep" aria-hidden="true"></i>
         <div class="bsstat bsplay">
           <span class="lbl" id="bonusBetLbl">Bet</span>
           <div class="bsbet">
             <button type="button" id="bonusBetDown" aria-label="Lower bet"></button>
-            <span class="val glyphs" data-set="numc" id="bonusBetVal">1.00</span>
+            <span class="val glyphs" id="bonusBetVal">1.00</span>
             <button type="button" id="bonusBetUp" aria-label="Raise bet"></button>
           </div>
         </div>
@@ -7485,35 +7483,16 @@ const tweens = new WeakMap();   // el -> in-flight count, so a new one cancels t
 // Roll the figure from one amount to the next. rAF stalls in a hidden tab, so a hard
 // timeout always lands the exact final number — the displayed figure can never be left
 // stranded part-way through a count.
-// The bar's figures in the game's own numerals (owner, 2026-11-06): an element with .glyphs shows its text as pictures,
-// one per character from its data-set (numc: the cream set; num: the candy-cane set), and anything that is not a digit,
-// a comma, a point or a dollar sign as inked text. Only the characters that changed are swapped, so a count-up touches a
-// digit or two a frame. Any other element just gets the text.
-const GLYPH_NAME = { ",": "comma", ".": "dot", "$": "dollar" };
+// The bar's figures (owner, 2026-11-06): an element with .glyphs is lettered in the game's heavy face, inked like the
+// art (see .val.glyphs). It first showed its digits as pictures of the TOTAL WIN numerals, one per character, but at the
+// bar's size they crowded into each other and stood uneven (owner: "the numbers look messed up"). Any element just gets
+// its text; the figure shown is kept on the element so a count-up never rewrites the same text.
 function putFig(el, text) {
   if (!el) return;
   text = String(text);
-  if (!el.classList.contains("glyphs")) { el.textContent = text; return; }
-  if (el._fig === text) return;
+  if (el._fig === text && el.firstChild) return;
   el._fig = text;
-  el.setAttribute("aria-label", text);
-  const set = el.dataset.set || "numc", chars = [...text];
-  const same = el.children.length === chars.length && el.childNodes.length === chars.length;
-  if (!same) el.replaceChildren();
-  chars.forEach((ch, i) => {
-    const k = same ? el.children[i] : null;
-    if (k && k._ch === ch) return;
-    const name = /[0-9]/.test(ch) ? ch : GLYPH_NAME[ch];
-    let n;
-    if (name) {
-      n = document.createElement("img");
-      // (each set spelled out, so the build tools see exactly which pictures these are: assets/num/*, assets/numc/*)
-      n.src = set === "num" ? `assets/num/${name}.webp` : `assets/numc/${name}.webp`; n.alt = ""; n.draggable = false;
-      if (ch === "," || ch === ".") n.className = "p";
-    } else { n = document.createElement("span"); n.className = "gx"; n.textContent = ch; }
-    n._ch = ch;
-    if (k) el.replaceChild(n, k); else el.appendChild(n);
-  });
+  el.textContent = text;
 }
 const figText = el => (el && el._fig != null) ? el._fig : (el ? el.textContent : "");
 function countTo(el, from, to, ms, f = fmt) {
@@ -9143,13 +9122,13 @@ function startBonusFx(kind) {
   if (kind === "ext" || kind === "xmas") bonusScene(kind);
 }
 // Two bonuses move the game somewhere else (owner, 2026-10-30), the two in the bar stepping out of sight while they do:
-//  ext  - outside the bar's front in a night-time blizzard: Santa and Mrs. Claus out in the snow, hugging themselves and
-//         shivering, their breath puffing white, snow blowing past;
+//  ext  - outside the bar's front in a night-time blizzard, snow blowing past (Santa and Mrs. Claus, who stood out in it
+//         shivering, were taken out on 2026-11-06 at the owner's word);
 //  xmas - a cabin living room on Christmas morning: sun through the frosty window, the fire crackling, Santa in his
 //         pyjamas and robe waving with a steaming mug of cocoa, Mrs. Claus holding up the scarf she has just unwrapped.
 // The scene sits over the bar's picture, under the board.
 const BONUS_SCENES = {
-  ext: { bg: "blizzard_bg", left: "mrs_cold", right: "santa_cold", snow: 2 },
+  ext: { bg: "blizzard_bg", snow: 2, cast: false },   // (owner, 2026-11-06: "remove mr and mrs claus from the blizzard bonus")
   xmas: { bg: "morning_bg", left: "mrs_morning", right: "santa_morning", snow: 0 },
 };
 function bonusScene(kind) {
@@ -9175,6 +9154,7 @@ function bonusScene(kind) {
         `<div class="bzchar right santaxm"><div class="sfig"><img src="assets/xmas/ui/santa_morning_body.webp" alt="" draggable="false" loading="lazy">` +
         [1, 2, 3].map(k => `<i class="wisp w${k}"><svg viewBox="0 0 40 100" aria-hidden="true"><path d="M20 98 C 6 80, 34 66, 19 48 S 6 20, 22 2"/></svg></i>`).join("") +
         `<div class="sarm"><img src="assets/xmas/ui/santa_morning_arm.webp" alt="" draggable="false" loading="lazy"><img class="handgift" src="assets/flat/M.webp" alt="" draggable="false"></div></div></div>`
+      : cfg.cast === false ? ""   // The Blizzard: the storm alone, no Clauses out in it
       : `<div class="bzchar left"><img src="assets/xmas/ui/${cfg.left}.webp" alt="" draggable="false" loading="lazy"><i class="breath"></i></div>` +
         `<div class="bzchar right"><img src="assets/xmas/ui/${cfg.right}.webp" alt="" draggable="false" loading="lazy"><i class="breath"></i></div>`) +
     // (owner, 2026-10-30: no pile of presents beside Santa on Christmas morning)
@@ -9547,7 +9527,9 @@ function paintSnowbar(bar) {
 }
 // a burst present flies up into the next slot
 function meterFly(cell) {
-  if (BONUS_FX.kind !== "ext" || !cell) return;
+  // (v13, owner 2026-11-06: The Blizzard has no Present Bar - a burst present no longer flies up into one; kept for a
+  // book that still carries the bar, which shows it through presentMeter)
+  if (BONUS_FX.kind !== "ext" || !cell || !$("snowbar")) return;
   const bar = snowbarEl(), st = bar._s;
   if (st.done >= SNOWBAR.order.length || st.fill >= SNOWBAR.step) return;
   const slot = bar.querySelector(`.sbslot[data-k="${st.fill + 1}"]`);
@@ -10395,7 +10377,7 @@ function bshopCard(o) {
       `<div class="bsban"></div>` +
       `<div class="bspips">${Array.from({ length: 5 }, (_, i) => `<i class="${i < o.heat ? "on" : ""}"></i>`).join("")}</div>` +
       `<div class="bsttl"></div><div class="bsdesc"></div><div class="bsmax"><span></span><b></b></div>` +
-      `<div class="bsfoot"><span class="bsprice val glyphs" data-set="numc"></span><div class="bsx"></div><button type="button" class="bsget"></button></div>` +
+      `<div class="bsfoot"><span class="bsprice val glyphs"></span><div class="bsx"></div><button type="button" class="bsget"></button></div>` +
     `</div>`;
   const ban = card.querySelector(".bsban");
   const art = new Image();

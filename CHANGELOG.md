@@ -14,13 +14,15 @@ Re-simulated and re-optimised: every mode RTP 96.7%, max win 10,000x.
 - A solid board of the game's own planks, with every square a well carved into it; the high-paying symbols sit in
   gold-rimmed wells. The symbols are about 15% bigger.
 - A multiplier's snow fills its whole square.
+- Every square is the same plain well (no gold rims, no snow in the corner).
 - A winning cluster lights up its wells in gold as it pays, and snow puffs up where the bottom row lands.
+- The Blizzard is the storm alone: Santa and Mrs. Claus are no longer out in it.
 
 **The bar and the shop**
-- The bottom bar is a painted wooden sign; the balance and the bet are in the game's own cream numerals, the WIN in
-  the candy-cane ones.
+- The bottom bar is a painted wooden sign; its figures are lettered in the game's heavy face, cream with an ink
+  outline, the WIN in gold.
 - Bonus Buy hangs like the opening screen's banners: a cloth in each bonus's colour on a snowy rod, its scene framed at
-  the top, a wooden GET (CONFIRM turns it red), the price in cream numerals, and a wooden balance and bet bar.
+  the top, a wooden GET (CONFIRM turns it red), and a wooden balance and bet bar.
 - The lettering in the game is Grandstander, a hand-drawn cartoon face (Luckiest Guy and Fredoka are gone from the
   game's screens; only the info page's small print keeps a plain face).
 - The shop, the opening screen, the bonus intros and the info page describe the bonuses as they now play.
