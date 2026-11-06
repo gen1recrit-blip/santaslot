@@ -1232,7 +1232,36 @@
   }
   html .infopanel table td:first-child { border-left: 1px solid var(--line); border-radius: 12px 0 0 12px; }
   html .infopanel table td:last-child { border-right: 1px solid var(--line); border-radius: 0 12px 12px 0; }
+  html .infopanel table.guide { table-layout: fixed; }   /* the words wrap inside the panel, never run off its edge */
+  html .infopanel table.guide td { overflow-wrap: break-word; }
   html .infopanel table.guide td:first-child { width: 22%; white-space: nowrap; }
+  html .infopanel table.guide.icons td:first-child { width: 80px; }   /* the features' pictures: just their own width */
+  /* the bonuses (owner, 2026-11-06: "update these"): each on its own card with the shop's picture of it beside its words */
+  html .infopanel .bonusrows { display: grid; gap: 10px; margin-top: 10px; }
+  html .infopanel .brow {
+    display: grid; grid-template-columns: minmax(130px, 30%) minmax(0, 1fr); gap: 14px; align-items: start; padding: 12px;
+    border: 1.5px solid var(--hud-line); border-radius: 14px; background: rgba(255, 255, 255, .04);
+  }
+  html .infopanel .brow .bart { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; border: 2px solid var(--hud-line); }
+  html .infopanel .brow b { display: block; margin-bottom: 4px; font-family: var(--disp); font-weight: 400; font-size: 17px; letter-spacing: .02em; color: #ffd23c; }
+  html .infopanel .brow p { margin: 0; font-size: 14px; line-height: 1.5; }
+  @media (max-width: 640px) { html .infopanel .brow { grid-template-columns: 1fr; } html .infopanel .brow .bart { max-width: 260px; } }
+  /* the special symbols' pictures (owner, 2026-11-06): the present with its value, the snow square a line drop leaves
+     (the board's own), three presents in a row */
+  html .infopanel .ptile.mtile, html .infopanel .ptile.droptile, html .infopanel .ptile.linetile { position: relative; display: grid; place-items: center; overflow: hidden; }
+  html .infopanel .ptile.mtile > img { width: 100%; height: 100%; object-fit: contain; }
+  html .infopanel .ptile.mtile > span, html .infopanel .ptile.droptile > span {
+    position: absolute; left: 0; right: 0; bottom: 4%; text-align: center; font-family: var(--disp); font-size: 15px; line-height: 1;
+    color: #ffd23c; -webkit-text-stroke: 4px #160a05; paint-order: stroke fill;
+  }
+  html .infopanel .ptile.droptile { background: #f4f8fc url("assets/xmas/wfx/splat_0.webp") center / 170% 170% no-repeat; box-shadow: inset 0 0 0 2px #160a05; }
+  html .infopanel .ptile.droptile > span { position: static; color: #2e9e57; font-size: 14px; -webkit-text-stroke: 3px #1a1020; }
+  html .infopanel .ptile.linetile { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 0; padding: 4px 1px; }
+  html .infopanel .ptile.linetile > img { width: 100% !important; height: auto !important; max-width: none; display: block; margin: 0; }
+  html .infopanel .pname small { display: block; }
+  /* an odd last symbol (the Wreath) sits in the middle of its row, not at the left (owner, 2026-11-06) */
+  html .infopanel .paytable > .prow:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 5px); }
+  @media (max-width: 640px) { html .infopanel .paytable > .prow:last-child:nth-child(odd) { width: 100%; } }
   html .infopanel table.guide td:first-child b { color: #fff; }
   html .infopanel table.modes th, html .infopanel table.hist th {
     border: 0; padding: 2px 12px; font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
@@ -1938,7 +1967,7 @@
        orange, to red for the big ones */
     font-family: "Grandstander", "Arial Rounded MT Bold", var(--num); font-weight: 700; letter-spacing: .01em;   /* a clean, round, bold face */
     color: var(--heat, #2e9e57); -webkit-text-stroke: calc(4px * var(--shrink, 1)) #1a1020; paint-order: stroke fill;
-    opacity: .7; text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 0 6px rgba(255,255,255,.6);   /* Christmas lettering in its heat colour, on snow (owner, 2026-10-29) */
+    opacity: 1; text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 0 6px rgba(255,255,255,.6);   /* Christmas lettering in its heat colour, on snow (owner, 2026-10-29) */
     transition: opacity .18s linear;
     isolation: isolate;   /* the box below sits under the figure, inside this slot */
   }
@@ -1956,19 +1985,16 @@
     background: #f4f8fc url("assets/xmas/wfx/splat_0.webp") center / 170% 170% no-repeat;
     box-shadow: inset 0 0 0 3px #160a05, inset 0 -6px 0 3px rgba(150, 186, 222, .45);
   }
-  .multlayer .gmult.sp1::before { background-image: url("assets/xmas/wfx/splat_1.webp"); }
-  .multlayer .gmult.sp2::before { background-image: url("assets/xmas/wfx/splat_2.webp"); }
-  .multlayer .gmult.sp3::before { background-image: url("assets/xmas/wfx/splat_3.webp"); }
-  .multlayer .gmult.sp4::before { background-image: url("assets/xmas/wfx/splat_4.webp"); }
-  .multlayer .gmult.sp5::before { background-image: url("assets/xmas/wfx/splat_5.webp"); }
-  .multlayer .gmult.spf::before { scale: -1 1; }
+  /* (owner, 2026-11-06: "make all the white backgrounds look the same on the multipliers") every square of snow is the
+     same one now - the one splat, never mirrored, never another (paintCell still sets .sp1-.sp5 / .spf: they do nothing) -
+     and it is as bright under a symbol as bare (see .gmult's opacity) */
   /* a tile straining and blowing over its value: the value keeps out of sight until the burst is over (tumbleBoard
      takes .hush off and pops it in with .bare once the pieces have gone) */
   .multlayer .gmult.hush { opacity: 0; }
   /* a value comes into the open (the tile over it has just come apart): it pops in - small
      and bright, past full size, and settles - rather than simply being there. The idle
      stretch is on scale/rotate, so this transform rides on top of it */
-  .multlayer .gmult.bare { opacity: .95; animation: gmultIn calc(.42s * var(--tempo, 1) / var(--multi-rate, 1)) cubic-bezier(.2,.9,.3,1.35); }
+  .multlayer .gmult.bare { opacity: 1; animation: gmultIn calc(.42s * var(--tempo, 1) / var(--multi-rate, 1)) cubic-bezier(.2,.9,.3,1.35); }
   /* the idle wander runs on transform (on the compositor), so the pop and the fade use scale */
   @keyframes gmultIn {
     0%   { scale: .3; filter: brightness(2.2); }
@@ -9123,7 +9149,8 @@ function startBonusFx(kind) {
   // the falling things are canvas particles (startSnowfall and the rest): the sleigh ride's snow is soft and a third as
   // thick, the blizzard twice as thick and driven across, with its wind; Christmas Morning has its confetti
   if (kind === "std") BONUS_FX.stops.push(startSnowfall(el, { share: 1 / 3, alpha: .8 }));
-  if (kind === "ext") { BONUS_FX.stops.push(startSnowfall(el, { style: "storm", share: 1.6, alpha: .8 }), startWind(el)); }
+  // (owner, 2026-11-06: "on the blizzard dont let the snow go infront of the slot game") The Blizzard's storm and its wind
+  // blow only in the scene behind the board (bonusScene), never over the board
   if (kind === "xmas") BONUS_FX.stops.push(startConfetti(el));
   // (owner, 2026-10-31: no sleigh across the screen as the bonus comes in - it flashed past behind the intro; the sleigh
   // still crosses on every free spin with its presents, and on a retrigger)
@@ -9136,7 +9163,7 @@ function startBonusFx(kind) {
 //         pyjamas and robe waving with a steaming mug of cocoa, Mrs. Claus holding up the scarf she has just unwrapped.
 // The scene sits over the bar's picture, under the board.
 const BONUS_SCENES = {
-  ext: { bg: "blizzard_bg", snow: 2, cast: false },   // (owner, 2026-11-06: "remove mr and mrs claus from the blizzard bonus")
+  ext: { bg: "blizzard_bg", snow: 3, cast: false },   // (owner, 2026-11-06: "remove mr and mrs claus from the blizzard bonus")
   xmas: { bg: "morning_bg", left: "mrs_morning", right: "santa_morning", snow: 0 },
 };
 function bonusScene(kind) {
@@ -9147,7 +9174,7 @@ function bonusScene(kind) {
   const cfg = BONUS_SCENES[kind]; if (!cfg) return;
   const sc = document.createElement("div"); sc.id = "bonusscene"; sc.className = "bscene " + kind; sc.setAttribute("aria-hidden", "true");
   sc.innerHTML = `<div class="bzpic" style="background-image: linear-gradient(rgba(10,16,34,.08), rgba(10,16,34,.3)), url('assets/xmas/ui/${cfg.bg}.webp')"></div>` +
-    (kind === "xmas" ? `<i class="fireglow"></i><i class="sunbeam"></i>` : "") +
+    (kind === "xmas" ? `<i class="fireglow"></i>` : "") +   // (owner, 2026-11-06: the big sunbeam across the room is gone)
     (kind === "ext" ? `<i class="aurora a1"></i><i class="aurora a2"></i>` : "") + `<div class="bzsnow"></div>` +
     (kind === "xmas"
       // Christmas Morning: the cabin's living room, sun through the frosty windows and snow falling outside them
@@ -9161,6 +9188,7 @@ function bonusScene(kind) {
     "";   // (owner, 2026-11-06: "remove all the bushes in the corners" - the frost frame round The Blizzard, .frostedge, is gone)
   $("bgwall").after(sc);
   if (!REDUCED_MOTION) sc._snow = cfg.snow ? [startSnowfall(sc.querySelector(".bzsnow"), { style: kind === "ext" ? "storm" : "blizzard", share: cfg.snow })] : [];
+  if (!REDUCED_MOTION && kind === "ext") sc._snow.push(startWind(sc.querySelector(".bzsnow")));   // the wind's streaks, behind the board too
   if (!REDUCED_MOTION && kind === "xmas") sc._snow.push(startPaneSnow(sc.querySelector(".bgfit")));
   // the pair beside the board, never over it: on a screen narrower than 16:9 (a 16:10 laptop) the board takes more of the
   // width, so each is made smaller to fit the room beside it, and moved toward the edge if it is still too big

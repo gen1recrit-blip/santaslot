@@ -36,8 +36,13 @@ simpler bonuses.
   street.
 - At the bar, the elf and the spilled glass of milk are gone, and Santa sleeps on (he no longer looks up).
 
-**Info page** - rewritten against the game as it is now: the new paytable, the three bonuses and how each starts, the
-shop, and nothing that is no longer in the game.
+- Every multiplier's snow square is the same one, as bright under a symbol as bare.
+- The Blizzard's background has no painted, standing-still snowflakes, and its storm stays behind the board.
+- Christmas Morning has no big sunbeam across the room.
+
+**Info page** - rewritten against the game as it is now: the new paytable (the Wreath centred in its last row), the
+three bonuses on cards with their shop pictures and how each starts, the special symbols with the game's own pictures,
+the shop, and nothing that is no longer in the game.
 
 ## v1.3 - Mr. & Mrs. Claus (2026-11-05)
 
