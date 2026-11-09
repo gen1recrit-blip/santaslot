@@ -435,6 +435,51 @@
     transition: opacity .6s ease;
   }
   .intro.gone { opacity: 0; pointer-events: none; }
+  /* The SMUKIEZ studio ident (owner, 2026-11-09: "copy the introduction ... a black and white simple introduction that
+     says SMUKIEZ and put it into our game in the loading intro"), taken from the studio's other game (zeqpz/slotsgame
+     ae8e155): on black, the SMUKIEZ wordmark's letters drop out of the dark one after another and land with a squash
+     and a bounce or two, the swash sweeps in under them, the seal stamps on, the glow comes up and a small line rolls
+     up underneath, under faint film grain and a vignette. It plays first, over the loading screen, then lifts away
+     (.out) and the Mr. & Mrs. Claus logo screen comes up as before; the game loads behind both. Silent: the browser
+     gives no sound before the player's first press. --iw is the wordmark's width. */
+  .ident {
+    position: absolute; inset: 0; z-index: 5; background: #000; --iw: min(88vw, 1080px, 110vh);
+    display: flex; align-items: center; justify-content: center; transition: opacity .55s ease;
+  }
+  .ident.gone { opacity: 0; pointer-events: none; }
+  .ident::before {   /* the vignette */
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: radial-gradient(ellipse at 50% 46%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .7) 100%);
+  }
+  .intrograin { position: absolute; inset: -8%; pointer-events: none; z-index: 3; opacity: 0; background: center / 160px 160px repeat; }
+  .ident.go .intrograin { opacity: .07; animation: introGrain .42s steps(4) infinite; }
+  @keyframes introGrain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(1%, 3%); } }
+  .introstage { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 100%; height: 44vh; }
+  .introword { position: relative; width: var(--iw); aspect-ratio: 2736 / 1160; }
+  .introword > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; user-select: none; }
+  .introword .iwglow { opacity: 0; }
+  .introword .iwl { position: absolute; display: block; transform-origin: 50% 100%; opacity: 0; will-change: transform; }
+  .introword .iwl.flat { opacity: 1; }
+  .ident.go .introword .iwglow.up { animation: introGlow 1.2s ease-out both, introGlowBreathe 3.2s ease-in-out 1.2s infinite alternate; }
+  @keyframes introGlow { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: .55; } }
+  @keyframes introGlowBreathe { from { opacity: .55; } to { opacity: .78; } }
+  .introtm {
+    position: absolute; left: 0; right: 0; top: calc(50% + var(--iw) * .21); z-index: 1; overflow: hidden;
+    display: flex; justify-content: center; pointer-events: none;
+  }
+  .introtm span {
+    display: block; padding: .2em 0 .3em; transform: translateY(120%);
+    font: 600 clamp(9px, calc(var(--iw) * .016), 15px)/1.2 var(--plain); letter-spacing: .34em; text-transform: uppercase; color: #a9a9a9;
+  }
+  .introflash {
+    position: absolute; left: 50%; top: 50%; width: min(90vw, 1100px); height: 46vh; translate: -50% -50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, .12) 34%, rgba(255, 255, 255, 0) 66%);
+    opacity: 0; pointer-events: none;
+  }
+  .introflash.on { animation: introFlash .9s cubic-bezier(.2, .7, .3, 1) both; }
+  @keyframes introFlash { 0% { opacity: 0; transform: scale(.6); } 18% { opacity: 1; } 100% { opacity: 0; transform: scale(1.3); } }
+  .ident.out .introstage { animation: introExit .62s cubic-bezier(.5, 0, .8, .4) both; }
+  @keyframes introExit { from { opacity: 1; transform: none; filter: blur(0); } to { opacity: 0; transform: scale(1.14); filter: blur(6px); } }
   /* ---------- bonus intro ---------- */
   /* The bonus lands: the game fades to black, the wall fades up with the BONUS lettering,
      the spins won and how the Multi works in here, and a click takes the player in the
@@ -4464,6 +4509,17 @@
 </div>
 
 <div class="intro" id="intro">
+  <!-- the SMUKIEZ studio ident (playIdent): plays first, over the loading screen, then lifts away -->
+  <div class="ident" id="ident">
+    <i class="intrograin" aria-hidden="true"></i>
+    <div class="introstage">
+      <i class="introflash" aria-hidden="true"></i>
+      <div class="introword" id="introWord" role="img" aria-label="Smukiez">
+        <img class="iwglow" src="assets/intro_letters/glow.webp" alt="" draggable="false">
+      </div>
+      <div class="introtm" aria-hidden="true"><span>&copy; 2026 Smukiez &middot; All rights reserved</span></div>
+    </div>
+  </div>
   <canvas class="introicons" id="introIcons" aria-hidden="true"></canvas>
   <img class="intrologo" id="introLogo" src="assets/xmas/ui/logo.webp" width="1400" height="612" alt="Mr. &amp; Mrs. Claus">
   <div class="introbar" id="introBar"><i class="introfill" id="introFill"></i></div>
@@ -12387,6 +12443,96 @@ function startIntroIcons(canvas, avoid) {
   };
   requestAnimationFrame(tick);
 }
+// The SMUKIEZ ident (see .ident): the wordmark's pieces, [x, y, w, h] on the 2736x1160 wordmark (zeqpz/slotsgame
+// art/ui-src/intro_letters_v2), the letters in the order they drop. Resolves once it has lifted away (at once, and
+// gone, with reduced motion).
+const INTRO_SIZE = [2736, 1160], INTRO_PIECES = {"S":[26,302,401,549],"M":[380,282,499,533],"U":[841,321,412,509],"K":[1220,246,358,532],"i":[1531,431,103,355],"E":[1606,306,424,515],"Z":[1993,220,567,622],"swash":[420,705,2180,360],"tm":[2578,230,144,94],"seal":[2481,950,139,140],"glow":[-110,-110,2956,1380]};
+const INTRO_DROP = ["S", "M", "U", "K", "i", "E", "Z"];
+function playIdent(el, after) {
+  return new Promise(resolve => {
+    if (!el) return resolve();
+    if (REDUCED_MOTION) { el.remove(); return resolve(); }
+    const IDENT = 3300;   // ms it plays before it lifts away
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const word = el.querySelector(".introword"), pieceEl = {};
+    const at = (e, [x, y, w, h]) => Object.assign(e.style, { left: (x / INTRO_SIZE[0] * 100) + "%", top: (y / INTRO_SIZE[1] * 100) + "%",
+                                                           width: (w / INTRO_SIZE[0] * 100) + "%", height: (h / INTRO_SIZE[1] * 100) + "%" });
+    at(word.querySelector(".iwglow"), INTRO_PIECES.glow);   // the glow is padded well past the word, so it fades out before any edge
+    for (const [k, box] of Object.entries(INTRO_PIECES)) {
+      if (k === "glow") continue;
+      const im = new Image();
+      im.className = "iwl"; im.alt = ""; im.draggable = false; im.src = `assets/intro_letters/${k}.webp`;
+      at(im, box); word.appendChild(im); pieceEl[k] = im;
+    }
+    // film grain: a tile of noise made once, shuffled about by the stylesheet
+    const grain = el.querySelector(".intrograin");
+    if (grain) {
+      const c = document.createElement("canvas"); c.width = c.height = 160;
+      const g = c.getContext("2d"), px = g.createImageData(160, 160);
+      for (let i = 0; i < px.data.length; i += 4) { const v = Math.random() * 255; px.data[i] = px.data[i + 1] = px.data[i + 2] = v; px.data[i + 3] = 255; }
+      g.putImageData(px, 0, 0);
+      grain.style.backgroundImage = `url(${c.toDataURL()})`;
+    }
+    // the wordmark first (the ident is nothing without it: up to 2.5 s), then it plays
+    const mark = Promise.all([...el.querySelectorAll(".introword img")].map(i => i.decode ? i.decode().catch(() => {}) : Promise.resolve()));
+    Promise.race([mark, wait(2500)]).then(() => {
+      el.classList.add("go");
+      dropLetters();
+      after(IDENT, () => {
+        el.classList.add("out");                                   // the word lifts away
+        after(520, () => { el.classList.add("gone"); resolve(); setTimeout(() => el.remove(), 700); });   // and the logo screen shows through
+      });
+    });
+
+    // each letter falls out of the dark (stretched a little by its speed), lands squashed flat, bounces back up a
+    // fraction of the way and settles, one after another; the last lands with a bloom and a nudge of the whole word;
+    // the swash sweeps in under them, the seal stamps on, the glow comes up and the line rolls up underneath
+    function dropLetters() {
+      const STAGGER = 105, FALL = 980, LAND = .42;   // the landing is 42% into a letter's animation
+      const drop = -(innerHeight * .75 + word.getBoundingClientRect().top);
+      const fallKeys = [
+        { offset: 0, transform: `translateY(${drop.toFixed(0)}px) scale(.94, 1.12)`, opacity: 1, easing: "cubic-bezier(.5, 0, .9, .55)" },
+        { offset: LAND, transform: "translateY(0) scale(1.2, .7)", easing: "cubic-bezier(.2, .7, .4, 1)" },
+        { offset: .6, transform: "translateY(-11%) scale(.95, 1.07)", easing: "cubic-bezier(.5, 0, .8, .5)" },
+        { offset: .74, transform: "translateY(0) scale(1.08, .9)", easing: "cubic-bezier(.2, .7, .4, 1)" },
+        { offset: .85, transform: "translateY(-2.5%) scale(.99, 1.02)", easing: "cubic-bezier(.5, 0, .8, .5)" },
+        { offset: .93, transform: "translateY(0) scale(1.02, .98)" },
+        { offset: 1, transform: "none", opacity: 1 },
+      ];
+      let t = 120;
+      INTRO_DROP.forEach((k, i) => {
+        const e = pieceEl[k];
+        after(t, () => e.animate(fallKeys, { duration: FALL, fill: "both" }).finished.then(() => e.classList.add("flat"), () => {}));
+        if (i === INTRO_DROP.length - 1) after(t + FALL * LAND, () => {
+          const fl = el.querySelector(".introflash");
+          if (fl) { fl.classList.remove("on"); void fl.offsetWidth; fl.classList.add("on"); }
+          word.animate([{ transform: "none" }, { transform: "translateY(1.2%) scale(1.03)" }, { transform: "none" }], { duration: 420, easing: "cubic-bezier(.2, .9, .3, 1)" });
+        });
+        t += STAGGER;
+      });
+      const landed = 120 + (INTRO_DROP.length - 1) * STAGGER + FALL * LAND;
+      after(landed + 140, () => {
+        const sw = pieceEl.swash;
+        sw.animate([{ clipPath: "inset(0 100% 0 0)", opacity: 1 }, { clipPath: "inset(0 0 0 0)", opacity: 1 }],
+                   { duration: 420, easing: "cubic-bezier(.5, 0, .2, 1)", fill: "both" }).finished.then(() => sw.classList.add("flat"), () => {});
+      });
+      after(landed + 520, () => {
+        const se = pieceEl.seal;
+        se.style.transformOrigin = "50% 50%";
+        se.animate([{ transform: "scale(2.2) rotate(-14deg)", opacity: 0 }, { transform: "scale(.9) rotate(3deg)", opacity: 1, offset: .6 }, { transform: "none", opacity: 1 }],
+                   { duration: 340, easing: "cubic-bezier(.3, 0, .2, 1)", fill: "both" }).finished.then(() => se.classList.add("flat"), () => {});
+        word.querySelector(".iwglow").classList.add("up");
+      });
+      after(landed + 760, () => {
+        const line = el.querySelector(".introtm span"), tm = pieceEl.tm;
+        if (line) line.animate([{ transform: "translateY(120%)" }, { transform: "translateY(-12%)", offset: .7 }, { transform: "none" }],
+                               { duration: 620, easing: "cubic-bezier(.2, .8, .3, 1)", fill: "both" });
+        tm.animate([{ opacity: 0, transform: "translateY(40%) scale(.6)" }, { opacity: 1, transform: "none" }],
+                   { duration: 360, delay: 160, easing: "cubic-bezier(.2, .9, .3, 1.4)", fill: "both" }).finished.then(() => tm.classList.add("flat"), () => {});
+      });
+    }
+  });
+}
 function runIntro() {
   const wrap = $("intro"), logo = $("introLogo"), msg = $("introMsg");
   const barEl = $("introBar"), fill = $("introFill"), icons = $("introIcons");
@@ -12406,22 +12552,22 @@ function runIntro() {
   };
 
   // the bar reports the loading, and the loading is what ends the screen: pressing through
-  // it would only put the player into a game whose pieces have not arrived
-  const started = performance.now();
+  // it would only put the player into a game whose pieces have not arrived. The SMUKIEZ ident plays first, over it
+  // (playIdent); the logo screen's moment starts when the ident has lifted away.
   const loaded = preloadAll(p => { if (fill) fill.style.width = (p * 100).toFixed(1) + "%"; });
   const openFor = REDUCED_MOTION ? 600 : 2600;   // the logo is worth a moment either way
-  loaded.then(() => {
-    if (fill) fill.style.width = "100%";
-    after(Math.max(0, openFor - (performance.now() - started)) + (REDUCED_MOTION ? 0 : 450), finish);
-    warmBursts();
-    makeSmears();
+  let shownAt = performance.now();
+  const identDone = playIdent($("ident"), after).then(() => {
+    shownAt = performance.now();
+    if (REDUCED_MOTION) { logo.classList.add("in"); barEl && barEl.classList.add("in"); msg.classList.add("in"); return; }
+    startIntroIcons(icons, [logo, barEl, msg]);
+    after(120, () => { logo.classList.add("in"); icons && icons.classList.add("in"); });   // the icons fade up with the logo
+    after(500, () => { barEl && barEl.classList.add("in"); msg.classList.add("in"); });
   });
-
-  if (REDUCED_MOTION) { logo.classList.add("in"); barEl && barEl.classList.add("in"); msg.classList.add("in"); return; }
-  startIntroIcons(icons, [logo, barEl, msg]);
-  after(120, () => { logo.classList.add("in"); icons && icons.classList.add("in"); });   // the icons fade up with the logo
-  after(500, () => { barEl && barEl.classList.add("in"); msg.classList.add("in"); });
-  after(20000, finish);   // a piece that never answers must not hold the game shut for ever
+  loaded.then(() => { if (fill) fill.style.width = "100%"; warmBursts(); makeSmears(); });
+  Promise.all([loaded, identDone]).then(() =>
+    after(Math.max(0, openFor - (performance.now() - shownAt)) + (REDUCED_MOTION ? 0 : 450), finish));
+  after(24000, finish);   // a piece that never answers must not hold the game shut for ever
 }
 runIntro();
 // the tag on the wall wanders at random for as long as the page is up: a slow, small drift

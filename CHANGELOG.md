@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.6 - Mr. & Mrs. Claus (2026-11-09)
+
+- The loading screen opens with the SMUKIEZ studio ident, in black and white: the SMUKIEZ letters drop out of the
+  dark one by one and land with a bounce, the swash sweeps in, the seal stamps on, the glow comes up and a small
+  "© 2026 Smukiez" line rolls up; then it lifts away into the Mr. & Mrs. Claus logo and loading bar as before. Taken
+  from the studio's other game; silent, as the browser plays no sound before the player's first press.
+
 ## v1.5 - Mr. & Mrs. Claus (2026-11-06)
 
 A new Mrs. Claus and a cleaner Blizzard. Math unchanged (v14).
