@@ -2275,8 +2275,8 @@
   .winpop .wpn.hit { animation: winAmtHit calc(.36s * var(--tempo, 1)) ease-out; }
   /* the multiplier slamming onto the figure */
   .winpop .wpx {
-    display: inline-block; font-size: .72em; color: #fff;
-    text-shadow: 0 0 6px rgba(255, 255, 255, .9), 0 0 16px rgba(180, 84, 228, .9), 0 3px 0 rgba(0, 0, 0, .5);
+    display: inline-block; font-size: .72em; color: inherit;   /* the multiplier's own colour (placeWinChip) */
+    text-shadow: 0 0 6px currentColor, 0 0 16px currentColor, 0 3px 0 rgba(0, 0, 0, .5);
     animation: winAmtSlam calc(.34s * var(--tempo, 1)) cubic-bezier(.5, 0, .8, .4) both;
   }
   .winpop.off { animation: winAmtOff calc(1.7s * var(--tempo, 1)) cubic-bezier(.3, .2, .6, 1) both; }
@@ -7855,6 +7855,20 @@ function setRoundWin(v) {
       countTo(bv, start, v, countMs());
     });
 }
+// A cluster's figure has just landed in the bar's WIN (owner, 2026-11-09: "we want it to instantly change the win amount
+// / raise it if its a bonus instead of at the end of the spin"): its amount goes onto the WIN that moment, with the WIN's
+// pop - in a bonus onto the bonus's running total. The round's own totals (setRoundWin) then find the WIN already there
+// and only top it up if it is short. gen: the round the figure belongs to (a figure from a round gone by adds nothing).
+function hudWinAdd(amount, gen) {
+  const box = $("hudWin"), bv = $("hudWinVal");
+  if (!box || !bv || gen !== hudWinGen || !(amount > 0)) return;
+  const start = hudWinShown, v = Math.round(hudWinShown + amount);
+  hudWinShown = v; hudWinTo = Math.max(hudWinTo, v);
+  box.classList.remove("zero");
+  fitFigure(bv, fmt(v)); fitHudFigures();
+  if (!REDUCED_MOTION) { bv.classList.remove("pop"); restyle(bv); bv.classList.add("pop"); }
+  countTo(bv, start, v, 0);
+}
 // A cluster's figure, done counting on the board, is pulled down into the bar's WIN (owner, 2026-11-05, after Tipsy
 // Harvest): a copy of it, fixed to the window at the same place and size, lifts a touch, then is drawn in fast and
 // shrinks into the WIN figure, fading as it arrives. Resolves when it has arrived (or at once if there is no bar to go to).
@@ -10261,17 +10275,22 @@ function placeWinChip(positions, amount, mult) {
   chip.style.left = (x + cell.offsetWidth / 2) + "px";
   chip.style.top = (top + cell.offsetHeight / 2) + "px";
   const final = amount, m = mult > 1 ? mult : 1, base = final / m;
+  const gen = hudWinGen;   // the round it belongs to: on landing it goes onto this round's WIN (hudWinAdd)
+  // its colour is the multipliers' own (owner, 2026-11-09: "make the coloring that appears over our line when we get a
+  // win match the coloring for our multipler amount"): the green of the smallest value on the board while it counts,
+  // and, when Multis pay into it, the very colour their total wears on the board (heatColour) from the moment it slams on
+  chip.style.color = heatColour(1.25);
   const paint = (v, exact) => {
     const t = winFigure(v, exact);
-    if (t === num.textContent) return;   // only a new figure is drawn (and its new colour)
+    if (t === num.textContent) return;   // only a new figure is drawn
     num.textContent = t;
-    chip.style.color = `hsl(${(100 + 185 * Math.min(1, v / Math.max(1e-9, final))).toFixed(0)} 90% 64%)`;   // green -> purple
   };
   const slamTag = () => {
     const tag = document.createElement("span");
     tag.className = "wpx";
     tag.textContent = "x" + fmtMult(m);
     chip.appendChild(tag);
+    chip.style.color = heatColour(m);     // the figure and its "x5" in the multiplier's colour
   };
   paint(0);
   board.appendChild(chip);
@@ -10283,7 +10302,7 @@ function placeWinChip(positions, amount, mult) {
   if (REDUCED_MOTION) {   // no motion: the end state, for a moment
     paint(final, true);
     if (m > 1) slamTag();
-    setTimeout(() => { bye(); landed(); }, 1800 * tempo());
+    setTimeout(() => { bye(); hudWinAdd(final, gen); landed(); }, 1800 * tempo());
     return 600;
   }
   const T = tempo();
@@ -10327,7 +10346,8 @@ function placeWinChip(positions, amount, mult) {
     sfx("countEnd");
     await wait(REST);
     if (gone()) return;
-    await flyWinToHud(chip);                  // pulled down into the bar's WIN, which pops and counts up
+    await flyWinToHud(chip);                  // pulled down into the bar's WIN...
+    hudWinAdd(final, gen);                    // ...which takes its amount the moment it lands
     landed();
   })().catch(e => console.warn("win figure:", e)).finally(() => landed());
   return IN + UP1 + (m > 1 ? GAP + HIT + UP2 : 0) + 150;

@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.7 - Mr. & Mrs. Claus (2026-11-09)
+
+- The win amount that pops up over a winning cluster's line is now in the multipliers' own colours: the green of the
+  smallest multiplier while it counts, and when Multis pay into the cluster, the figure and its "x" tag turn the very
+  colour that multiplier wears on the board (green, yellow, orange, red, blue, violet as it gets bigger).
+- The bar's WIN goes up the moment each win amount flies down into it, one cluster at a time, instead of waiting for
+  the spin to finish; in a bonus each one raises the bonus's running total the same way.
+
 ## v1.6 - Mr. & Mrs. Claus (2026-11-09)
 
 - The loading screen opens with the SMUKIEZ studio ident, in black and white: the SMUKIEZ letters drop out of the
